@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabase';
-import { runFullMigration } from '@/lib/migration';
-import { Loader2, Database } from 'lucide-react';
 
 const AdminOverview = () => {
     const [stats, setStats] = useState({
@@ -11,7 +9,6 @@ const AdminOverview = () => {
         products: 0
     });
     const [loading, setLoading] = useState(true);
-    const [migrating, setMigrating] = useState(false);
 
     useEffect(() => {
         fetchStats();
@@ -39,33 +36,12 @@ const AdminOverview = () => {
         }
     };
 
-    const handleMigration = async () => {
-        const confirm = window.confirm("ATENÇÃO: Este script enviará todos os dados e imagens locais para o Supabase. Você já rodou o script v2_schema_update.sql no SQL Editor do Supabase?");
-        if (!confirm) return;
-
-        setMigrating(true);
-        const success = await runFullMigration();
-        if (success) {
-            fetchStats(); // update numbers
-        }
-        setMigrating(false);
-    };
-
     return (
         <div className="space-y-6">
             <div className="flex items-center justify-between">
                 <h1 className="font-display text-3xl font-bold text-foreground">
                     Dashboard Overview
                 </h1>
-
-                <button
-                    onClick={handleMigration}
-                    disabled={migrating}
-                    className="flex items-center px-4 py-2 bg-[#d9f95d]/10 text-primary border border-primary/20 rounded-xl font-medium text-sm hover:bg-primary/20 transition-colors disabled:opacity-50"
-                >
-                    {migrating ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Database className="w-4 h-4 mr-2" />}
-                    Migrar Dados v1
-                </button>
             </div>
 
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">

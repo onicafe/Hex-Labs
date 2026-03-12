@@ -61,8 +61,19 @@ const Projects = () => {
           </motion.div>
 
           {loading ? (
-            <div className="flex justify-center items-center py-32">
-              <Loader2 className="w-8 h-8 animate-spin text-primary" />
+            <div className="grid md:grid-cols-2 gap-8">
+              {[1, 2, 3, 4].map((i) => (
+                <div key={i} className="animate-pulse flex flex-col h-full rounded-2xl">
+                  <div className="relative overflow-hidden rounded-2xl aspect-[4/3] bg-white/5 border border-white/5"></div>
+                  <div className="mt-6 flex items-start justify-between">
+                    <div className="w-full">
+                      <div className="h-6 w-3/4 bg-white/5 rounded-lg mb-2"></div>
+                      <div className="h-4 w-1/4 bg-white/5 rounded-lg"></div>
+                    </div>
+                    <div className="h-4 w-12 bg-white/5 rounded-lg ml-4"></div>
+                  </div>
+                </div>
+              ))}
             </div>
           ) : projects.length === 0 ? (
             <div className="text-center py-32 text-muted-foreground">
