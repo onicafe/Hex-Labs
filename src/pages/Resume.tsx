@@ -12,33 +12,58 @@ const Resume = () => {
     }, []);
 
     const skills = [
-        { name: "React / Next.js", level: 95, icon: Code2 },
-        { name: "UI/UX & Design Gráfico", level: 90, icon: Palette },
-        { name: "Node.js & APIs", level: 85, icon: TerminalSquare },
-        { name: "Supabase & Postgres", level: 80, icon: Database },
-        { name: "Arquitetura Hexagonal", level: 85, icon: Layers },
-        { name: "Geração por IA & LLMs", level: 90, icon: BrainCircuit }
+        { name: "Product & UI/UX Design", level: 98, icon: Palette },
+        { name: "Software / Web Development", level: 90, icon: Code2 },
+        { name: "Design Thinking & Prototyping", level: 95, icon: Layers },
+        { name: "Automation & AI Engineering", level: 85, icon: BrainCircuit },
+        { name: "CMS & Database Management", level: 88, icon: Database },
+        { name: "Game & Metaverse Dev", level: 82, icon: TerminalSquare }
     ];
 
     const experience = [
         {
-            role: "Fundador / Engenheiro Principal",
-            company: "Hex Labs",
-            period: "2024 - Presente",
-            description: "Liderança técnica e arquitetura de sistemas Full-Stack (SaaS, Dashboards e Aplicativos Web). Controle de ponta a ponta desde UI/UX (Figma) até o backend (Supabase/Node)."
+            role: "Head of Product",
+            company: "Hex Labs (Brazil)",
+            period: "Mar 2026 - Presente",
+            description: "Liderança atuando na interseção de Engenharia de Automação (AI), UI/UX avançado e Design de Produto para construir ecossistemas digitais de alta escalabilidade."
         },
         {
-            role: "Design de Produto Institucional",
-            company: "Governo RN / IFRN / TRF5",
-            period: "2022 - 2024",
-            description: "Pesquisa, Wireframing e Refatoração PJeMobile. Migração de legado massivo reduzindo a dívida técnica a zero. Participação interina em portais públicos educacionais e institucionais, impactando +100 mil visualizações/ano."
+            role: "Customer Experience",
+            company: "AIESEC no Brasil (Curitiba)",
+            period: "Mar 2025 - Dez 2025",
+            description: "Operações em Customer Success integrando voluntários internacionais corporativos, exigindo alta inteligência emocional, adaptabilidade global e resolução ágil de problemas."
         },
         {
-            role: "Engenheiro Frontend",
-            company: "UFRN Polare & SIGRH",
-            period: "2020 - 2022",
-            description: "Desenvolvimento de portais públicos acessíveis e modulares utilizando Angular e serviços em Java."
+            role: "Communications Expert",
+            company: "TAP Air Portugal (Lisboa, Portugal)",
+            period: "Fev 2023 - Ago 2023",
+            description: "Apoio direto às operações logísticas da aviação, lidando com a integridade crítica dos dados da companhia através da gestão de sistemas fechados (CMS) e automações."
+        },
+        {
+            role: "Product Designer",
+            company: "Dione (Tokyo, Japão)",
+            period: "Fev 2022 - Mai 2023",
+            description: "Desenho de UI/UX moderno para sistemas de parceiros internacionais, melhorando sistematicamente as métricas de usabilidade e elevando o nível estético B2B."
+        },
+        {
+            role: "Product Designer e Engenheiro Freelance",
+            company: "Oni",
+            period: "Jun 2018 - Jun 2023",
+            description: "Oito anos coordenando e desenhando fluxos digitais para iniciativas internacionais diversas em parceria com hubs tecnológicos pelo globo inteiro."
+        },
+        {
+            role: "Product & Game Designer",
+            company: "Spillfabrikken (Trondheim, Noruega)",
+            period: "Abr 2020 - Set 2021",
+            description: "Participação direta da concepção, protótipo interativo e produção visual de dinâmicas imersivas com escopo voltado à experiência narrativa do usuário em mídias físicas e digitais."
         }
+    ];
+
+    const education = [
+        { course: "Computer Science (Bachelor of Science)", inst: "Universidade Potiguar", year: "Jan 2024" },
+        { course: "Metaverse Development (Postgraduate)", inst: "Centro Universitário UNA", year: "Mai 2023" },
+        { course: "Game Design & Developer (Degree)", inst: "EBAC - Escola Britânica de Artes Criativas e Tecnologia", year: "Out 2022" },
+        { course: "Graphic Design (Bachelor)", inst: "Universidade Potiguar", year: "2017 - 2019" },
     ];
 
     return (
@@ -72,13 +97,13 @@ const Resume = () => {
                                     Iésu Jafé
                                 </h1>
                                 <p className="font-body text-xl md:text-2xl text-primary font-medium">
-                                    Engenheiro de Software & Designer de Produto
+                                    Senior Product Designer & Engenheiro de Software
                                 </p>
                             </div>
                         </div>
 
                         <p className="font-body text-lg text-muted-foreground leading-relaxed">
-                            Com uma visão end-to-end do ciclo de produto, atuo desde o primeiro rabisco no Figma até a integração final com bancos de dados complexos. Especialista em entregar interfaces rápidas, bonitas e ecossistemas resilientes em React e Tailwind. Focado em alinhar design com performance bruta.
+                            Transformar desafios complexos em ecossistemas digitais intuitivos é a paixão que estrutura o meu dia a dia de trabalho. Sou um Especialista em UI/UX e Engenheiro Criativo com mais de sete anos de vasta experiência arquitetando desde grandes portais corporativos até ecossistemas Web de ponta. A minha jornada em tecnologia me levou a atuar para clientes no Japão, Brasil, Noruega e Portugal, consolidando uma vasta percepção multinacional de design. Unindo o rigor estrutural da Engenharia da Computação com a brutalidade limpa do código e metodologias ágeis, desenho sistemas fáceis de usar e escaláveis na nuvem.
                         </p>
                     </motion.div>
 
@@ -155,6 +180,33 @@ const Resume = () => {
                                         <h4 className="font-body text-base text-primary mb-4">{xp.company}</h4>
                                         <p className="font-body text-sm text-muted-foreground leading-relaxed">{xp.description}</p>
                                     </div>
+                                </div>
+                            ))}
+                        </div>
+                    </motion.div>
+
+                    {/* Education */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 50 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-100px" }}
+                        transition={{ duration: 0.6 }}
+                        className="mt-24"
+                    >
+                        <h2 className="font-display text-3xl font-bold text-foreground mb-12 pb-4 border-b border-white/10 uppercase tracking-widest text-sm">
+                            Background Acadêmico
+                        </h2>
+
+                        <div className="grid md:grid-cols-2 gap-6">
+                            {education.map((edu, i) => (
+                                <div key={i} className="p-6 bg-card border border-white/5 rounded-2xl flex flex-col justify-between">
+                                    <div>
+                                        <h3 className="font-display text-lg font-bold text-foreground mb-1">{edu.course}</h3>
+                                        <p className="font-body text-sm text-primary mb-4">{edu.inst}</p>
+                                    </div>
+                                    <span className="self-end font-mono text-xs px-3 py-1 rounded-full bg-white/5 text-muted-foreground border border-white/10">
+                                        {edu.year}
+                                    </span>
                                 </div>
                             ))}
                         </div>
