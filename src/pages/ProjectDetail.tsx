@@ -106,7 +106,7 @@ const ProjectDetail = () => {
               <img src="/projects/jovem-potiguar/image10.png" alt="Mood Board" class="w-full rounded-lg shadow-md my-6" />
 
               <h5 class="text-lg font-semibold mt-10 mb-4 text-foreground uppercase">Guia Visual</h5>
-              <div class="space-y-4 my-6">
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-6">
                 <img src="/projects/jovem-potiguar/image5.png" alt="Guia Visual 1" class="w-full rounded-lg shadow-md" />
                 <img src="/projects/jovem-potiguar/image2.png" alt="Guia Visual 2" class="w-full rounded-lg shadow-md" />
                 <img src="/projects/jovem-potiguar/image7.png" alt="Guia Visual 3" class="w-full rounded-lg shadow-md" />
