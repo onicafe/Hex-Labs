@@ -46,13 +46,76 @@ const ProjectDetail = () => {
           .eq("slug", slug)
           .single();
 
-        if (error || !data) {
-          navigate("/projects", { replace: true });
-          return;
+        let projectData = data as ProjectDetails;
+
+        // Local override for Jovem Potiguar
+        if (slug === 'jovem-potiguar') {
+          projectData = {
+            ...projectData,
+            title: "Expandindo e Reestruturando as Barreiras Educacionais",
+            category: "Pesquisa - Caso de Estudo",
+            industry: "Educação / Governo",
+            client: "IFRN / SETHAS",
+            services: ["UX/UI Design", "User Research"],
+            description: "Desenvolver uma plataforma para ofertar vagas educacionais do Instituto Federal do Rio Grande do Norte a estudantes cadastrados no CadÚnico e possibilitar que estudantes de baixa renda possam ter acesso a cursos técnicos de qualidade, expandindo as barreiras multidisciplinares dos cadastrados.",
+            challenge: "Desenvolver protótipos, telas e fluxos para múltiplos usuários reduzindo possíveis dificuldades e para que o usuário não se depare com barreiras que possam impossibilitar seu cadastro no sistema.<br/><br/>• Responsividade em telas pequenas sem excesso de conteúdo<br/>• Fornecer todas informações necessárias sem sobrecarregar o usuário<br/>• Interface familiar para usuários do CadÚnico e outros sistemas governamentais",
+            solution: `
+              <p>Dividir as jornadas do usuário em passos pequenos, compreensíveis e guiando o usuário visualmente para a conclusão do seu cadastro, fornecendo o maior número de informações possíveis para sanar dúvidas que foram obtidas através de pesquisas elaboradas em outros projetos realizados pela mesma instituição.</p>
+              
+              <h3 class="text-xl font-bold mt-12 mb-6 text-foreground">Processo de Trabalho</h3>
+              
+              <div class="space-y-8">
+                <section>
+                  <h4 class="text-lg font-semibold mb-3 text-primary">Pesquisa: Conhecendo o Problema</h4>
+                  <p class="text-muted-foreground leading-relaxed">Para encontrar o problema, devemos primeiro entender o produto e o que ele está tentando alcançar. Fazemos isso passando primeiro pela jornada do usuário, pelo protótipo do usuário e pelo fluxograma das interfaces cadastrais e como elas interagem entre si. Podemos, então, analisar essa experiência tela a tela junto da experiência do usuário e começar a identificar o que está funcionando e onde há áreas de melhoria.</p>
+                  <div class="flex gap-4 mt-4 font-mono text-xs uppercase tracking-wider text-muted-foreground/60">
+                    <span>Jornada de Usuário</span>
+                    <span>•</span>
+                    <span>Protótipo do Usuário</span>
+                    <span>•</span>
+                    <span>Fluxograma</span>
+                  </div>
+                </section>
+                
+                <section>
+                  <h4 class="text-lg font-semibold mb-3 text-primary">Solucionando o Problema: Wireframing</h4>
+                  <p class="text-muted-foreground leading-relaxed">Agora que os problemas foram identificados, podemos começar a criar nossos wireframes iniciais e a desenvolver soluções para esses problemas.</p>
+                </section>
+                
+                <section>
+                  <h4 class="text-lg font-semibold mb-3 text-primary">Teste de Usabilidade</h4>
+                  <p class="text-muted-foreground leading-relaxed">Nosso teste de usabilidade foi dividido em duas etapas. A primeira, a Secretaria de Estado do Trabalho, da Habitação e da Assistência Social tinha desenvolvido um projeto anteriormente ao Jovem Potiguar que, em dado momento, possuía relatórios de usabilidade de telas e interações similares às utilizadas no projeto em questão. Entender o comportamento de um certo grupo de usuários é vital para o desenvolvimento de usabilidade. Posteriormente, fizemos testes internos com participantes que não interagiram com o protótipo inicial e que nos permitissem testar todos os gatilhos e cenários possíveis dentro da plataforma utilizando de cadastros-teste.</p>
+                  <p class="text-muted-foreground leading-relaxed mt-4">Nesses testes, chegamos à conclusão de que as alterações feitas foram super fáceis e claras para os usuários entenderem. Todos conseguiram finalizar os cadastros muito mais rápido e fácil, sem confusão, principalmente quando comparado a outros sistemas de cadastros públicos.</p>
+                </section>
+                
+                <section>
+                  <h4 class="text-lg font-semibold mb-3 text-primary">Criando o Produto Final</h4>
+                  <p class="text-muted-foreground leading-relaxed mb-6">Mood Board > Guia de Estilo > Mockups. Com os nossos wireframes aprovados na fase de Teste de Usuário, temos agora luz verde para começar a criar os nossos mockups finais e renderizações destas telas. Ao fazer isso, procuramos manter-nos fiéis ao estilo artístico e à atmosfera (mood) que já tinham sido estabelecidos dentro da plataforma.</p>
+                  
+                  <div class="grid grid-cols-1 gap-4 py-8">
+                    <div class="bg-card/50 border border-white/5 rounded-2xl p-12 text-center">
+                      <p class="text-sm text-muted-foreground uppercase tracking-widest mb-2 font-display">Espaço para Visual Guide & Mockups</p>
+                      <p class="text-xs text-muted-foreground/60 italic">Tela de Início • Pré-cadastro • Resultados</p>
+                    </div>
+                  </div>
+                </section>
+                
+                <section>
+                  <h4 class="text-lg font-semibold mb-3 text-primary">Passos Finais: Teste de Acessibilidade</h4>
+                  <p class="text-muted-foreground leading-relaxed">Com todos os mockups finalizados, todas as telas precisam passar por uma revisão final para garantir que sejam acessíveis a todos os nossos usuários. Após cada uma de nossas telas passar pelo teste de daltonismo/deficiência visual, elas podem ser aprovadas e estarão prontas para irem ao ar.</p>
+                </section>
+                
+                <section class="pt-8 border-t border-white/5">
+                  <h4 class="text-lg font-semibold mb-3 text-foreground uppercase tracking-widest text-sm">Conclusão: O Que Aprendi</h4>
+                  <p class="text-muted-foreground leading-relaxed italic">"Ao longo do projeto, aprendi como usar UX/UI para aproximar as intenções de instituições dos compromissos do público-geral. Também aprimorei configurações e condução de Testes de Usabilidade/Entrevistas para compreender melhor as necessidades dos usuários e corrigir problemas de UX de forma antecipada."</p>
+                </section>
+              </div>
+            `
+          };
         }
 
-        setProject(data as ProjectDetails);
-        updateSEO(data.title, data.description?.replace(/<[^>]*>?/gm, '').substring(0, 160), data.main_image);
+        setProject(projectData);
+        updateSEO(projectData.title, projectData.description?.replace(/<[^>]*>?/gm, '').substring(0, 160), projectData.main_image);
 
         // Fetch prev and next for navigation (simple heuristic based on year/created_at sorting)
         // Because getting exact previous/next requires complex window functions,
