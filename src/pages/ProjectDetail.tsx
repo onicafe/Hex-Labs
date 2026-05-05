@@ -26,6 +26,7 @@ interface ProjectDetails {
   live_url: string;
   news_url: string;
   case_study_url: string;
+  tools?: string[];
 }
 
 const ProjectDetail = () => {
@@ -89,6 +90,7 @@ const ProjectDetail = () => {
             industry: "Educação / Governo",
             client: "IFRN / SETHAS",
             services: ["UX/UI Design", "User Research"],
+            tools: ["Photoshop", "Figma", "Adobe XD"],
             live_url: "https://funcern.br/projetos/programa-jovem-potiguar/",
             news_url: "https://portal.ifrn.edu.br/campus/reitoria/noticias/jovem-potiguar-abertas-as-inscricoes-para-840-vagas-em-cursos-de-qualificacao-no-rn/",
             description: `<p class="font-bold text-primary mb-2">EXPANDINDO E REESTRUTURANDO AS BARREIRAS EDUCACIONAIS</p>
@@ -306,6 +308,16 @@ const ProjectDetail = () => {
                 <div>
                   <h3 className="font-body text-sm tracking-[0.2em] text-muted-foreground mb-3">INDÚSTRIA</h3>
                   <p className="font-display text-xl text-foreground">{project.industry}</p>
+                </div>
+              )}
+              {project.tools && project.tools.length > 0 && (
+                <div>
+                  <h3 className="font-body text-sm tracking-[0.2em] text-muted-foreground mb-3">FERRAMENTAS</h3>
+                  <ul className="space-y-2">
+                    {project.tools.map((tool, idx) => (
+                      <li key={idx} className="font-body text-foreground">{tool}</li>
+                    ))}
+                  </ul>
                 </div>
               )}
 
