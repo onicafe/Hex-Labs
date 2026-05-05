@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { ArrowLeft, ArrowRight, ExternalLink, Loader2 } from "lucide-react";
+import { ArrowLeft, ArrowRight, ExternalLink, Loader2, X } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { supabase } from "@/lib/supabase";
@@ -34,6 +34,38 @@ const ProjectDetail = () => {
   const [project, setProject] = useState<ProjectDetails | null>(null);
   const [loading, setLoading] = useState(true);
   const [adjacentProjects, setAdjacentProjects] = useState<{ prev: any; next: any }>({ prev: null, next: null });
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+  useEffect(() => {
+    const handleImageClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (target.tagName === 'IMG' && !target.closest('.no-lightbox')) {
+        const src = (target as HTMLImageElement).src;
+        setSelectedImage(src);
+      }
+    };
+
+    // Add click listeners to images after content is loaded
+    const timer = setTimeout(() => {
+      const contentArea = document.querySelector('.project-content-area');
+      if (contentArea) {
+        contentArea.addEventListener('click', handleImageClick);
+        const images = contentArea.querySelectorAll('img');
+        images.forEach(img => {
+          img.style.cursor = 'pointer';
+          img.classList.add('transition-all', 'duration-300', 'hover:opacity-90');
+        });
+      }
+    }, 500);
+
+    return () => {
+      clearTimeout(timer);
+      const contentArea = document.querySelector('.project-content-area');
+      if (contentArea) {
+        contentArea.removeEventListener('click', handleImageClick);
+      }
+    };
+  }, [project, loading]);
 
   useEffect(() => {
     const fetchProjectAndAdjacents = async () => {
@@ -319,7 +351,7 @@ const ProjectDetail = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="lg:col-span-2 space-y-12"
+              className="lg:col-span-2 space-y-12 project-content-area"
             >
               {project.description && (
                 <div>
@@ -442,6 +474,34 @@ const ProjectDetail = () => {
       </section>
 
       <Footer />
+
+      {/* Image Lightbox */}
+      {selectedImage && (
+        <div 
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-md p-4 md:p-10 cursor-zoom-out"
+          onClick={() => setSelectedImage(null)}
+        >
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            className="relative max-w-7xl max-h-[90vh] flex items-center justify-center"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button 
+              className="absolute -top-12 right-0 p-2 text-white/70 hover:text-white transition-colors"
+              onClick={() => setSelectedImage(null)}
+            >
+              <X className="w-8 h-8" />
+            </button>
+            <img 
+              src={selectedImage} 
+              alt="Expanded view" 
+              className="max-w-full max-h-full object-contain rounded-lg shadow-2xl border border-white/10"
+            />
+          </motion.div>
+        </div>
+      )}
     </div>
   );
 };
