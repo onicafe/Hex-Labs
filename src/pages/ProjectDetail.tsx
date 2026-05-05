@@ -58,12 +58,15 @@ const ProjectDetail = () => {
             client: "IFRN / SETHAS",
             services: ["UX/UI Design", "User Research"],
             live_url: "https://funcern.br/projetos/programa-jovem-potiguar/",
+            news_url: "https://portal.ifrn.edu.br/campus/reitoria/noticias/jovem-potiguar-abertas-as-inscricoes-para-840-vagas-em-cursos-de-qualificacao-no-rn/",
             description: `<p class="font-bold text-primary mb-2">EXPANDINDO E REESTRUTURANDO AS BARREIRAS EDUCACIONAIS</p>
 <p>Desenvolver uma plataforma para ofertar vagas educacionais do Instituto Federal do Rio Grande do Norte a estudantes cadastrados no CadÚnico e possibilitar que estudantes de baixa renda possam ter acesso a cursos técnicos de qualidade, expandindo as barreiras multidisciplinares dos cadastrados.</p>`,
-            challenge: `<p>Desenvolver protótipos, telas e fluxos para múltiplos usuários reduzindo possíveis dificuldades e para que o usuário não se depare com barreiras que possam impossibilitar seu cadastro no sistema.</p><br/>
-<p>Responsividade em telas pequenas sem excesso de conteúdo</p><br/>
-<p>Fornecer todas informações necessárias sem sobrecarregar o usuário</p><br/>
-<p>Interface familiar para usuários do CadÚnico e outros sistemas governamentais</p>`,
+            challenge: `<p>Desenvolver protótipos, telas e fluxos para múltiplos usuários reduzindo possíveis dificuldades e para que o usuário não se depare com barreiras que possam impossibilitar seu cadastro no sistema.</p>
+<ul class="list-disc pl-5 text-muted-foreground leading-relaxed space-y-2 mt-4">
+  <li>Responsividade em telas pequenas sem excesso de conteúdo</li>
+  <li>Fornecer todas informações necessárias sem sobrecarregar o usuário</li>
+  <li>Interface familiar para usuários do CadÚnico e outros sistemas governamentais</li>
+</ul>`,
             solution: `
               <p>Dividir as jornadas do usuário em passos pequenos, compreensíveis e guiando o usuário visualmente para a conclusão do seu cadastro, fornecendo o maior número de informações possíveis para sanar dúvidas que foram obtidas através de pesquisas elaboradas em outros projetos realizados pela mesma instituição.</p>
 
