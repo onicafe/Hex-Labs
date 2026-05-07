@@ -79,7 +79,177 @@ const ProjectDetail = () => {
           .eq("slug", slug)
           .single();
 
+        if (error && slug !== 'nexus-imobiliaria') {
+          throw error;
+        }
+
         let projectData = data as ProjectDetails;
+
+        // Local override for Nexus Imobiliária
+        if (slug === 'nexus-imobiliaria') {
+          projectData = {
+            id: 'nexus-manual',
+            slug: 'nexus-imobiliaria',
+            title: "Nexus Imobiliária",
+            category: "Desenvolvimento",
+            year: "2026",
+            client: "Nexus Imobiliária",
+            industry: "Imobiliária",
+            services: ["UX/UI Design", "User Research", "Design System", "Desenvolvimento"],
+            tools: ["Photoshop", "Figma", "Adobe XD"],
+            main_image: "/projects/nexus-imobiliaria/hero.png",
+            description: `<p class="font-bold text-primary mb-2">ECOSSISTEMA IMOBILIÁRIO COM DASHBOARD ADMINISTRATIVO</p>
+<p>Desenvolver uma plataforma para gerenciamento imobiliário para que agências possam administrar os imóveis ofertados e, também, ter informações analíticas dos imóveis mais procurados.</p>`,
+            challenge: `<p>Fornecer ferramentas necessárias para que o gerenciamento imobiliário seja feito com facilidade e intuitivo para corretores de todas as idades.</p>
+<ul class="list-disc pl-5 text-muted-foreground leading-relaxed space-y-2 mt-4">
+  <li>Dispor informações de cada imóvel, junto de sua localização, sem sobrecarga de informações</li>
+  <li>Adotar um sistema de busca de fácil compreensão para usuários de todas as idades</li>
+</ul>`,
+            solution: `
+              <p>Para os usuários, o desenvolvimento de um mapa interativo de tecnologia própria e que forneça mais informações sobre os arredores; Para os corretores, a elaboração de uma plataforma de gerenciamento junto de uma página para edição do site a partir do dashboard, dando mais liberdade às imobiliárias sem precisar de um profissional da tecnologia para fazer correções, ajustes e administração de forma autônoma.</p>
+
+              <h3 class="text-2xl font-bold mt-12 mb-6 text-foreground uppercase tracking-wider">Processo de Trabalho</h3>
+              <img src="/projects/nexus-imobiliaria/image11.png" alt="Processo de Trabalho" class="w-full rounded-lg shadow-md my-6" />
+
+              <h4 class="text-xl font-semibold mt-10 mb-4 text-primary uppercase tracking-wider">Pesquisa</h4>
+              <h5 class="text-lg font-semibold mb-2 text-foreground uppercase">Conhecendo o Problema</h5>
+              <p class="text-muted-foreground leading-relaxed mb-8">Para iniciarmos uma plataforma que pudesse receber e divulgar imóveis, devemos entender as necessidades daqueles que irão consumir os imóveis, seja alugando ou comprando-os, como também até onde os corretores e as próprias agências imobiliárias possam ter seu trabalho facilitado ou aprimorado. O que foi almejado partia de facilidade e compreensão multi-tela, que dá ao usuário, ora comprador ora corretor, inteiro controle sob a plataforma. Ao fazermos isso passamos primeiro pela jornada do usuário para, então posteriormente, prototiparmos o que então seria utilizado e pelo fluxograma de cada interface e como elas interariam entre si.</p>
+
+              <h5 class="text-lg font-semibold mt-8 mb-2 text-foreground uppercase">Jornada de Usuário</h5>
+              <img src="/projects/nexus-imobiliaria/image26.png" alt="Jornada de Usuário" class="w-full rounded-lg shadow-md my-4" />
+
+              <h5 class="text-lg font-semibold mt-8 mb-2 text-foreground uppercase">Protótipo do Usuário</h5>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
+                <img src="/projects/nexus-imobiliaria/image9.png" alt="Protótipo do Usuário" class="w-full rounded-lg shadow-md" />
+                <img src="/projects/nexus-imobiliaria/image3.png" alt="Protótipo do Usuário 2" class="w-full rounded-lg shadow-md" />
+              </div>
+
+              <h5 class="text-lg font-semibold mt-8 mb-2 text-foreground uppercase">Fluxograma</h5>
+              <img src="/projects/nexus-imobiliaria/image21.png" alt="Fluxograma" class="w-full rounded-lg shadow-md my-4" />
+
+              <h4 class="text-xl font-semibold mt-12 mb-4 text-primary uppercase tracking-wider">Solucionando o Problema</h4>
+              <h5 class="text-lg font-semibold mb-2 text-foreground uppercase">Usabilidade, Testes e Ferramentas</h5>
+              <p class="text-muted-foreground leading-relaxed mb-6">Para o estudo mais apropriado, criamos personas que serviram de referência para nos guiar pelo design e desenvolvimento do sistema.</p>
+              <p class="text-muted-foreground leading-relaxed italic mb-8">Márcia, corretora; Pablo, proprietário de um imóvel; Karla, interessada em adquirir um imóvel. Como Pablo e Karla só conseguiriam seguir com seus interesses se Márcia tiver sua plataforma, então iniciemos pela mesma.</p>
+
+              <h5 class="text-lg font-semibold mt-10 mb-4 text-foreground uppercase tracking-wider text-primary">Márcia</h5>
+              <p class="text-muted-foreground leading-relaxed mb-6">Como corretora, o objetivo de Márcia é anunciar seus imóveis para o público geral. Ela possui algumas rotas iniciais que definem suas ações e que, posteriormente, fazem parte da construção do site.</p>
+              
+              <ul class="list-disc pl-5 text-muted-foreground leading-relaxed space-y-2 mb-8">
+                <li>Gerenciar Propriedades</li>
+                <li>Anunciar Imóvel</li>
+              </ul>
+
+              <h6 class="text-base font-semibold mb-2 text-primary uppercase">Anunciar Imóvel</h6>
+              <p class="text-muted-foreground leading-relaxed mb-6">Márcia recebeu, de um conhecido, o pedido de gerir a venda de seu imóvel, um apartamento localizado na Av. Prudente de Morais 1345. Ao fazer login na plataforma, Márcia pressiona o botão de “Novo Imóvel” para seguir seus passos. O botão, por ser a ação principal da plataforma e motor de seu comércio, se destaca visualmente de outras interações do menu lateral.</p>
+              <img src="/projects/nexus-imobiliaria/image31.png" alt="Dashboard" class="w-full rounded-lg shadow-md my-6" />
+
+              <p class="text-muted-foreground leading-relaxed mb-6">Márcia se depara com a ficha cadastral do imóvel onde ela poderá inserir os dados do imóvel fornecido por seu conhecido.</p>
+              <img src="/projects/nexus-imobiliaria/image20.png" alt="Cadastro de Imóvel" class="w-full rounded-lg shadow-md my-6" />
+
+              <p class="text-muted-foreground leading-relaxed mb-6">Após conclusão do preenchimento de dados, Márcia tem como observar uma prévia do anúncio como miniatura assim como também tem a opção de publicar o imóvel que acabou de descrever.</p>
+              <img src="/projects/nexus-imobiliaria/image23.png" alt="Preview" class="w-full rounded-lg shadow-md my-6" />
+
+              <p class="text-muted-foreground leading-relaxed mb-6">Posteriormente, se marcado como ativo, o imóvel já irá aparecer no site. Permitindo que os futuros clientes de Márcia possam conferir a propriedade anunciada.</p>
+
+              <h6 class="text-base font-semibold mt-10 mb-2 text-primary uppercase">Editar Anúncio</h6>
+              <p class="text-muted-foreground leading-relaxed mb-6">Após alguns anúncios criados, Márcia percebeu que esqueceu alguns detalhes de outro imóvel. Logo, ela retoma ao Dashboard administrativo e procura a propriedade que ela possui interesse em modificar.</p>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-6">
+                <img src="/projects/nexus-imobiliaria/image5.png" alt="Edit 1" class="w-full rounded-lg shadow-md" />
+                <img src="/projects/nexus-imobiliaria/image8.png" alt="Edit 2" class="w-full rounded-lg shadow-md" />
+                <img src="/projects/nexus-imobiliaria/image28.png" alt="Edit 3" class="w-full rounded-lg shadow-md" />
+              </div>
+              <p class="text-muted-foreground leading-relaxed mb-8">As modificações feitas por Márcia, ao Salvar, já entram no ar, reduzindo o tempo de espera que normalmente se aplicaria em plataformas tradicionais.</p>
+
+              <h6 class="text-base font-semibold mt-10 mb-2 text-primary uppercase">Conferir Desempenho</h6>
+              <p class="text-muted-foreground leading-relaxed mb-6">Após uns dias de suas publicações, Márcia resolve conferir o desempenho de suas publicações. Para isso, ela se direciona a página de Analytics localizada no menu lateral para ter acesso à informações extras.</p>
+              <img src="/projects/nexus-imobiliaria/image14.png" alt="Analytics" class="w-full rounded-lg shadow-md my-6" />
+              <p class="text-muted-foreground leading-relaxed mb-6">Nessa página, Márcia tem a possibilidade de ver tantos os horários de acesso, dispositivos e imóveis mais vistos, tudo seguindo as normas da LGPD.</p>
+              <img src="/projects/nexus-imobiliaria/image1.png" alt="Analytics Detail" class="w-full rounded-lg shadow-md my-6" />
+
+              <p class="text-muted-foreground leading-relaxed mb-6">Com essas informações, Márcia agora tem a possibilidade de ajustar suas listagens de acordo com o que o público mais pesquisa. Os interessados nos anúncios podem contatar Márcia diretamente em seu WhatsApp fornecido na página do imóvel.</p>
+              <img src="/projects/nexus-imobiliaria/image15.png" alt="Contato" class="w-full rounded-lg shadow-md my-6" />
+
+              <h5 class="text-lg font-semibold mt-12 mb-4 text-foreground uppercase tracking-wider text-primary">Administrativo</h5>
+              <h6 class="text-base font-semibold mb-2 text-primary uppercase">Adicionar Colaboradores</h6>
+              <p class="text-muted-foreground leading-relaxed mb-6">Com o sucesso de vendas, sua corretora agora precisa de mais colaboradores. Para isso, Márcia se direciona ao dashboard e entra na página de equipes onde, de lá, poderá dar acesso aos seus colaboradores.</p>
+              <img src="/projects/nexus-imobiliaria/image19.png" alt="Equipe" class="w-full rounded-lg shadow-md my-6" />
+              <p class="text-muted-foreground leading-relaxed mb-6">Na inserção do Colaborador, Márcia poderá decidir suas permissões e definir outras informações.</p>
+              <img src="/projects/nexus-imobiliaria/image6.png" alt="Permissões" class="w-full rounded-lg shadow-md my-6" />
+              
+              <div class="space-y-4 mb-10">
+                <p class="text-muted-foreground"><strong>Equipe (Staff)</strong> - Pode conferir o desempenho dos imóveis em Analytics e sugerir edições.</p>
+                <p class="text-muted-foreground"><strong>Corretor</strong> - Herda permissões da Staff e também pode fazer o gerenciamento de Imóveis.</p>
+                <p class="text-muted-foreground"><strong>Gerente</strong> - Herda permissões anteriores e pode inserir outros colaboradores.</p>
+              </div>
+
+              <h6 class="text-base font-semibold mt-10 mb-2 text-primary uppercase">Conferir Histórico</h6>
+              <p class="text-muted-foreground leading-relaxed mb-6">Agora, com novos funcionários, Márcia pode conferir as últimas atividades e interações feitas por eles. Dessa forma, ela pode gerenciar melhor sua agência.</p>
+              <img src="/projects/nexus-imobiliaria/image13.png" alt="Histórico" class="w-full rounded-lg shadow-md my-6" />
+
+              <h3 class="text-2xl font-bold mt-12 mb-6 text-foreground uppercase tracking-wider text-primary">Karla</h3>
+              <p class="text-muted-foreground leading-relaxed mb-6">Recém chegada na cidade do Natal, no Rio Grande do Norte, possui um interesse ávido de morar em um apartamento em Lagoa Nova. Buscando em mecanismos de pesquisa, Karla encontra o site da Athaydes Imóveis que utiliza o sistema da Nexus Imobiliária.</p>
+              <h5 class="text-lg font-semibold mb-2 text-foreground uppercase">Buscando o Imóvel dos Sonhos</h5>
+              <p class="text-muted-foreground leading-relaxed mb-6">Assim que Karla entra no site, a mesma percebe que já se depara com os campos de pesquisa de imóveis e digita as informações que deseja.</p>
+              <img src="/projects/nexus-imobiliaria/image7.png" alt="Busca" class="w-full rounded-lg shadow-md my-6" />
+              <p class="text-muted-foreground leading-relaxed mb-6">Ao clicar em Buscar Imóveis, para felicidade de Karla, os resultados aparecem junto de um Mapa que mostra a localização exata dos imóveis.</p>
+              <img src="/projects/nexus-imobiliaria/image18.png" alt="Mapa" class="w-full rounded-lg shadow-md my-6" />
+              <p class="text-muted-foreground leading-relaxed mb-6">Ao clicar no resultado, Karla encontra as informações que achou necessárias na página de descrição do imóvel.</p>
+              <img src="/projects/nexus-imobiliaria/image30.png" alt="Descrição" class="w-full rounded-lg shadow-md my-6" />
+              <img src="/projects/nexus-imobiliaria/image33.png" alt="Mensageiro" class="w-full rounded-lg shadow-md my-6" />
+
+              <h3 class="text-2xl font-bold mt-12 mb-6 text-foreground uppercase tracking-wider text-primary">Pablo</h3>
+              <p class="text-muted-foreground leading-relaxed mb-6">Proprietário de uma casa, Pablo decidiu que quer fazer uma viagem para o exterior e achou ideal anunciar seu imóvel para alugar.</p>
+              <img src="/projects/nexus-imobiliaria/image24.png" alt="Anunciar" class="w-full rounded-lg shadow-md my-6" />
+              <p class="text-muted-foreground leading-relaxed mb-6">Para satisfação de Pablo, ele pôde economizar tempo pois se deparou com um preenchimento de uma ficha que já permitiu que ele enviasse informações do imóvel.</p>
+              <div class="grid grid-cols-2 gap-4 my-6">
+                <img src="/projects/nexus-imobiliaria/image12.png" alt="Ficha 1" class="w-full rounded-lg shadow-md" />
+                <img src="/projects/nexus-imobiliaria/image27.png" alt="Ficha 2" class="w-full rounded-lg shadow-md" />
+                <img src="/projects/nexus-imobiliaria/image2.png" alt="Ficha 3" class="w-full rounded-lg shadow-md" />
+                <img src="/projects/nexus-imobiliaria/image10.png" alt="Ficha 4" class="w-full rounded-lg shadow-md" />
+                <img src="/projects/nexus-imobiliaria/image29.png" alt="Ficha 5" class="w-full rounded-lg shadow-md" />
+                <img src="/projects/nexus-imobiliaria/image25.png" alt="Ficha 6" class="w-full rounded-lg shadow-md" />
+              </div>
+
+              <h4 class="text-xl font-semibold mt-12 mb-4 text-primary uppercase tracking-wider">Criando o Produto Final</h4>
+              <h5 class="text-lg font-semibold mb-2 text-foreground uppercase">Tech Stack & Decisões Arquiteturais</h5>
+              <div class="space-y-6 my-8">
+                <div>
+                  <h6 class="text-primary font-bold text-sm">Core Framework & Linguagem</h6>
+                  <p class="text-muted-foreground text-sm">Next.js 16 (App Router), React 19, TypeScript.</p>
+                </div>
+                <div>
+                  <h6 class="text-primary font-bold text-sm">Backend as a Service (BaaS)</h6>
+                  <p class="text-muted-foreground text-sm">Supabase (PostgreSQL, Auth, Storage).</p>
+                </div>
+                <div>
+                  <h6 class="text-primary font-bold text-sm">UI/UX, Estilização & Experiência</h6>
+                  <p class="text-muted-foreground text-sm">Tailwind CSS v4, Framer Motion, HeroUI, Lucide React, Sonner.</p>
+                </div>
+                <div>
+                  <h6 class="text-primary font-bold text-sm">Mapas e Analytics</h6>
+                  <p class="text-muted-foreground text-sm">Leaflet & React-Leaflet, Recharts.</p>
+                </div>
+                <div>
+                  <h6 class="text-primary font-bold text-sm">Experiência Mobile Híbrida</h6>
+                  <p class="text-muted-foreground text-sm">Web Haptics para feedback tátil.</p>
+                </div>
+              </div>
+
+              <h4 class="text-xl font-semibold mt-12 mb-4 text-primary uppercase tracking-wider">Galeria</h4>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+                <img src="/projects/nexus-imobiliaria/image17.png" alt="Gallery 1" class="w-full rounded-lg shadow-md" />
+                <img src="/projects/nexus-imobiliaria/image22.png" alt="Gallery 2" class="w-full rounded-lg shadow-md" />
+                <img src="/projects/nexus-imobiliaria/image4.png" alt="Gallery 3" class="w-full rounded-lg shadow-md" />
+                <img src="/projects/nexus-imobiliaria/image32.png" alt="Gallery 4" class="w-full rounded-lg shadow-md" />
+                <img src="/projects/nexus-imobiliaria/image16.png" alt="Gallery 5" class="w-full rounded-lg shadow-md" />
+              </div>
+
+              <h4 class="text-xl font-semibold mt-12 mb-4 text-primary uppercase tracking-wider">Conclusão</h4>
+              <p class="text-muted-foreground leading-relaxed mb-8">O usuário sempre precisa ter ao seu alcance quantas ferramentas ele puder se facilitarem suas ações, mas é responsabilidade do Designer garantir que elas sejam distribuídas de forma equilibrada para nunca sobrecarregar mas que dê mais poder ao usuário e a sensação de pertencimento e familiaridade.</p>
+            `
+          } as ProjectDetails;
+        }
 
         // Local override for Jovem Potiguar
         if (slug === 'jovem-potiguar') {
@@ -182,13 +352,20 @@ const ProjectDetail = () => {
         // Fetch prev and next for navigation (simple heuristic based on year/created_at sorting)
         // Because getting exact previous/next requires complex window functions,
         // we just fetch all slugs and titles sorted, then find current index.
-        const { data: allProjects } = await supabase
+        const { data: dbProjects } = await supabase
           .from("projects")
           .select("slug, title")
           .order("year", { ascending: false })
           .order("created_at", { ascending: false });
 
-        if (allProjects) {
+        let allProjects = dbProjects || [];
+        
+        // Inject manual project if not in DB for navigation
+        if (!allProjects.some(p => p.slug === 'nexus-imobiliaria')) {
+          allProjects = [{ slug: 'nexus-imobiliaria', title: 'Nexus Imobiliária' }, ...allProjects];
+        }
+
+        if (allProjects.length > 0) {
           const currentIndex = allProjects.findIndex(p => p.slug === slug);
           setAdjacentProjects({
             prev: currentIndex > 0 ? allProjects[currentIndex - 1] : null,

@@ -29,7 +29,18 @@ const Projects = () => {
           .order("created_at", { ascending: false });
 
         if (error) throw error;
-        setProjects(data || []);
+        
+        const manualProjects: Project[] = [
+          {
+            slug: "nexus-imobiliaria",
+            title: "Nexus Imobiliária",
+            category: "Desenvolvimento",
+            year: "2026",
+            main_image: "/projects/nexus-imobiliaria/hero.png"
+          }
+        ];
+
+        setProjects([...manualProjects, ...(data || [])]);
       } catch (error) {
         console.error("Error fetching projects:", error);
       } finally {
