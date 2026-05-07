@@ -96,7 +96,7 @@ const ProjectDetail = () => {
             client: "Nexus Imobiliária",
             industry: "Imobiliária",
             services: ["UX/UI Design", "User Research", "Design System", "Desenvolvimento"],
-            tools: ["Photoshop", "Figma", "Adobe XD"],
+            tools: ["Figma", "Photoshop", "Next.js", "Supabase", "Tailwind CSS", "Framer Motion", "HeroUI", "Lucide React", "Sonner", "Leaflet", "Recharts"],
             main_image: "/projects/nexus-imobiliaria/hero.png",
             description: `<p class="font-bold text-primary mb-2">ECOSSISTEMA IMOBILIÁRIO COM DASHBOARD ADMINISTRATIVO</p>
 <p>Desenvolver uma plataforma para gerenciamento imobiliário para que agências possam administrar os imóveis ofertados e, também, ter informações analíticas dos imóveis mais procurados.</p>`,
