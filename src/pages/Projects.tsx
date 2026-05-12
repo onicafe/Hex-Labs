@@ -37,13 +37,6 @@ const Projects = () => {
             category: "Desenvolvimento",
             year: "2026",
             main_image: "/projects/nexus-imobiliaria/hero.png"
-          },
-          {
-            slug: "pje2-mobile",
-            title: "PJe2 Mobile",
-            category: "UI/UX Design",
-            year: "2025",
-            main_image: "/projects/pje2-mobile/3.jpg"
           }
         ];
 
