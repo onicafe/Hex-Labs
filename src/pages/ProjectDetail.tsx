@@ -79,11 +79,309 @@ const ProjectDetail = () => {
           .eq("slug", slug)
           .single();
 
-        if (error && slug !== 'nexus-imobiliaria') {
+        if (error && slug !== 'nexus-imobiliaria' && slug !== 'pje2-mobile') {
           throw error;
         }
 
         let projectData = data as ProjectDetails;
+
+        // Local override for PJe2 Mobile
+        if (slug === 'pje2-mobile') {
+          projectData = {
+            id: 'pje2-manual',
+            slug: 'pje2-mobile',
+            title: "PJe2 Mobile",
+            category: "UI/UX Design",
+            year: "2025",
+            client: "Justiça Federal / TRF5",
+            industry: "Jurídica",
+            services: ["Experiência de Usuário", "Interface de Usuário", "Design System", "Testes A/B"],
+            tools: ["Adobe XD", "Figma", "Illustrator", "Photoshop"],
+            main_image: "/projects/pje2-mobile/3.jpg",
+            description: `<p class="font-bold text-primary mb-2">PLATAFORMA DE ELABORAÇÃO, CONSULTA E AJUSTES PROCESSUAIS</p>
+<p>O PJe (Processo Judicial Eletrônico) é uma das ferramentas mais importantes no sistema jurídico atual e parte do processo de modernização da Justiça Federal.</p>`,
+            challenge: `<h3 class="text-xl font-semibold mb-4 text-primary uppercase tracking-wider">O Problema</h3>
+<p>Mesmo sendo uma plataforma moderna, havia a necessidade de uma versão mobile que oferecesse uma compatibilidade para os sistemas atuais, para expandir seus alcances além de sua versão web 2.0.</p>
+<h3 class="text-xl font-semibold mt-8 mb-4 text-primary uppercase tracking-wider">Desafios</h3>
+<ul class="space-y-4 mt-4">
+  <li class="flex items-start gap-3">
+    <span class="text-green-500 font-bold">•</span>
+    <span class="text-muted-foreground leading-relaxed">Refatorar, corrigir bugs e atualizar documentação do sistema anteriormente desenvolvido pela equipe anterior, de forma a estabelecer uma base de conhecimento para elaboração do próximo.</span>
+  </li>
+  <li class="flex items-start gap-3">
+    <span class="text-green-500 font-bold">•</span>
+    <span class="text-muted-foreground leading-relaxed">O sistema dispõe de muitas ferramentas e, mesmo em sua versão web 2.0, possui muitas informações dispostas, o que pode dificultar o uso da plataforma por usuários com pouca literalidade tecnológica.</span>
+  </li>
+  <li class="flex items-start gap-3">
+    <span class="text-green-500 font-bold">•</span>
+    <span class="text-muted-foreground leading-relaxed">Necessidade de atualização do Sistema de Autenticação com intuito de facilitar a utilização do aplicativo por magistrados e reduzir as barreiras que, muitas vezes, consomem tempo útil do usuário, sem fragilizar a segurança do sistema.</span>
+  </li>
+  <li class="flex items-start gap-3">
+    <span class="text-green-500 font-bold">•</span>
+    <span class="text-muted-foreground leading-relaxed">Carência de pesquisas de uso que possam auxiliar na modularização de etapas baseado em uso de determinados setores, cargos e outros usos mais comuns da plataforma.</span>
+  </li>
+</ul>`,
+            solution: `
+              <h3 class="text-xl font-semibold mb-4 text-primary uppercase tracking-wider">O Objetivo</h3>
+              <p>A elaboração de tal aplicativo com interfaces e fluxos mais modernizados, utilizando de sistemas e técnicas mais elaboradas e compreensíveis para o público utilizando de metodologias de UI/UX.</p>
+
+              <h3 class="text-xl font-semibold mt-8 mb-4 text-primary uppercase tracking-wider">Solução</h3>
+              <p>A elaboração de uma pesquisa que auxiliasse no desenvolvimento nos permitiu fazer um teste A/B com usuários existentes da plataforma onde testamos novas modificações e, com tais dados, aplicamos novas telas ao design final de nosso projeto. Refizemos os fluxos baseado nos principais usuários da plataforma e separamos os itens com baixo uso no intuito de reduzir o número de cliques/toques e facilitar a interação Usuário > Sistema.</p>
+
+              <h2 class="text-2xl font-bold mt-12 mb-6 text-foreground uppercase tracking-wider">Metodologia de Pesquisa</h2>
+              <div class="space-y-6">
+                <p>Primeiramente, realizamos a análise inicial para compreender o estado atual do aplicativo e identificar problemas e áreas de melhoria. Isso envolveu o estudo detalhado da documentação existente e a revisão do código-fonte e da arquitetura do aplicativo, resultando na criação de um documento de análise técnica.</p>
+                <p>Em seguida, identificamos soluções viáveis para os problemas encontrados. Realizamos uma revisão de literatura, estudamos casos similares para identificar boas práticas e abordagens bem-sucedidas, e promovemos discussões colaborativas para explorar possíveis soluções tecnológicas e de design.</p>
+                <p>Na etapa seguinte, realizamos o desenvolvimento do design e planejamento da nova versão do aplicativo incluindo o desenvolvimento de mockups alinhados à identidade visual da PDPJ-Br (DOCUMENTO, 2022) e UIKit.PJe.JUS (MANUAL, 2019), além do desenho de uma nova arquitetura utilizando padrões de projeto service e repository e o gerenciamento de estado com o package bloc.</p>
+                <p>Durante a implementação, aplicamos boas práticas de programação com effective dart (EFFECTIVE, 2011), integrando os diferentes módulos e componentes do sistema e utilizando o package bloc (PUB, 2018) para garantir uma boa separação de responsabilidades e modularização.</p>
+                <p>Por fim, realizamos uma análise comparativa entre a nova proposta e a versão antiga do aplicativo. Avaliamos as melhorias propostas em relação à versão antiga, comparando funcionalidades.</p>
+              </div>
+              <img src="/projects/pje2-mobile/1.jpg" alt="Metodologia" class="w-full rounded-lg shadow-md my-8" />
+
+              <h2 class="text-2xl font-bold mt-12 mb-6 text-foreground uppercase tracking-wider">Organização do Projeto</h2>
+              <p>Tendo como objetivo principal entregar uma nova implementação do sistema, utilizando-se dos princípios das boas práticas de programação e padrões de projeto, almejando uma melhor manutenibilidade, bem como uma nova interface de usuário, para melhoria da usabilidade, particionamos este trabalho em 4 seções, sendo elas:</p>
+              <ul class="space-y-4 mt-6">
+                <li class="flex items-start gap-3">
+                  <span class="text-green-500 font-bold">•</span>
+                  <span class="text-muted-foreground leading-relaxed">Contextualização e motivação do trabalho, como também a delimitação do assunto tratado, os objetivos gerais e específicos da pesquisa e a metodologia.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="text-green-500 font-bold">•</span>
+                  <span class="text-muted-foreground leading-relaxed">Processos de análise e desenvolvimento do projeto, fazendo um paralelo entre o estado inicial e a proposta de refatoração.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="text-green-500 font-bold">•</span>
+                  <span class="text-muted-foreground leading-relaxed">Conclusão e sugestão de futuras implementações e melhorias.</span>
+                </li>
+              </ul>
+
+              <h2 class="text-2xl font-bold mt-12 mb-6 text-foreground uppercase tracking-wider">Materiais e Metodologias</h2>
+              <div class="space-y-10">
+                <div>
+                  <h3 class="text-xl font-semibold mb-4 text-primary uppercase tracking-wider">Effective Dart</h3>
+                  <p>O Effective Dart (2011) oferece quatro guias: estilização, documentação, uso e design, com recomendações "Faça/Não Faça/Prefira/Evite/Considere" para escrever código Dart consistente, bem documentado e de alto desempenho.</p>
+                </div>
+                <div>
+                  <h3 class="text-xl font-semibold mb-4 text-primary uppercase tracking-wider">Model-View-Controller (MVC)</h3>
+                  <p>MVC (Model-View-Controller) é um padrão em design de software comumente usado para implementar interfaces de usuário, dados e lógica de controle. O padrão enfatiza a separação entre a lógica de negócios do software e a exibição.</p>
+                  <ul class="list-disc pl-5 space-y-2 mt-4 text-muted-foreground">
+                    <li><strong>Modelo (Model):</strong> Manipula os dados e a lógica de negócio.</li>
+                    <li><strong>Visualização (View):</strong> Camada de apresentação que os usuários enxergam.</li>
+                    <li><strong>Controlador (Controller):</strong> Intermediário que processa inputs e atualiza Views.</li>
+                  </ul>
+                </div>
+              </div>
+              <img src="/projects/pje2-mobile/2.jpg" alt="Estrutura" class="w-full rounded-lg shadow-md my-8" />
+
+              <div class="space-y-10">
+                <div>
+                  <h3 class="text-xl font-semibold mb-4 text-primary uppercase tracking-wider">Padrão Repository - Repository Pattern</h3>
+                  <p>O padrão Repository cria uma camada de abstração entre domínio e persistência que expõe uma interface tipo coleção para acessar objetos, centralizando a lógica de consultas e melhorando separação de responsabilidades, reutilização e testabilidade.</p>
+                </div>
+                <div>
+                  <h3 class="text-xl font-semibold mb-4 text-primary uppercase tracking-wider">Gerenciamento de estado - Package Bloc</h3>
+                  <p>O padrão Service encapsula a lógica de negócio numa camada intermediária entre UI/controladores e persistência, realizando validações e processamento para promover reutilização, manutenção e clara separação de responsabilidades.</p>
+                </div>
+                <div>
+                  <h3 class="text-xl font-semibold mb-4 text-primary uppercase tracking-wider">Framework Flutter</h3>
+                  <p>Conforme a documentação do Flutter (2017), o Flutter é um kit de ferramentas de UI da Google de código aberto para criação de aplicativos compilados nativamente para dispositivos móveis, web, desktop e incorporados a partir de uma única base de código.</p>
+                </div>
+                <div>
+                  <h3 class="text-xl font-semibold mb-4 text-primary uppercase tracking-wider">Android Studio</h3>
+                  <p>O Android Studio é uma IDE para desenvolvimento Android que oferece emuladores rápidos, ferramentas de teste abrangentes e Lint para identificar problemas de desempenho/usabilidade/compatibilidade, além de suportar projetos Flutter.</p>
+                </div>
+                <div>
+                  <h3 class="text-xl font-semibold mb-4 text-primary uppercase tracking-wider">Adobe XD</h3>
+                  <p>Adobe XD é uma ferramenta de design de experiência do usuário para aplicativos web e móveis. Permite criar wireframes, protótipos interativos e designs de alta fidelidade dentro de um único aplicativo.</p>
+                </div>
+                <div>
+                  <h3 class="text-xl font-semibold mb-4 text-primary uppercase tracking-wider">Figma</h3>
+                  <p>Similar ao XD, é focado em experiência e interface de usuário, mas com tecnologia mais moderna voltada para maior integração multisistêmica. Nossos materiais foram exportados do XD para o Figma para melhor compatibilidade.</p>
+                </div>
+              </div>
+
+              <h2 class="text-2xl font-bold mt-12 mb-6 text-foreground uppercase tracking-wider">Documento de Análise Técnica</h2>
+              <p>Com o estudo da documentação do PJe 2.x mobile, elaboramos um documento de análise técnica onde encontram-se os diagramas de Caso de Uso, requisitos funcionais e não funcionais, a arquitetura, sua interface, como também uma análise detalhada do código recebido.</p>
+              <ul class="space-y-4 mt-6">
+                <li class="flex items-start gap-3">
+                  <span class="text-green-500 font-bold">•</span>
+                  <span class="text-muted-foreground leading-relaxed">Edição e assinatura de minutas;</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="text-green-500 font-bold">•</span>
+                  <span class="text-muted-foreground leading-relaxed">Assinatura de processos em lote;</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="text-green-500 font-bold">•</span>
+                  <span class="text-muted-foreground leading-relaxed">Visualização de documentos;</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="text-green-500 font-bold">•</span>
+                  <span class="text-muted-foreground leading-relaxed">Copiar minuta;</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="text-green-500 font-bold">•</span>
+                  <span class="text-muted-foreground leading-relaxed">Alterar localização;</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="text-green-500 font-bold">•</span>
+                  <span class="text-muted-foreground leading-relaxed">Pareamento de dispositivos;</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="text-green-500 font-bold">•</span>
+                  <span class="text-muted-foreground leading-relaxed">Autenticação do magistrado;</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="text-green-500 font-bold">•</span>
+                  <span class="text-muted-foreground leading-relaxed">Filtragem de processos;</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="text-green-500 font-bold">•</span>
+                  <span class="text-muted-foreground leading-relaxed">Listagem de processos no perfil de magistrado.</span>
+                </li>
+              </ul>
+
+              <blockquote class="border-l-4 border-primary pl-6 py-4 my-10 bg-secondary/30 rounded-r-lg italic text-muted-foreground">
+                "Foram identificados trechos de código inativo, duplicações (entidades e bancos), salvamento indevido de variáveis voláteis e loops que causam atualizações contínuas, indicando necessidade de refinamento. Há incongruências de nomenclatura e mistura de responsabilidades (serviços/estado acessados diretamente nas views), falta de modularização e documentação de endpoints críticos, e baixa legibilidade por funções mal nomeadas. Uma análise com Dart Analysis revelou 67 warnings e 280 hints, principalmente variáveis não usadas e nomes fora do padrão lowerCamelCase."
+              </blockquote>
+
+              <h2 class="text-2xl font-bold mt-12 mb-6 text-foreground uppercase tracking-wider">Implementação e Desenvolvimento</h2>
+              <div class="space-y-8">
+                <div>
+                  <h3 class="text-xl font-semibold mb-3 text-primary uppercase tracking-wider">Estrutura de Pastas</h3>
+                  <p>Optou-se pela abordagem layer-first para organizar o projeto: app (UI), config (injeção), models (domínio), providers (estado), repositories (dados) e services (lógica), promovendo modularidade e separação de responsabilidades.</p>
+                </div>
+                <div>
+                  <h3 class="text-xl font-semibold mb-3 text-primary uppercase tracking-wider">Armazenamento de Dados Local</h3>
+                  <p>Reduziu-se a quantidade de variáveis persistidas para evitar reescritas frequentes; apenas campos críticos são salvos localmente, enquanto demais são mantidos em cache para melhor desempenho.</p>
+                </div>
+                <div>
+                  <h3 class="text-xl font-semibold mb-3 text-primary uppercase tracking-wider">Models</h3>
+                  <p>Refatoradas para imutabilidade: atributos finais, remoção de getters/setters, uso de equatable e implementação de copyWith.</p>
+                </div>
+                <div>
+                  <h3 class="text-xl font-semibold mb-3 text-primary uppercase tracking-wider">Services e Repositories</h3>
+                  <p>Repositórios cuidam de requisições e acesso a dados com tratamento de erros, enquanto serviços executam a lógica de negócio, resultando em código mais modular e seguro.</p>
+                </div>
+              </div>
+
+              <h2 class="text-2xl font-bold mt-16 mb-8 text-foreground uppercase tracking-wider">Interface de Usuário</h2>
+              <p>Utilizamos essa oportunidade para desenvolver uma nova interface de usuário com base nas cores da PDPJ-Br e a tipografia e ícones da UIKit.PJe.JUS, implementando novas funcionalidades ao longo do processo.</p>
+
+              <h3 class="text-xl font-semibold mt-12 mb-4 text-primary uppercase tracking-wider">Autenticação de Usuário</h3>
+              <p>Realizamos a incorporação de tecnologias como a autenticação por biometria ou Face ID, visando fortalecer a segurança e a experiência do usuário. Adicionalmente, implementamos funcionalidades como o ocultamento de senha e validação de CPF em tempo real.</p>
+              
+              <h4 class="text-lg font-semibold mt-8 mb-4 text-foreground uppercase">Novo Fluxo de Login</h4>
+              <img src="/projects/pje2-mobile/3.jpg" alt="Fluxo de Login" class="w-full rounded-lg shadow-md my-6" />
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-8">
+                <img src="/projects/pje2-mobile/4.jpg" alt="Auth 1" class="w-full rounded-lg shadow-md" />
+                <img src="/projects/pje2-mobile/5.jpg" alt="Auth 2" class="w-full rounded-lg shadow-md" />
+              </div>
+              <p class="text-center text-sm text-muted-foreground italic mb-10">Nova Interface de autenticação.</p>
+
+              <h3 class="text-xl font-semibold mt-12 mb-4 text-primary uppercase tracking-wider">Pareamento de Dispositivos</h3>
+              <p>Desenvolvemos novas telas com foco na melhoria da experiência do usuário, introduzindo um carrossel com gifs e instruções passo a passo para facilitar a geração do QR Code.</p>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-8">
+                <img src="/projects/pje2-mobile/6.jpg" alt="Pareamento 1" class="w-full rounded-lg shadow-md" />
+                <img src="/projects/pje2-mobile/7.jpg" alt="Pareamento 2" class="w-full rounded-lg shadow-md" />
+                <img src="/projects/pje2-mobile/8.jpg" alt="Pareamento 3" class="w-full rounded-lg shadow-md" />
+              </div>
+              <p class="text-center text-sm text-muted-foreground italic mb-10">TELAS PARA PAREAMENTO DE DISPOSITIVO</p>
+
+              <h3 class="text-xl font-semibold mt-12 mb-4 text-primary uppercase tracking-wider">Localização, Logout e Sobre</h3>
+              <p>Removemos o antigo "drawer menu" e incorporamos suas funcionalidades diretamente à nova tela. O campo de Localização agora permanece visível, melhorando a identificação do perfil em uso.</p>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-8">
+                <img src="/projects/pje2-mobile/9.jpg" alt="Home 1" class="w-full rounded-lg shadow-md" />
+                <img src="/projects/pje2-mobile/10.jpg" alt="Home 2" class="w-full rounded-lg shadow-md" />
+              </div>
+              <p class="text-center text-sm text-muted-foreground italic mb-10">NOVA PÁGINA INICIAL</p>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-8">
+                <img src="/projects/pje2-mobile/11.jpg" alt="Ajustes 1" class="w-full rounded-lg shadow-md" />
+                <img src="/projects/pje2-mobile/12.jpg" alt="Ajustes 2" class="w-full rounded-lg shadow-md" />
+              </div>
+              <p class="text-center text-sm text-muted-foreground italic mb-10">MENU DE AJUSTES E MODAL DE CONFIRMAÇÃO</p>
+
+              <h4 class="text-lg font-semibold mt-12 mb-4 text-foreground uppercase">Sobre, Ajuda, Termos de Uso e FAQ</h4>
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-4 my-8">
+                <img src="/projects/pje2-mobile/13.jpg" alt="FAQ 1" class="w-full rounded-lg shadow-md" />
+                <img src="/projects/pje2-mobile/14.jpg" alt="FAQ 2" class="w-full rounded-lg shadow-md" />
+                <img src="/projects/pje2-mobile/15.jpg" alt="FAQ 3" class="w-full rounded-lg shadow-md" />
+                <img src="/projects/pje2-mobile/16.jpg" alt="FAQ 4" class="w-full rounded-lg shadow-md" />
+              </div>
+
+              <h3 class="text-xl font-semibold mt-12 mb-4 text-primary uppercase tracking-wider">Ato de Magistrado</h3>
+              <p>O ato de magistrado envolve funcionalidades essenciais como editar e assinar minutas, assinatura em lote e visualização de documentos.</p>
+              <ul class="space-y-4 my-6">
+                <li class="flex items-start gap-3">
+                  <span class="text-green-500 font-bold">•</span>
+                  <span class="text-muted-foreground leading-relaxed">Editar e assinar minutas</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="text-green-500 font-bold">•</span>
+                  <span class="text-muted-foreground leading-relaxed">Assinar processos em lote</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="text-green-500 font-bold">•</span>
+                  <span class="text-muted-foreground leading-relaxed">Visualização de documentos</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="text-green-500 font-bold">•</span>
+                  <span class="text-muted-foreground leading-relaxed">Copiar minuta</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="text-green-500 font-bold">•</span>
+                  <span class="text-muted-foreground leading-relaxed">Listagem e filtragem de processos</span>
+                </li>
+              </ul>
+
+              <h4 class="text-lg font-semibold mt-12 mb-4 text-foreground uppercase">Página de Ato de Magistrado</h4>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-8">
+                <img src="/projects/pje2-mobile/17.jpg" alt="Magistrado 1" class="w-full rounded-lg shadow-md" />
+                <img src="/projects/pje2-mobile/18.jpg" alt="Magistrado 2" class="w-full rounded-lg shadow-md" />
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-8">
+                <img src="/projects/pje2-mobile/19.jpg" alt="Magistrado 3" class="w-full rounded-lg shadow-md" />
+                <img src="/projects/pje2-mobile/20.jpg" alt="Magistrado 4" class="w-full rounded-lg shadow-md" />
+              </div>
+              <p>Implementamos um sistema de codificação por cores: processos urgentes (vermelho) e normais (verde), facilitando a priorização.</p>
+              <img src="/projects/pje2-mobile/21.jpg" alt="Filtros" class="w-full rounded-lg shadow-md my-8" />
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-8">
+                <img src="/projects/pje2-mobile/22.jpg" alt="Filtros 1" class="w-full rounded-lg shadow-md" />
+                <img src="/projects/pje2-mobile/23.jpg" alt="Filtros 2" class="w-full rounded-lg shadow-md" />
+              </div>
+              <img src="/projects/pje2-mobile/24.jpg" alt="Processos" class="w-full rounded-lg shadow-md my-8" />
+              <img src="/projects/pje2-mobile/25.jpg" alt="Seleção" class="w-full rounded-lg shadow-md my-8" />
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-8">
+                <img src="/projects/pje2-mobile/26.jpg" alt="Confirmação 1" class="w-full rounded-lg shadow-md" />
+                <img src="/projects/pje2-mobile/27.jpg" alt="Confirmação 2" class="w-full rounded-lg shadow-md" />
+              </div>
+
+              <h4 class="text-lg font-semibold mt-12 mb-4 text-foreground uppercase">Página de Detalhes de Processo</h4>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-8">
+                <img src="/projects/pje2-mobile/28.jpg" alt="Detalhes 1" class="w-full rounded-lg shadow-md" />
+                <img src="/projects/pje2-mobile/29.jpg" alt="Detalhes 2" class="w-full rounded-lg shadow-md" />
+                <img src="/projects/pje2-mobile/30.jpg" alt="Detalhes 3" class="w-full rounded-lg shadow-md" />
+              </div>
+
+              <h2 class="text-2xl font-bold mt-16 mb-6 text-foreground uppercase tracking-wider">Conclusão</h2>
+              <p>A remodelagem da UI/UX do PJe2x Mobile trouxe ganhos claros em usabilidade e eficiência. As escolhas de apresentação melhoraram a scannability das telas e a priorização de tarefas.</p>
+
+              <h2 class="text-2xl font-bold mt-12 mb-6 text-foreground uppercase tracking-wider">Sugestões</h2>
+              <p>Realizar testes de usabilidade com usuários reais para validar heurísticas e ajustar microinterações; aplicar métricas UX e documentar padrões de interface para consistência futura.</p>
+
+              <h2 class="text-2xl font-bold mt-12 mb-6 text-foreground uppercase tracking-wider">O que Aprendi</h2>
+              <p>Alterações relativamente pequenas de interação e visualização têm grande impacto na percepção de eficiência. Priorizar informação significativa e reduzir ruído melhora a tomada de decisão.</p>
+
+              <h2 class="text-2xl font-bold mt-12 mb-6 text-foreground uppercase tracking-wider">Considerações Finais</h2>
+              <p>Para consolidar os ganhos UX, recomenda-se integrar um ciclo contínuo de pesquisa com usuários e instrumentação de uso.</p>
+
+              <h4 class="text-xl font-semibold mt-12 mb-6 text-primary uppercase tracking-wider">Galeria de Telas</h4>
+              <div class="grid grid-cols-2 md:grid-cols-5 gap-4 my-8">
+                ${[...Array(15)].map((_, i) => `<img src="/projects/pje2-mobile/${i + 31}.jpg" alt="Tela ${i + 31}" class="w-full rounded-lg shadow-sm hover:shadow-md transition-shadow" />`).join('')}
+              </div>
+            `
+          } as ProjectDetails;
+        }
 
         // Local override for Nexus Imobiliária
         if (slug === 'nexus-imobiliaria') {
@@ -360,9 +658,12 @@ const ProjectDetail = () => {
 
         let allProjects = dbProjects || [];
         
-        // Inject manual project if not in DB for navigation
+        // Inject manual projects if not in DB for navigation
         if (!allProjects.some(p => p.slug === 'nexus-imobiliaria')) {
           allProjects = [{ slug: 'nexus-imobiliaria', title: 'Nexus Imobiliária' }, ...allProjects];
+        }
+        if (!allProjects.some(p => p.slug === 'pje2-mobile')) {
+          allProjects = [...allProjects.slice(0, 1), { slug: 'pje2-mobile', title: 'PJe2 Mobile' }, ...allProjects.slice(1)];
         }
 
         if (allProjects.length > 0) {
