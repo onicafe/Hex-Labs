@@ -40,7 +40,9 @@ const Projects = () => {
           }
         ];
 
-        setProjects([...manualProjects, ...(data || [])]);
+        setProjects([...manualProjects, ...(data || [])].map(p => 
+          p.slug === 'pje' ? { ...p, year: '2024' } : p
+        ));
       } catch (error) {
         console.error("Error fetching projects:", error);
       } finally {

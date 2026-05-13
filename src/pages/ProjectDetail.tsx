@@ -91,12 +91,12 @@ const ProjectDetail = () => {
             ...projectData,
             title: "PJe2 Mobile",
             category: "UI/UX Design",
-            year: "2025",
+            year: "2024",
             client: "Justiça Federal / TRF5",
             industry: "Jurídica",
             services: ["EXPERIÊNCIA DE USUÁRIO", "INTERFACE DE USUÁRIO", "DESIGN SYSTEM", "TESTES A/B"],
             tools: ["ADOBE XD", "FIGMA", "ILLUSTRATOR", "PHOTOSHOP"],
-            main_image: "/projects/pje2-mobile/3.jpg",
+            main_image: "https://pztkmsfxkqwbnhgjjlfu.supabase.co/storage/v1/object/public/media/project_1773330515456_b1h8cl.png",
             description: `<p class="font-bold text-primary mb-2">PLATAFORMA DE ELABORAÇÃO, CONSULTA E AJUSTES PROCESSUAIS</p>
 <p>PJE2 MOBILE UI/UX DESIGN</p>`,
             challenge: `
@@ -233,7 +233,7 @@ const ProjectDetail = () => {
 <p class="text-muted-foreground leading-relaxed mb-6">Sendo a segurança e a usabilidade elementos essenciais, o processo de autenticação de usuários assume um papel crítico nos sistemas computacionais. Nesse contexto, realizamos a incorporação de tecnologias como a autenticação por biometria ou Face ID, visando fortalecer a segurança e a experiência do usuário. Adicionalmente, realizamos a implementação de funcionalidades, como o ocultamento e a visualização de senha,através dos ícones de um olho fechado e um olho aberto ao final do campo de senha, juntamente com recursos como formatação e validação do campo de CPF em tempo real, alterando a cor da caixa de CPF em caso de invalidade, que contribuem para uma autenticação mais robusta e amigável ao usuário.</p>
 
 <h4 class="text-lg font-semibold mt-8 mb-4 text-foreground uppercase">NOVO FLUXO DE LOGIN</h4>
-<img src="/projects/pje2-mobile/3.jpg" alt="" class="w-full rounded-lg shadow-md my-8" />
+<img src="/projects/pje2-mobile/3.jpg" alt="" class="max-w-[300px] mx-auto rounded-lg shadow-md my-8" />
 <p class="text-muted-foreground leading-relaxed mb-6">Apresentamos uma visão atualizada da nova interface de autenticação do usuário. Esta atualização inclui a introdução da página de seleção de usuário, projetada para se adequar ao novo fluxo de interação, e a página de login. Além das mudanças já mencionadas, foram implementadas melhorias significativas no aspecto estético do aplicativo. Destaca-se a harmonização do sistema de cores com o da PDPJ, juntamente com o uso de uma foto da sede do TRF5 como plano de fundo para as áreas de login e seleção de usuário, e remoção do Dialog de erro, substituído pelas mensagens acima do campo de CPF em cor chamativa.</p>
 <p class="text-muted-foreground leading-relaxed mb-6">Outras melhorias incluíram a remoção dos botões de certificado digital, que não são utilizados, e a substituição do botão "novo acesso?" pelo botão "Ler QR code", visando facilitar o entendimento para os usuários menos experientes. Adicionalmente, foi acrescentado um checkbox na página de login, permitindo aos usuários habilitar o uso de biometria para acessos futuros.</p>
 
@@ -342,13 +342,17 @@ const ProjectDetail = () => {
 
 <p class="text-muted-foreground leading-relaxed mb-6">As telas desenvolvidas visam aprimorar a visualização de informações, garantindo que as informações listadas sejam significativas, facilmente acessíveis e legíveis, e fornecer as funcionalidades de forma intuitiva.</p>
 
-<img src="/projects/pje2-mobile/17.jpg" alt="" class="w-full rounded-lg shadow-md my-8" />
-<img src="/projects/pje2-mobile/18.jpg" alt="" class="w-full rounded-lg shadow-md my-8" />
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-8">
+  <img src="/projects/pje2-mobile/17.jpg" alt="" class="w-full rounded-lg shadow-md" />
+  <img src="/projects/pje2-mobile/18.jpg" alt="" class="w-full rounded-lg shadow-md" />
+</div>
 
 <p class="text-muted-foreground leading-relaxed mb-6">Para a melhor visualização das informações dos processos, optamos por remover o texto Nº do processo uma vez que não é significativo. E adicionar campos para referenciar alguns dos status do processo, sendo esses os campos de data, etiquetas, os ícones de “double check”, utilizado para o status de conferido e os ícones provenientes do PJe Web de um olho riscado vermelho, para o status de sigiloso e o de um losango verde com uma seta para cima, como status de prioritário. Também acrescentamos um botão em estrela para a funcionalidade de favorito. Ao final do número do processo, foram adicionadas as letras T ou S, nomenclatura já utilizada pelos servidores para diferenciar entre processos pertencentes ao Juiz Federal Titular e Juiz Federal Substituto.</p>
 
-<img src="/projects/pje2-mobile/19.jpg" alt="" class="w-full rounded-lg shadow-md my-8" />
-<img src="/projects/pje2-mobile/20.jpg" alt="" class="w-full rounded-lg shadow-md my-8" />
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-8">
+  <img src="/projects/pje2-mobile/19.jpg" alt="" class="w-full rounded-lg shadow-md" />
+  <img src="/projects/pje2-mobile/20.jpg" alt="" class="w-full rounded-lg shadow-md" />
+</div>
 
 <p class="text-muted-foreground leading-relaxed mb-6">Para melhorar a experiência do usuário e a eficiência no gerenciamento dos processos, implementamos um sistema de codificação por cores, ocultando o checkbox tradicional para o modo de seleção e utilizando no modo inicial, contêineres coloridos para indicar a classificação dos processos. Atualmente, temos duas classificações principais: urgente e normal.</p>
 
@@ -360,27 +364,31 @@ const ProjectDetail = () => {
 
 <p class="text-muted-foreground leading-relaxed mb-6">Em relação ao appbar, observamos a nova interface padrão da página de ato do magistrado à esquerda, na qual mantivemos a barra de pesquisa, removemos o ícone de microfone, uma vez que os teclados dos celulares fornecem uma funcionalidade idêntica para escrita de texto por voz, e reformulamos a forma de visualização dos filtros, filtros ativos e número dos processos.</p>
 
-<img src="/projects/pje2-mobile/21.jpg" alt="" class="w-full rounded-lg shadow-md my-8" />
+<img src="/projects/pje2-mobile/21.jpg" alt="" class="max-w-[400px] mx-auto rounded-lg shadow-md my-8" />
 
 <p class="text-muted-foreground leading-relaxed mb-6">Anteriormente, os filtros eram apresentados em uma lista horizontal, exigindo que o usuário arrastasse para visualizar todas as opções e permitindo a seleção de apenas um filtro por vez. Na nova interface, substituímos essa lista por um ícone de filtro, que abre o menu de filtros ao ser clicado, sendo possível ativar mais de um filtro simultaneamente, com a quantidade de filtros aplicados sendo exibida. O primeiro valor filtrado é seguido por “+n”, onde “n” indica a quantidade de filtros ocultos, caso haja mais filtros aplicados do que a tela pode mostrar.</p>
 
-<img src="/projects/pje2-mobile/22.jpg" alt="" class="w-full rounded-lg shadow-md my-8" />
-<img src="/projects/pje2-mobile/23.jpg" alt="" class="w-full rounded-lg shadow-md my-8" />
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-8">
+  <img src="/projects/pje2-mobile/22.jpg" alt="" class="w-full rounded-lg shadow-md" />
+  <img src="/projects/pje2-mobile/23.jpg" alt="" class="w-full rounded-lg shadow-md" />
+</div>
 
 <p class="text-muted-foreground leading-relaxed mb-6">Podemos observar os dois possíveis estados de visualização da quantidade de processos. O primeiro estado, à esquerda, exibe a quantidade total de processos quando nenhum filtro está aplicado. O segundo estado, à direita, é utilizado quando há algum filtro ativo, seguindo o formato "N de M", onde "N" representa o número de processos filtrados e visíveis, e "M" é o número total de processos do usuário, conforme exibido na opção sem filtros.</p>
 
-<img src="/projects/pje2-mobile/24.jpg" alt="" class="w-full rounded-lg shadow-md my-8" />
+<img src="/projects/pje2-mobile/24.jpg" alt="" class="max-w-[400px] mx-auto rounded-lg shadow-md my-8" />
 
 <p class="text-muted-foreground leading-relaxed mb-6">Adicionalmente, realocamos o botão de assinatura para o modo de seleção na appbar, juntamente com as novas funcionalidades de conferido e favorito. Dessa forma, é possível realizar assinaturas, conferências e marcar como favorito tanto em lote quanto individualmente.</p>
 
 <p class="text-muted-foreground leading-relaxed mb-6">Também podemos ver o botão de selecionar todos e a quantidade de processos selecionados. A quantidade é exibida no formato "N de M", onde "N" representa o número de processos selecionados e "M" é o número total de processos na lista.</p>
 
-<img src="/projects/pje2-mobile/25.jpg" alt="" class="w-full rounded-lg shadow-md my-8" />
+<img src="/projects/pje2-mobile/25.jpg" alt="" class="max-w-[400px] mx-auto rounded-lg shadow-md my-8" />
 
 <p class="text-muted-foreground leading-relaxed mb-6">E também observamos a nova caixa de confirmação para assinatura.</p>
 
-<img src="/projects/pje2-mobile/26.jpg" alt="" class="w-full rounded-lg shadow-md my-8" />
-<img src="/projects/pje2-mobile/27.jpg" alt="" class="w-full rounded-lg shadow-md my-8" />
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-8">
+  <img src="/projects/pje2-mobile/26.jpg" alt="" class="w-full rounded-lg shadow-md" />
+  <img src="/projects/pje2-mobile/27.jpg" alt="" class="w-full rounded-lg shadow-md" />
+</div>
 
 <h4 class="text-lg font-semibold mt-8 mb-4 text-foreground uppercase">PÁGINA DE DETALHES DE PROCESSO</h4>
 <p class="text-muted-foreground leading-relaxed mb-6">A seguir, apresentamos a nova interface de usuário e as funcionalidades adicionadas. Para promover o acesso rápido e eficaz à informação, dividimos as funcionalidades em duas páginas: a página de Detalhes do Processo e a página de Detalhes da Minuta.</p>

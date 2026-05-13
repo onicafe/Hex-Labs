@@ -37,8 +37,19 @@ const Work = () => {
           .order("created_at", { ascending: false })
           .limit(6); // Show latest 6 on home
 
-        if (error) throw error;
-        setProjects(data || []);
+        const manualProjects: Project[] = [
+          {
+            slug: "nexus-imobiliaria",
+            title: "Nexus Imobiliária",
+            category: "Desenvolvimento",
+            year: "2026",
+            main_image: "/projects/nexus-imobiliaria/hero.png"
+          }
+        ];
+
+        setProjects([...manualProjects, ...(data || [])].map(p => 
+          p.slug === 'pje' ? { ...p, year: '2024' } : p
+        ));
       } catch (error) {
         console.error("Error fetching projects for work section:", error);
       } finally {
