@@ -773,6 +773,27 @@ const ProjectDetail = () => {
           };
         }
 
+        // Local override for Hosuto
+        if (slug === 'hosuto') {
+          projectData = {
+            ...projectData,
+            show_gallery: true,
+            gallery: [
+              "/projects/hosuto/1.png",
+              "/projects/hosuto/2.png",
+              "/projects/hosuto/3.png",
+              "/projects/hosuto/4.png",
+              "/projects/hosuto/5.png",
+              "/projects/hosuto/6.png",
+              "/projects/hosuto/7.png",
+              "/projects/hosuto/8.png",
+              "/projects/hosuto/9.png",
+              "/projects/hosuto/10.png",
+              "/projects/hosuto/11.png"
+            ]
+          };
+        }
+
         setProject(projectData);
         updateSEO(projectData.title, projectData.description?.replace(/<[^>]*>?/gm, '').substring(0, 160), projectData.main_image);
 
