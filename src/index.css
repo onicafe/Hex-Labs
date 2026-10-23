@@ -115,3 +115,18 @@
     font-family: var(--font-body);
   }
 }
+/* Currículo: "Salvar em PDF" usa a impressão do navegador, então o tema escuro vira claro no papel */
+@media print {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 8%;
+    --card: 0 0% 100%;
+    --muted-foreground: 0 0% 30%;
+    --primary: 80 70% 25%;
+    --border: 0 0% 85%;
+  }
+
+  @page {
+    margin: 14mm;
+  }
+}

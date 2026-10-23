@@ -1,98 +1,66 @@
-# Hex Portfolio
+# Iésu Jafé — Portfólio
 
-Bem-vindo ao repositório oficial do **Hex Portfolio**. Este projeto é uma aplicação web moderna e interativa, desenvolvida para apresentar projetos e serviços com excelência visual e foco na experiência do usuário.
+Portfólio pessoal de **Iésu Jafé**, Product Designer, UX Engineer e IA aplicada, em Natal (RN).
 
-## 🚀 Sobre o Projeto
+O site reúne estudos de caso (meu papel, o problema, o processo e o resultado), o currículo e formas de contato. Os projetos em destaque são o PJe2 Mobile (TRF5) e o Jovem Potiguar (IFRN/Governo do RN), os dois como trabalho voluntário, além do Intelbras UCR, dos portais da UFRN e de produtos da Dione. A Hex Labs, empresa que fundei, aparece como um dos projetos.
 
-O **Hex Portfolio** foi criado para demonstrar as capacidades da agência Hex através de uma interface elegante e responsiva. O projeto utiliza as mais recentes tecnologias de desenvolvimento web para garantir performance, acessibilidade e animações fluidas.
+## Tecnologias
 
-O site é composto por diversas seções interativas, incluindo uma vitrine de projetos detalhada, apresentação de serviços e informações institucionais.
+- [React](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/) + [Vite](https://vitejs.dev/)
+- [Tailwind CSS](https://tailwindcss.com/) e [shadcn/ui](https://ui.shadcn.com/)
+- [Framer Motion](https://www.framer.com/motion/) para animações
+- [React Router](https://reactrouter.com/)
+- [Supabase](https://supabase.com/) (opcional), usado só na área administrativa, no blog e no analytics
 
-## 🛠️ Tecnologias Utilizadas
+## Rodando localmente
 
-Este projeto foi construído com uma stack robusta e moderna:
+Pré-requisito: [Node.js](https://nodejs.org/) 18 ou mais recente.
 
--   **[React](https://react.dev/)**: Biblioteca JavaScript para construção de interfaces de usuário.
--   **[TypeScript](https://www.typescriptlang.org/)**: Superset do JavaScript que adiciona tipagem estática.
--   **[Vite](https://vitejs.dev/)**: Build tool rápida e otimizada para desenvolvimento web moderno.
--   **[Tailwind CSS](https://tailwindcss.com/)**: Framework de CSS utilitário para estilização ágil e responsiva.
--   **[Shadcn/UI](https://ui.shadcn.com/)**: Coleção de componentes reutilizáveis e acessíveis construídos com Radix UI e Tailwind.
--   **[Framer Motion](https://www.framer.com/motion/)**: Biblioteca para criar animações complexas e gestuais.
--   **[React Query (TanStack Query)](https://tanstack.com/query/latest)**: Gerenciamento eficiente de estado assíncrono e requisições de dados.
--   **[React Router](https://reactrouter.com/)**: Roteamento dinâmico para aplicações de página única (SPA).
+```bash
+git clone https://github.com/onicafe/Hex-Labs.git
+cd Hex-Labs
+npm install
+npm run dev
+```
 
-## ✨ Funcionalidades
+Abra `http://localhost:8080`.
 
--   **Navegação Fluida**: Transições suaves entre páginas (Home, Projetos, Detalhes, Serviços).
--   **Design Responsivo**: Layout adaptável para dispositivos móveis, tablets e desktops.
--   **Animações Interativas**: Elementos visuais dinâmicos que enriquecem a UX.
--   **Componentes Modulares**: Arquitetura baseada em componentes para fácil manutenção e escalabilidade.
--   **Alta Performance**: Otimizado para carregamento rápido e interatividade imediata.
+O site funciona **sem Supabase**: a home, os projetos e o currículo usam só os dados estáticos do repositório. Para ativar o admin, o blog e o analytics, crie um arquivo `.env` com:
 
-## 📦 Instalação e Uso
+```bash
+VITE_SUPABASE_URL=https://SEU-PROJETO.supabase.co
+VITE_SUPABASE_ANON_KEY=sua-chave-anon
+```
 
-Para rodar este projeto localmente, siga os passos abaixo.
+## Onde editar o conteúdo
 
-### Pré-requisitos
+| O quê | Arquivo |
+| --- | --- |
+| Nome, título, contatos e link do PDF do CV | `src/data/profile.ts` |
+| Projetos e estudos de caso | `src/data/projects.ts` |
+| Experiência, formação e ferramentas | `src/pages/Resume.tsx` |
+| Logos das organizações | `src/components/TrustedBy.tsx` |
 
-Certifique-se de ter o [Node.js](https://nodejs.org/) instalado em sua máquina.
+Para oferecer o CV em PDF, coloque o arquivo em `public/` (por exemplo `public/cv-iesu-jafe.pdf`) e preencha `cvPdfUrl` em `src/data/profile.ts`. Enquanto o campo estiver vazio, o botão "Baixar CV" leva à página `/curriculo`, que tem a opção de salvar em PDF pelo navegador.
 
-### Passo a passo
-
-1.  **Clone o repositório:**
-
-    ```bash
-    git clone https://github.com/rafarneves/hex-portfolio.git
-    cd hex-portfolio
-    ```
-
-2.  **Instale as dependências:**
-
-    ```bash
-    npm install
-    ```
-
-3.  **Inicie o servidor de desenvolvimento:**
-
-    ```bash
-    npm run dev
-    ```
-
-4.  **Acesse a aplicação:**
-    Abra o seu navegador e vá para `http://localhost:8080`.
-
-## 📂 Estrutura de Pastas
-
-Uma visão geral da organização do código-fonte:
+## Estrutura
 
 ```
 src/
-├── components/   # Componentes reutilizáveis (UI, layout, etc)
-├── hooks/        # Custom React Hooks
-├── pages/        # Componentes de página (rotas)
-├── lib/          # Utilitários e configurações (ex: utils.ts)
-├── assets/       # Imagens, fontes e arquivos estáticos
-└── main.tsx      # Ponto de entrada da aplicação
+├── components/   # Seções da home e componentes de UI
+├── data/         # Conteúdo estático: perfil e projetos
+├── pages/        # Páginas (home, projetos, estudo de caso, currículo, blog, admin)
+├── lib/          # Supabase (opcional), SEO e utilitários
+└── assets/       # Imagens e logos
+public/projects/  # Imagens dos estudos de caso
 ```
 
-## 🤝 Contribuição
+## Créditos
 
-Contribuições são sempre bem-vindas! Se você tiver sugestões de melhorias ou correções, sinta-se à vontade para abrir uma _issue_ ou enviar um _pull request_.
+Site desenvolvido por Iésu Jafé e Rafael Neves.
 
-1.  Faça um _Fork_ do projeto
-2.  Crie uma _Branch_ para sua Feature (`git checkout -b feature/MinhaFeature`)
-3.  Faça o _Commit_ de suas mudanças (`git commit -m 'Adiciona: MinhaFeature'`)
-4.  Faça o _Push_ para a _Branch_ (`git push origin feature/MinhaFeature`)
-5.  Abra um _Pull Request_
+## Contato
 
-## 📄 Licença
-
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
-
-## 📞 Contato
-
-Para dúvidas ou contato profissional, entre em contato através das redes sociais ou e-mail.
-
----
-
-Desenvolvido com 💜 por Iesu Jafé e Rafael Neves.
+- E-mail: jafe.iesu@gmail.com
+- LinkedIn: [linkedin.com/in/iesujafe](https://www.linkedin.com/in/iesujafe/)
+- Behance: [behance.net/iesujafe](https://behance.net/iesujafe)

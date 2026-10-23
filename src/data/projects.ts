@@ -4,10 +4,6 @@ import ucr from "@/assets/projects/ucr-intelbras.jpg";
 import bonno from "@/assets/projects/bonno.png";
 import tertuliano from "@/assets/projects/tertuliano.png";
 import enade from "@/assets/projects/enade.png";
-import work1 from "@/assets/work-1.jpg";
-import work2 from "@/assets/work-2.jpg";
-import work3 from "@/assets/work-3.jpg";
-import work4 from "@/assets/work-4.jpg";
 import spillfabrikken from "@/assets/projects/spillfabrikken.png";
 import pje from "@/assets/projects/pje.png";
 import jovempotiguar from "@/assets/projects/jovempotiguar.png";
@@ -23,226 +19,433 @@ import prism7 from "@/assets/projects/prism/7.png";
 import prism8 from "@/assets/projects/prism/8.png";
 import prism9 from "@/assets/projects/prism/9.png";
 
+// Fonte única dos projetos exibidos no site. As páginas públicas não dependem do Supabase.
+
+export type Engagement = "Voluntário" | "Fundador" | "Freelance" | "Contratado";
+
+export interface CaseImage {
+  src: string;
+  caption?: string;
+}
+
+export interface CaseStep {
+  title: string;
+  text?: string;
+  images?: CaseImage[];
+}
+
+export interface ProjectLink {
+  label: string;
+  url: string;
+}
+
 export interface Project {
   slug: string;
-  image: string;
   title: string;
   category: string;
   year: string;
   client: string;
-  industry: string;
-  services: string[];
-  description: string;
-  challenge: string;
-  solution: string;
-  liveUrl?: string;
-  newsUrl?: string;
-  caseStudyUrl?: string;
+  image: string;
+  featured?: boolean;
+  /** Tipo de vínculo. Fica vazio quando não está confirmado. */
+  engagement?: Engagement;
+  /** Meu papel no projeto, em uma linha. */
+  role: string;
+  /** Resumo de uma ou duas frases, usado nos cards. */
+  summary: string;
+  /** Quem fez o quê, quando o trabalho não foi só meu. */
+  credits?: string;
+  problem: string;
+  process: CaseStep[];
+  result: string[];
+  tools?: string[];
+  links?: ProjectLink[];
   gallery?: string[];
-  stats?: {
-    label: string;
-    value: string;
-  }[];
 }
 
-const projectsData: Project[] = [
-  {
-    slug: "polare-portal",
-    image: polare, // Placeholder
-    title: "Polare Portal Público",
-    category: "Sistema Institucional",
-    year: "2022",
-    client: "UFRN",
-    industry: "Educação / Governo",
-    services: ["Desenvolvimento Front-end", "Java", "Arquitetura de Sistemas"],
-    description: "Portal público para o sistema Polare da UFRN, facilitando o acesso a informações e serviços institucionais.",
-    challenge: "Necessidade de integrar diversos serviços institucionais em uma interface unificada e acessível.",
-    solution: "Desenvolvimento de uma interface robusta utilizando Angular e PrimeNG, focada na usabilidade e acessibilidade.",
-    liveUrl: "https://polare.sti.ufrn.br/",
-  },
-  {
-    slug: "sigrh-portal",
-    image: sigrh, // Placeholder
-    title: "SIGRH Portal Público",
-    category: "Sistema Institucional",
-    year: "2020",
-    client: "UFRN",
-    industry: "Educação / Governo",
-    services: ["Desenvolvimento Front-end", "Integração Java", "Acessibilidade"],
-    description: "Portal público do Sistema Integrado de Gestão de Recursos Humanos da UFRN.",
-    challenge: "Modernizar o acesso às informações de recursos humanos com foco em transparência e facilidade de uso.",
-    solution: "Implementação de portal responsivo integrado ao backend Java, garantindo alta disponibilidade.",
-    liveUrl: "https://sigrh.ufrn.br/publico/home",
-  },
-  {
-    slug: "intelbras-ucr",
-    image: ucr, // Placeholder
-    title: "Software Intelbras UCR",
-    category: "Desenvolvimento de Software",
-    year: "2021",
-    client: "Intelbras",
-    industry: "Tecnologia / IoT",
-    services: ["React", "IoT", "Sistemas em Tempo Real"],
-    description: "Software de gravação UCR - Gravador de chamadas Intelbras. Solução avançada para gravação de chamadas com alta qualidade em ambientes corporativos",
-    challenge: "Criar uma interface intuitiva para gravação de chamadas em tempo real, garantindo mais segurança para o cliente, em conjunto com uma central UnniTI.",
-    solution: "Desenvolvimento com React e Context API para gerenciamento de estado eficiente, superando desafios de latência e UX.",
-    liveUrl: "https://www.intelbras.com/pt-br/grave-chamadas-com-alta-qualidade-em-ambientes-corporativos-ucr",
-  },
-  {
-    slug: "tertuliano-advocacia",
-    image: tertuliano, // Placeholder
-    title: "Tertuliano Pinheiro Advocacia",
-    category: "Site Empresarial",
-    year: "2023",
-    client: "Tertuliano Pinheiro",
-    industry: "Direito",
-    services: ["Web Design", "Desenvolvimento", "SEO"],
-    description: "Website institucional para escritório de advocacia, transmitindo profissionalismo e confiança.",
-    challenge: "Estabelecer uma presença digital sólida que reflita a seriedade e excelência do escritório.",
-    solution: "Design moderno e responsivo, otimizado para SEO e conversão de contatos.",
-    liveUrl: "https://tpadvocaciarn.com.br/",
-  },
-  {
-    slug: "bonno-personalizados",
-    image: bonno, // Placeholder
-    title: "Bonno Personalizados",
-    category: "E-commerce / Site Empresarial",
-    year: "2023",
-    client: "Bonno",
-    industry: "Varejo",
-    services: ["Web Design", "E-commerce"],
-    description: "Plataforma digital para empresa de produtos personalizados.",
-    challenge: "Apresentar um catálogo variado de produtos personalizados de forma atraente.",
-    solution: "Interface visualmente rica focada na exibição de produtos e facilidade de contato.",
-    liveUrl: "https://bonnopersonalizados.com/",
-  },
-  {
-    slug: "enade-ufrn",
-    image: enade, // Placeholder
-    title: "Enade UFRN",
-    category: "Site Institucional",
-    year: "2022",
-    client: "UFRN",
-    industry: "Educação",
-    services: ["Desenvolvimento Front-end", "Arquitetura da Informação"],
-    description: "Portal informativo sobre o Enade para alunos e coordenadores da UFRN.",
-    challenge: "Centralizar informações críticas sobre o exame de forma clara e objetiva.",
-    solution: "Portal informativo com navegação intuitiva e design alinhado à identidade da instituição.",
-    liveUrl: "https://enade.ufrn.br/",
-  },
-  {
-    slug: "spillfabrikken",
-    image: spillfabrikken,
-    title: "SpillFabrikken",
-    category: "Design de Produto",
-    year: "2022",
-    client: "SpillFabrikken",
-    industry: "Jogos",
-    services: ["Web/UI", "UX Design", "AR/VR", "3D", "Prototipagem", "Lead"],
-    description: "Desenvolvimento de prototipagem inicial até produto final e material de divulgação.",
-    challenge: "Desenvolver um material atrativo para todos os públicos. O material precisava ser, além de econômico para evitar o excesso de peças na entrega do produto, aumento o peso e o custo.",
-    solution: "Psicologia das cores e mecânicas modernas de gamificação tornaram todos os jogos elaborados com altas taxas de venda.",
-    liveUrl: "https://www.spillfabrikken.com/",
-  },
+const spillGallery = "1.jpg 2.jpg 3.jpg 4.jpg 5.jpg 6.jpg 7.jpg 8.png 9.png 10.png 11.png 12.png 13.png 14.png 15.png 16.png 17.png 18.png 19.png 20.png 21.png 22.png 23.png 24.png 25.gif 26.jpg 27.jpg 28.jpg 29.jpg 30.png 31.png 32.png 33.png 34.jpg 35.jpg 36.png 37.png 38.png 39.png 40.png 41.png 42.png 43.png 44.png 45.png 46.png 47.png 48.png 49.png 50.png 51.png 52.png 53.png 54.png 55.png 56.png 57.png 58.png 59.png 60.png 61.png 62.png 63.png 64.png 65.png 66.png 67.png 68.gif 69.png 70.png 71.png 72.png 73.png 74.gif 75.png 76.png 77.png 78.png"
+  .split(" ")
+  .map((file) => `/projects/spillfabrikken/${file}`);
+
+const pjeImg = (n: number, caption?: string): CaseImage => ({ src: `/projects/pje2-mobile/${n}.jpg`, caption });
+const jpImg = (n: number, caption?: string): CaseImage => ({ src: `/projects/jovem-potiguar/image${n}.png`, caption });
+const nexusImg = (n: number, caption?: string): CaseImage => ({ src: `/projects/nexus-imobiliaria/image${n}.png`, caption });
+
+export const projects: Project[] = [
   {
     slug: "pje",
-    image: pje,
     title: "PJe2 Mobile",
-    category: "Design de UI/UX",
+    category: "UI/UX · App mobile",
     year: "2024",
-    client: "Tribunal Regional Federal da 5ª Região",
-    industry: "Direito",
-    services: ["Experiência de Usuário", "Interface de Usuário", "Desenvolvimento para Dispositivos Móveis"],
-    description:
-      "O PJe2.X Mobile é a ferramenta oficial de trabalho para magistrados da Justiça Federal (TRF5), integrada à base de dados do Conselho Nacional de Justiça (CNJ). O projeto consistiu na refatoração completa e no redesign da aplicação, migrando de um código legado instável para uma arquitetura escalável em Flutter. Nosso objetivo foi elevar a maturidade da engenharia de software e alinhar a interface aos padrões nacionais da PDPJ-Br, otimizando a rotina de assinaturas de sentenças.",
-    challenge:
-      "A versão legada apresentava barreiras críticas em performance e usabilidade. A análise estática revelou 347 inconformidades de código (incluindo loops infinitos) e a lógica de negócios estava acoplada à interface. Além disso, a navegação fragmentada e o uso de menus ocultos elevavam a carga cognitiva, forçando magistrados a trocas constantes de contexto para acessar dados vitais.",
-    solution:
-      "Estruturamos a modernização em dois pilares: Engenharia (Clean Architecture) e UX Eficiente. Adotamos uma estrutura Layer-first com Service & Repository para desacoplar 100% da lógica, e migramos o estado para BLoC. Otimizamos o storage reduzindo a persistência para apenas 4 campos essenciais. Na interface, eliminamos o menu gaveta e unificamos visualizações, acelerando a tomada de decisão com feedbacks em tempo real.",
-    liveUrl: "https://www.trf5.jus.br/",
-    newsUrl:
-      "https://www.trf1.jus.br/trf1/noticias/novo-aplicativo-para-dispositivos-moveis-do-pje-facilitara-consulta-e-trara-novas-funcionalidades-",
-    caseStudyUrl:
-      "https://docs.google.com/document/d/e/2PACX-1vQotRMSwYoOB3EgNSNWMB_PHTUKnb4sbBtSBmYNj5Qsg1PXLu20ELZCw1H45K7SPAVLKyvEhHUUw2u5/pub",
-    stats: [
-      { label: "Issues Corrigidas", value: "347" },
-      { label: "Dívida Técnica", value: "Zero" },
-      { label: "Redução de Cliques", value: "50%+" },
+    client: "TRF5 — Tribunal Regional Federal da 5ª Região",
+    image: pje,
+    featured: true,
+    engagement: "Voluntário",
+    role: "Colaborador voluntário em UI/UX",
+    summary:
+      "Redesign do app que magistrados da Justiça Federal usam para revisar e assinar minutas. Colaborei de forma voluntária com a interface, ajudando um amigo que fazia parte da equipe oficial do projeto no TRF5.",
+    credits:
+      "O projeto foi conduzido por uma equipe de residência ligada ao TRF5. Meu amigo, que integrava essa equipe, apresentou o trabalho no TCC dele e registrou minha colaboração. A refatoração do código em Flutter, a nova arquitetura e a integração com a API do CNJ são trabalho da equipe. Minha contribuição foi na interface e na experiência de uso.",
+    problem:
+      "O PJe2 Mobile já existia, mas a versão herdada era difícil de usar e de manter. A navegação dependia de um menu gaveta escondido, os filtros aceitavam só uma opção por vez e erros apareciam em diálogos que interrompiam o fluxo. A análise estática feita pela equipe encontrou 67 warnings e 280 hints no código. Para um magistrado que precisa assinar dezenas de processos, cada passo a mais custa tempo.",
+    process: [
+      {
+        title: "Entender o que já existia",
+        text: "A equipe estudou a documentação da residência anterior e produziu um documento de análise técnica com casos de uso, requisitos e uma revisão do código. Foi daí que saíram os problemas de navegação e de fluxo que a nova interface precisava resolver.",
+      },
+      {
+        title: "Redesenhar dentro dos padrões do Judiciário",
+        text: "As telas seguem as cores da identidade visual da PDPJ-Br e a tipografia e os ícones do UIKit PJe. Os mockups foram feitos no Adobe XD e depois migrados para o Figma.",
+        images: [pjeImg(3, "Novo fluxo de login: seleção de usuário, validação de CPF em tempo real e opção de biometria")],
+      },
+      {
+        title: "Tirar passos do caminho",
+        text: "O menu gaveta saiu e a localização passou a ficar sempre visível na tela inicial. Os filtros passaram a aceitar várias opções ao mesmo tempo, com um contador de quantos estão ativos. A seleção de processos ganhou atalhos por gesto (pressionar e segurar, ou arrastar) e a assinatura em lote foi para a barra superior.",
+        images: [
+          pjeImg(9, "Nova tela inicial, sem menu gaveta"),
+          pjeImg(10),
+          pjeImg(17, "Lista de processos com status, etiquetas e prioridade por cor"),
+          pjeImg(18),
+        ],
+      },
+      {
+        title: "Evitar erros em ações sensíveis",
+        text: "A minuta abre em modo leitura (fundo cinza) e só fica editável depois de uma ação explícita. Sair da conta pede confirmação. O pareamento de dispositivos ganhou um passo a passo ilustrado para gerar o QR code no PJe Web.",
+        images: [
+          pjeImg(6, "Pareamento de dispositivo com instruções passo a passo"),
+          pjeImg(7),
+          pjeImg(8),
+          pjeImg(28, "Detalhes do processo e edição de minuta"),
+          pjeImg(29),
+          pjeImg(30),
+        ],
+      },
     ],
+    result: [
+      "Nova interface implementada pela equipe no app, com login por biometria, pareamento guiado, filtros múltiplos e assinatura em lote mais direta.",
+      "O trabalho foi documentado no TCC de um integrante da equipe, com registro da minha colaboração.",
+      "Não houve medição formal de tempo por tarefa. O próprio TCC recomenda, como próximo passo, testes de usabilidade com magistrados e métricas como SUS e taxa de sucesso.",
+    ],
+    tools: ["Adobe XD", "Figma", "Illustrator", "Photoshop"],
+    links: [
+      {
+        label: "Ler o TCC com o estudo completo",
+        url: "https://docs.google.com/document/d/e/2PACX-1vQotRMSwYoOB3EgNSNWMB_PHTUKnb4sbBtSBmYNj5Qsg1PXLu20ELZCw1H45K7SPAVLKyvEhHUUw2u5/pub",
+      },
+      {
+        label: "Notícia sobre o novo app do PJe",
+        url: "https://www.trf1.jus.br/trf1/noticias/novo-aplicativo-para-dispositivos-moveis-do-pje-facilitara-consulta-e-trara-novas-funcionalidades-",
+      },
+    ],
+    gallery: Array.from({ length: 15 }, (_, i) => `/projects/pje2-mobile/${i + 31}.jpg`),
   },
   {
     slug: "jovem-potiguar",
-    image: jovempotiguar,
     title: "Jovem Potiguar",
-    category: "Design de UI/UX",
+    category: "UX/UI · Plataforma de inscrição",
     year: "2024",
-    client: "Secretaria de Estado do Trabalho, da Habitação e da Assistência Social",
-    industry: "Educação, Governamental",
-    services: ["Interface de Usuário", "Experiência de Usuário", "Design Gráfico"],
-    description: "O projeto foi elaborado em uma parceria entre o Instituto Federal do Rio Grande do Norte e a SETHAS (Secretaria de Estado do Trabalho, da Habitação e da Assistência Social) com o intuito de trazer jovens do CadÚnico para formações em cursos técnicos do IFRN.",
-    challenge: "Acessibilidade e Usabilidade para que todos os usuários tenham capacidade de conseguir realizar a inscrição com sucesso",
-    solution: "Ao quebrarmos os passos e fornecendo instruções ao longo do caminho, o usuário teria mais facilidade independentemente do dispositivo utilizado",
-    liveUrl: "https://www.instagram.com/jovempotiguar/",
-    newsUrl: "https://g1.globo.com/rn/rio-grande-do-norte/noticia/2024/09/20/projeto-jovem-potiguar-classifica-estudantes-de-escolas-publicas-para-intercambio-na-europa.ghtml",
+    client: "IFRN e SETHAS — Governo do Rio Grande do Norte",
+    image: jovempotiguar,
+    featured: true,
+    engagement: "Voluntário",
+    role: "UX/UI Designer (voluntário)",
+    summary:
+      "Plataforma de inscrição que leva jovens do CadÚnico a cursos de qualificação do IFRN. Trabalhei como voluntário na pesquisa, nos fluxos e nas telas.",
+    credits:
+      "O programa é uma parceria entre o IFRN e a Secretaria de Estado do Trabalho, da Habitação e da Assistência Social (SETHAS). Atuei como voluntário no design da plataforma de inscrição.",
+    problem:
+      "O público são jovens de baixa renda, muitos usando celulares simples e com pouca experiência em sistemas públicos. Se o cadastro trava, a pessoa perde a vaga. A interface precisava funcionar bem em telas pequenas, dar todas as informações necessárias sem sobrecarregar e parecer familiar para quem já usa o CadÚnico.",
+    process: [
+      {
+        title: "Mapear a jornada",
+        text: "O ponto de partida foi a jornada do usuário, um protótipo inicial e o fluxograma das telas de cadastro, analisados tela a tela para achar onde as pessoas poderiam travar.",
+        images: [jpImg(9, "Processo de trabalho"), jpImg(1, "Jornada do usuário"), jpImg(13, "Fluxograma das telas de cadastro")],
+      },
+      {
+        title: "Wireframes",
+        text: "A inscrição foi dividida em passos curtos, com instruções ao longo do caminho, para que ninguém precise adivinhar o que fazer a seguir.",
+        images: [jpImg(4), jpImg(14), jpImg(8), jpImg(6)],
+      },
+      {
+        title: "Teste de usabilidade",
+        text: "Em duas etapas: primeiro, relatórios de usabilidade de um projeto anterior da SETHAS com telas e público parecidos; depois, testes internos com pessoas que não tinham visto o protótipo, usando cadastros de teste para passar por todos os cenários.",
+        images: [jpImg(15, "Teste de usabilidade")],
+      },
+      {
+        title: "Guia visual, mockups e acessibilidade",
+        text: "Com os wireframes aprovados, vieram o mood board, o guia visual e as telas finais. Antes de publicar, todas as telas passaram por uma revisão de contraste para daltonismo e baixa visão.",
+        images: [jpImg(10, "Mood board"), jpImg(11, "Tela inicial"), jpImg(17, "Informações do curso e pré-cadastro"), jpImg(3, "Resultados"), jpImg(12, "Teste de acessibilidade")],
+      },
+    ],
+    result: [
+      "A plataforma foi usada nas inscrições do programa. Numa das edições, o IFRN abriu 840 vagas em cursos de qualificação pelo Jovem Potiguar.",
+      "O que aprendi: a usar UX para aproximar o que a instituição quer do que o público consegue fazer, a conduzir testes de usabilidade para pegar problemas cedo, e que acessibilidade importa mesmo em formulários que parecem simples.",
+    ],
+    tools: ["Figma", "Adobe XD", "Photoshop"],
+    links: [
+      { label: "Página do programa (FUNCERN)", url: "https://funcern.br/projetos/programa-jovem-potiguar/" },
+      {
+        label: "Notícia do IFRN: 840 vagas",
+        url: "https://portal.ifrn.edu.br/campus/reitoria/noticias/jovem-potiguar-abertas-as-inscricoes-para-840-vagas-em-cursos-de-qualificacao-no-rn/",
+      },
+      {
+        label: "Notícia do G1 sobre o programa",
+        url: "https://g1.globo.com/rn/rio-grande-do-norte/noticia/2024/09/20/projeto-jovem-potiguar-classifica-estudantes-de-escolas-publicas-para-intercambio-na-europa.ghtml",
+      },
+    ],
+  },
+  {
+    slug: "intelbras-ucr",
+    title: "Intelbras UCR",
+    category: "Front-end · Software de gravação de chamadas",
+    year: "2021",
+    client: "Intelbras",
+    image: ucr,
+    featured: true,
+    role: "Desenvolvedor front-end",
+    summary:
+      "Interface do UCR, o gravador de chamadas corporativo da Intelbras que trabalha junto com a central UnniTI.",
+    problem:
+      "Empresas usam o UCR para gravar e consultar chamadas em tempo real. A interface precisava ser simples para quem opera no dia a dia e confiável para quem depende das gravações por segurança.",
+    process: [
+      {
+        title: "Interface em React",
+        text: "Desenvolvi a interface em React, com Context API para o estado da aplicação. O foco foi manter a tela responsiva com dados chegando em tempo real, sem atrasos perceptíveis para quem usa.",
+      },
+    ],
+    result: ["O UCR é um produto comercializado pela Intelbras para ambientes corporativos."],
+    tools: ["React", "Context API", "TypeScript"],
+    links: [
+      {
+        label: "Página do produto na Intelbras",
+        url: "https://www.intelbras.com/pt-br/grave-chamadas-com-alta-qualidade-em-ambientes-corporativos-ucr",
+      },
+    ],
+  },
+  {
+    slug: "ufrn",
+    title: "Portais da UFRN",
+    category: "Front-end · Sistemas institucionais",
+    year: "2020–2022",
+    client: "UFRN — Universidade Federal do Rio Grande do Norte",
+    image: polare,
+    featured: true,
+    role: "Desenvolvedor front-end",
+    summary:
+      "Portais públicos de três sistemas da UFRN: Polare, SIGRH e Enade. Interfaces usadas por servidores, alunos e pelo público em geral.",
+    problem:
+      "Sistemas institucionais concentram muita informação e são usados por perfis muito diferentes. O desafio comum aos três portais foi organizar esse conteúdo de forma clara e acessível, integrada aos sistemas Java que já existiam na universidade.",
+    process: [
+      {
+        title: "Polare — portal público",
+        text: "Interface em Angular com PrimeNG para reunir serviços institucionais num só lugar, com atenção a usabilidade e acessibilidade.",
+        images: [{ src: polare, caption: "Polare" }],
+      },
+      {
+        title: "SIGRH — portal público",
+        text: "Portal responsivo do Sistema Integrado de Gestão de Recursos Humanos, integrado ao back-end Java, com foco em transparência.",
+        images: [{ src: sigrh, caption: "SIGRH" }],
+      },
+      {
+        title: "Enade UFRN",
+        text: "Portal informativo para alunos e coordenadores, com arquitetura da informação pensada para encontrar rápido o que importa sobre o exame.",
+        images: [{ src: enade, caption: "Enade UFRN" }],
+      },
+    ],
+    result: ["Os três portais estão no ar e são mantidos pela UFRN."],
+    tools: ["Angular", "PrimeNG", "Java (integração)", "HTML/CSS"],
+    links: [
+      { label: "Polare", url: "https://polare.sti.ufrn.br/" },
+      { label: "SIGRH", url: "https://sigrh.ufrn.br/publico/home" },
+      { label: "Enade UFRN", url: "https://enade.ufrn.br/" },
+    ],
   },
   {
     slug: "my-treasure",
-    image: prism,
-    title: "Rede Social: MyTreasure",
-    category: "Engenharia de Produto",
+    title: "MyTreasure",
+    category: "Product Design · App social",
     year: "2023",
-    client: "Dione Solutions",
-    industry: "Redes Sociais",
-    services: [
-      "Interface de Usuário",
-      "Experiência de Usuário",
-      "Design Gráfico",
-      "Design Thinking",
+    client: "Dione (Japão)",
+    image: prism,
+    featured: true,
+    role: "Product Designer",
+    summary:
+      "App para colecionadores gerenciarem suas coleções, acompanharem o valor dos itens e, se quiserem, exporem ou negociarem peças.",
+    problem:
+      "Cada colecionador quer mostrar coisas diferentes. Uns querem acompanhar o retorno financeiro em segredo, outros querem uma vitrine pública com lances. O desafio foi criar posts configuráveis, em que a interface se adapta à escolha do usuário: esconde preços para quem quer privacidade ou ativa a negociação para quem quer vender.",
+    process: [
+      {
+        title: "Do conceito às telas",
+        text: "Usei Design Thinking para definir os modos de uso (privado, vitrine e negociação) e desenhei a interface para equilibrar o acompanhamento financeiro com uma experiência visual da coleção.",
+      },
     ],
-    description:
-      "Este projeto nasceu para transformar a maneira como colecionadores gerenciam seus ativos. O foco foi criar uma interface que equilibra o rastreamento financeiro preciso com uma experiência visual imersiva.\n\nO diferencial está na flexibilidade: o usuário tem controle total sobre a exposição dos seus dados. Seja para monitorar o ROI (retorno sobre investimento) de itens privados ou para transformar a coleção em um catálogo vitrine com sistema de lances, o design prioriza a autonomia e a clareza visual.",
-    challenge:
-      'O desafio foi criar um sistema de "posts" altamente configuráveis, onde a interface se adapta à necessidade do usuário, seja ocultando preços para privacidade ou ativando módulos de negociação para mercado.',
-    solution:
-      "Uma rede social interativa, responsiva e de fácil uso, permitindo que a socialização digital ocorra com menos obstáculos possíveis",
-    liveUrl: "https://play.google.com/store/apps/details?id=com.my_treasure_app",
-    gallery: [
-      prism1,
-      prism2,
-      prism3,
-      prism4,
-      prism5,
-      prism6,
-      prism7,
-      prism8,
-      prism9,
-    ],
+    result: ["App publicado na Google Play."],
+    tools: ["Figma", "Design Thinking"],
+    links: [{ label: "Ver na Google Play", url: "https://play.google.com/store/apps/details?id=com.my_treasure_app" }],
+    gallery: [prism1, prism2, prism3, prism4, prism5, prism6, prism7, prism8, prism9],
   },
   {
     slug: "hosuto",
-    image: hosuto,
-    title: "Dashboard de Gerenciamento Hotelar",
-    category: "Sistema Administrativo",
+    title: "Hosuto — gestão hoteleira",
+    category: "Product Design · Dashboard",
     year: "2022",
-    client: "Dione Solutions",
-    industry: "Hotelaria",
-    services: [
-      "Interface de Usuário",
-      "Experiência de Usuário",
-      "Design Gráfico",
-      "Design Thinking",
+    client: "Dione (Japão)",
+    image: hosuto,
+    role: "Product Designer",
+    summary: "Dashboard para as equipes de uma rede de hotéis gerenciarem limpeza, reservas, cozinha e estoque.",
+    problem:
+      "O trabalho num hotel é presencial e corrido. A ferramenta digital precisava ajudar sem atrapalhar: informação fácil de ler e organizada conforme o que cada equipe precisa ver.",
+    process: [
+      {
+        title: "Uma tela por necessidade",
+        text: "Compactei as informações e distribuí os itens conforme a rotina de cada equipe, para que cada pessoa encontre rápido o que é da sua função.",
+      },
     ],
-    description:
-      "Um dashboard elaborado para o uso de diversas equipes dentro de uma rede de hoteis, permitindo melhor gerecimento de limpeza, organização, reservas, cozinha e estoque.\n\n*Nota: O sistema é privado e não está disposto publicamente.*",
-    challenge:
-      "Oferecer ferramentas que, digitalmente, ajudem um serviço presencial",
-    solution:
-      "Uma interface fácil de leitura, compactando informações e dispondo de itens de acordo com as necessidades da equipe",
-    stats: [
-      { label: "Hotéis", value: "12" },
-      { label: "Eficiência", value: "+30%" },
+    result: ["Sistema de uso interno, não disponível publicamente."],
+    tools: ["Figma"],
+    gallery: Array.from({ length: 11 }, (_, i) => `/projects/hosuto/${i + 1}.png`),
+  },
+  {
+    slug: "hex-labs",
+    title: "Hex Labs",
+    category: "Empresa que fundei",
+    year: "2026",
+    client: "Hex Labs",
+    image: "/projects/nexus-imobiliaria/hero.png",
+    engagement: "Fundador",
+    role: "Fundador",
+    summary:
+      "Empresa de design e desenvolvimento de software que fundei. Para atrair os primeiros clientes, criei dois produtos próprios: a Rede Imobiliária e o EcoLaw.",
+    problem:
+      "Uma empresa nova não tem portfólio para mostrar. Em vez de esperar o primeiro cliente, decidi construir produtos completos para nichos que eu conhecia, e usá-los como prova do que a empresa sabe fazer.",
+    process: [
+      {
+        title: "Rede Imobiliária (Nexus Imobiliária)",
+        text: "Plataforma para imobiliárias: painel para corretores cadastrarem e editarem imóveis, busca com mapa para o público, analytics dos anúncios e controle de permissões por equipe. O estudo de caso completo está na página da Nexus Imobiliária.",
+        images: [nexusImg(31, "Painel do corretor"), nexusImg(18, "Busca com mapa")],
+      },
+      {
+        title: "EcoLaw",
+        text: "Sistema de gestão para escritórios de advocacia: acompanhamento de processos, prazos, honorários e um portal para o cliente. Ainda em desenvolvimento.",
+      },
     ],
+    result: [
+      "A Rede Imobiliária está construída e documentada como estudo de caso.",
+      "O EcoLaw está em desenvolvimento.",
+      "A experiência de fundar a empresa me fez cuidar de tudo, da pesquisa ao código e à conversa com potenciais clientes.",
+    ],
+    tools: ["Next.js", "React", "TypeScript", "Supabase", "Tailwind CSS", "Figma"],
+    links: [{ label: "Estudo de caso: Nexus Imobiliária", url: "/projects/nexus-imobiliaria" }],
+  },
+  {
+    slug: "nexus-imobiliaria",
+    title: "Nexus Imobiliária",
+    category: "Produto da Hex Labs · Pesquisa, design e código",
+    year: "2026",
+    client: "Hex Labs (produto próprio)",
+    image: "/projects/nexus-imobiliaria/hero.png",
+    engagement: "Fundador",
+    role: "Fundador da Hex Labs: produto e design",
+    summary:
+      "Plataforma imobiliária com painel para corretores e busca com mapa para o público. É a Rede Imobiliária, um dos produtos que criei na Hex Labs.",
+    problem:
+      "Corretores de todas as idades precisam cadastrar e atualizar imóveis sem depender de alguém de tecnologia. Do outro lado, quem procura imóvel quer ver a localização e os arredores sem se perder em informação demais.",
+    process: [
+      {
+        title: "Pesquisa e jornada",
+        text: "O trabalho começou pela jornada de quem compra ou aluga e de quem anuncia. Depois vieram o protótipo e o fluxograma de como as interfaces se conectam.",
+        images: [nexusImg(11, "Processo de trabalho"), nexusImg(26, "Jornada do usuário"), nexusImg(21, "Fluxograma")],
+      },
+      {
+        title: "Personas",
+        text: "Três personas guiaram o design: Márcia, corretora; Karla, que procura um apartamento; e Pablo, que quer alugar a casa dele. Como os outros dois dependem do trabalho da Márcia, o design começou pelo painel dela.",
+      },
+      {
+        title: "Painel da corretora",
+        text: "O botão de novo imóvel se destaca por ser a ação principal. A ficha de cadastro tem prévia do anúncio, as edições entram no ar ao salvar e a página de analytics mostra horários, dispositivos e imóveis mais vistos.",
+        images: [nexusImg(31, "Dashboard"), nexusImg(20, "Cadastro de imóvel"), nexusImg(14, "Analytics")],
+      },
+      {
+        title: "Equipe e permissões",
+        text: "Três níveis de acesso: equipe (vê o desempenho e sugere edições), corretor (também gerencia imóveis) e gerente (também adiciona colaboradores). Um histórico mostra as últimas ações de cada um.",
+        images: [nexusImg(19, "Equipe"), nexusImg(13, "Histórico")],
+      },
+      {
+        title: "Busca para o público",
+        text: "A busca aparece logo na entrada do site. Os resultados vêm com um mapa da localização dos imóveis, e a página do imóvel leva direto ao WhatsApp do corretor.",
+        images: [nexusImg(7, "Busca"), nexusImg(18, "Mapa"), nexusImg(30, "Página do imóvel")],
+      },
+    ],
+    result: [
+      "Produto construído de ponta a ponta, da pesquisa ao código, como vitrine da Hex Labs.",
+      "Stack: Next.js (App Router), React 19, TypeScript, Supabase (PostgreSQL, Auth, Storage), Tailwind CSS, Framer Motion, Leaflet e Recharts.",
+    ],
+    tools: ["Figma", "Photoshop", "Next.js", "Supabase", "Tailwind CSS", "Framer Motion", "Leaflet", "Recharts"],
+    gallery: [17, 22, 4, 32, 16].map((n) => `/projects/nexus-imobiliaria/image${n}.png`),
+  },
+  {
+    slug: "spillfabrikken",
+    title: "SpillFabrikken",
+    category: "Product & Game Design",
+    year: "2021",
+    client: "SpillFabrikken (Trondheim, Noruega)",
+    image: spillfabrikken,
+    role: "Product & Game Designer",
+    summary: "Jogos de tabuleiro e experiências interativas, do protótipo ao produto final e ao material de divulgação.",
+    problem:
+      "Os jogos precisavam atrair públicos de todas as idades e, ao mesmo tempo, ser econômicos de produzir: cada peça a mais aumenta peso e custo da entrega.",
+    process: [
+      {
+        title: "Protótipo ao produto",
+        text: "Participei da concepção, dos protótipos interativos e da produção visual, usando cor e mecânicas de gamificação para deixar os jogos claros e atraentes com o mínimo de componentes.",
+      },
+    ],
+    result: ["Jogos publicados pela SpillFabrikken."],
+    tools: ["Illustrator", "Photoshop", "3D", "Prototipagem"],
+    links: [{ label: "Site da SpillFabrikken", url: "https://www.spillfabrikken.com/" }],
+    gallery: spillGallery,
+  },
+  {
+    slug: "tertuliano-advocacia",
+    title: "Tertuliano Pinheiro Advocacia",
+    category: "Site institucional",
+    year: "2023",
+    client: "Tertuliano Pinheiro Advocacia",
+    image: tertuliano,
+    role: "Web design e desenvolvimento",
+    summary: "Site institucional para um escritório de advocacia.",
+    problem: "O escritório precisava de uma presença digital que transmitisse seriedade e facilitasse o contato.",
+    process: [{ title: "Design e SEO", text: "Layout responsivo, otimizado para busca e para levar o visitante ao contato." }],
+    result: ["Site no ar."],
+    links: [{ label: "Ver site", url: "https://tpadvocaciarn.com.br/" }],
+  },
+  {
+    slug: "bonno-personalizados",
+    title: "Bonno Personalizados",
+    category: "Site empresarial",
+    year: "2023",
+    client: "Bonno",
+    image: bonno,
+    role: "Web design",
+    summary: "Site para uma empresa de produtos personalizados.",
+    problem: "Apresentar um catálogo variado de forma atraente e facilitar o pedido de orçamento.",
+    process: [{ title: "Vitrine de produtos", text: "Interface visual focada nos produtos e num caminho curto até o contato." }],
+    result: ["Site no ar."],
+    links: [{ label: "Ver site", url: "https://bonnopersonalizados.com/" }],
   },
 ];
 
-export const projects = projectsData.sort((a, b) => Number(b.year) - Number(a.year));
+// Slugs antigos que viraram um único estudo de caso.
+export const slugAliases: Record<string, string> = {
+  "polare-portal": "ufrn",
+  "sigrh-portal": "ufrn",
+  "enade-ufrn": "ufrn",
+};
+
+export const featuredProjects = projects.filter((p) => p.featured);
+
+export const getProject = (slug: string | undefined) => {
+  if (!slug) return undefined;
+  const resolved = slugAliases[slug] ?? slug;
+  return projects.find((p) => p.slug === resolved);
+};

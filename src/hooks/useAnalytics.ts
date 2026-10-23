@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { supabase } from '@/lib/supabase';
+import { supabase, isSupabaseConfigured } from '@/lib/supabase';
 
 export const useAnalytics = () => {
     const location = useLocation();
 
     useEffect(() => {
-        // Ignore admin routes
-        if (location.pathname.startsWith('/admin')) {
+        // Ignore admin routes, and skip tracking entirely when Supabase is not configured
+        if (!isSupabaseConfigured || location.pathname.startsWith('/admin')) {
             return;
         }
 

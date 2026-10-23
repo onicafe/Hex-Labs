@@ -1,42 +1,27 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 
-const services = [
+const skills = [
   {
     number: "01",
-    title: "Engenharia de Produto",
-    description: "Sistemas complexos, arquitetura escalável e aplicativos de alta performance, focados em estabilidade e segurança.",
-    tags: ["Sistemas Críticos", "Arquitetura", "Alta Performance", "React/Node"],
+    title: "Product Design & UX",
+    description:
+      "Pesquisa com usuários, jornadas, fluxos, wireframes e protótipos. Testo cedo para achar problemas antes que virem código.",
+    tags: ["Pesquisa", "Fluxos", "Prototipagem", "Testes de usabilidade", "Acessibilidade"],
   },
   {
     number: "02",
-    title: "Inteligência Artificial & Chatbots",
-    description: "Chatbots inteligentes com LLM para atendimento e automação de processos internos.",
-    tags: ["LLMs", "Chatbots", "IA Generativa"],
+    title: "UX Engineering",
+    description:
+      "Levo o design até a tela real. Construo interfaces em React e TypeScript e converso com o time de engenharia na mesma língua.",
+    tags: ["React", "TypeScript", "Tailwind", "Design systems", "Front-end"],
   },
   {
     number: "03",
-    title: "Automação de Processos",
-    description: "Otimização de fluxos de trabalho e integração de ferramentas para aumentar a produtividade.",
-    tags: ["Automação", "Integrações", "Eficiência"],
-  },
-  {
-    number: "04",
-    title: "Design de Produto & UI/UX",
-    description: "Criação de interfaces intuitivas e experiências de usuário memoráveis.",
-    tags: ["UI Design", "UX Research", "Prototipagem"],
-  },
-  {
-    number: "05",
-    title: "Dashboards & Dados",
-    description: "Dashboards avançados com métricas em tempo real para tomada de decisão estratégica.",
-    tags: ["Analytics", "Business Intelligence", "KPIs"],
-  },
-  {
-    number: "06",
-    title: "Agentes Autônomos (IA)",
-    description: "Força de trabalho digital que executa operações 24/7: de postagens sociais automáticas a conciliação financeira.",
-    tags: ["Automação", "Agentes", "Operações"],
+    title: "IA aplicada",
+    description:
+      "Uso LLMs e automações no meu processo de design e desenvolvimento e em funcionalidades de produto, sempre olhando para o que o usuário ganha com isso.",
+    tags: ["LLMs", "Automação", "Prototipagem com IA"],
   },
 ];
 
@@ -53,41 +38,32 @@ const Services = () => {
           transition={{ duration: 0.8 }}
           className="mb-20"
         >
-          <p className="font-body text-sm tracking-[0.3em] text-primary mb-4">
-            NOSSAS SOLUÇÕES
-          </p>
-          <h2 className="font-display text-4xl md:text-6xl font-bold text-foreground">
-            Como podemos ajudar
-          </h2>
+          <p className="font-body text-sm tracking-[0.3em] text-primary mb-4">O QUE EU FAÇO</p>
+          <h2 className="font-display text-4xl md:text-6xl font-bold text-foreground">Do problema ao produto</h2>
         </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service, index) => (
+          {skills.map((skill, index) => (
             <motion.div
-              key={service.number}
+              key={skill.number}
               initial={{ opacity: 0, y: 50 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: index * 0.1 }}
               className="group relative p-6 sm:p-8 card-gradient border border-border rounded-2xl hover:border-primary/30 transition-all duration-500"
             >
               <div className="absolute top-6 right-6 font-display text-5xl font-bold text-muted/30 group-hover:text-primary/20 transition-colors duration-500">
-                {service.number}
+                {skill.number}
               </div>
 
               <h3 className="font-display text-xl lg:text-2xl font-bold text-foreground mb-4 group-hover:text-primary transition-colors duration-300 pr-8">
-                {service.title}
+                {skill.title}
               </h3>
 
-              <p className="font-body text-sm text-muted-foreground mb-6">
-                {service.description}
-              </p>
+              <p className="font-body text-sm text-muted-foreground mb-6">{skill.description}</p>
 
               <div className="flex flex-wrap gap-2">
-                {service.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="px-2 py-1 text-[10px] font-body text-muted-foreground bg-secondary rounded-full"
-                  >
+                {skill.tags.map((tag) => (
+                  <span key={tag} className="px-2 py-1 text-[10px] font-body text-muted-foreground bg-secondary rounded-full">
                     {tag}
                   </span>
                 ))}

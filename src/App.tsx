@@ -1,13 +1,11 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Index from "./pages/Index.tsx";
 import Projects from "./pages/Projects.tsx";
 import ProjectDetail from "./pages/ProjectDetail.tsx";
-import Services from "./pages/Services.tsx";
-import Products from "./pages/Products.tsx";
 import Blog from "./pages/Blog.tsx";
 import BlogPost from "./pages/BlogPost.tsx";
 import Resume from "./pages/Resume.tsx";
@@ -46,11 +44,13 @@ const App = () => (
               <Route path="/" element={<Index />} />
               <Route path="/projects" element={<Projects />} />
               <Route path="/projects/:slug" element={<ProjectDetail />} />
-              <Route path="/services" element={<Services />} />
-              <Route path="/products" element={<Products />} />
+              {/* Páginas da antiga identidade de agência: a Hex Labs agora é um projeto */}
+              <Route path="/services" element={<Navigate to="/projects/hex-labs" replace />} />
+              <Route path="/products" element={<Navigate to="/projects/hex-labs" replace />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
-              <Route path="/iesu-jafe" element={<Resume />} />
+              <Route path="/curriculo" element={<Resume />} />
+              <Route path="/iesu-jafe" element={<Navigate to="/curriculo" replace />} />
 
               {/* Admin Routes */}
               <Route path="/admin/login" element={<AdminLogin />} />

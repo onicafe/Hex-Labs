@@ -9,9 +9,8 @@ const SEOHead = () => {
         // Default route-based SEO titles
         let tempTitle = undefined;
         if (pathname.includes('/blog')) tempTitle = `Blog`;
-        if (pathname.includes('/projects')) tempTitle = `Portfólio`;
-        if (pathname.includes('/products')) tempTitle = `Produtos`;
-        if (pathname.includes('/resume') || pathname.includes('/iesu-jafe')) tempTitle = `Digital Resume`;
+        if (pathname.includes('/projects')) tempTitle = `Projetos`;
+        if (pathname.includes('/curriculo')) tempTitle = `Currículo`;
 
         // If we are deep inside a dynamic route like /blog/my-post, we skip resetting to defaults
         // because the individual component (BlogPost) will call updateSEO(postTitle) once it fetches the data.
