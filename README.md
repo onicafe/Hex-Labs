@@ -2,7 +2,7 @@
 
 Portfólio pessoal de **Iésu Jafé**, Product Designer, UX Engineer e IA aplicada, em Natal (RN).
 
-O site reúne estudos de caso (meu papel, o problema, o processo e o resultado), o currículo e formas de contato. Os projetos em destaque são o PJe2 Mobile (TRF5) e o Jovem Potiguar (IFRN/Governo do RN), os dois como trabalho voluntário, além de produtos da Dione Solutions e jogos da SpillFabrikken. A Hex Labs, empresa que fundei, aparece como um dos projetos.
+O site reúne estudos de caso (meu papel, o problema, o processo e o resultado), o currículo e formas de contato. Os projetos em destaque são o PJe2 Mobile (TRF5) e o Jovem Potiguar (IFRN/Governo do RN), os dois como trabalho voluntário, além de produtos da Dione Solutions e projetos de automação com IA, como a Clari, um agente no n8n. A Hex Labs, empresa que fundei, aparece como um dos projetos.
 
 ## Tecnologias
 

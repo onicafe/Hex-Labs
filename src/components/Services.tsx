@@ -13,15 +13,15 @@ const skills = [
     number: "02",
     title: "UX Engineering",
     description:
-      "Levo o design até a tela real. Construo interfaces em React, Flutter e Angular e converso com o time de engenharia na mesma língua.",
-    tags: ["React", "TypeScript", "Flutter", "Angular", "Tailwind", "Design systems"],
+      "Levo o design até a tela real. Construo interfaces em React, TypeScript e Flutter e converso com o time de engenharia na mesma língua.",
+    tags: ["React", "TypeScript", "Tailwind CSS", "Flutter", "Supabase", "Design systems"],
   },
   {
     number: "03",
     title: "IA aplicada",
     description:
-      "Uso agentes, LLMs e automações (n8n) no meu processo e em funcionalidades de produto, como as descrições de imóveis geradas por IA na Rede Imobiliária.",
-    tags: ["Agentes", "LLMs", "n8n", "Automação"],
+      "Construo agentes e automações com n8n e LLMs, locais (Ollama) ou por API (OpenRouter). Exemplo: a Clari, agente que agenda consultas de um consultório odontológico.",
+    tags: ["Agentes", "n8n", "Ollama", "OpenRouter", "Automação"],
   },
 ];
 

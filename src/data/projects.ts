@@ -1,9 +1,5 @@
-import polare from "@/assets/projects/polare.png";
-import sigrh from "@/assets/projects/sigrh.png";
-import ucr from "@/assets/projects/ucr-intelbras.jpg";
 import bonno from "@/assets/projects/bonno.png";
 import tertuliano from "@/assets/projects/tertuliano.png";
-import enade from "@/assets/projects/enade.png";
 import spillfabrikken from "@/assets/projects/spillfabrikken.png";
 import pje from "@/assets/projects/pje.png";
 import jovempotiguar from "@/assets/projects/jovempotiguar.png";
@@ -43,12 +39,12 @@ export interface Project {
   slug: string;
   title: string;
   category: string;
-  year: string;
+  /** Vazio quando o ano não está confirmado. */
+  year?: string;
   client: string;
-  image: string;
+  /** Sem imagem, o card mostra uma capa tipográfica. */
+  image?: string;
   featured?: boolean;
-  /** Fora do site até ser confirmado. */
-  hidden?: boolean;
   /** Tipo de vínculo. Fica vazio quando não está confirmado. */
   engagement?: Engagement;
   /** Meu papel no projeto, em uma linha. */
@@ -73,7 +69,7 @@ const pjeImg = (n: number, caption?: string): CaseImage => ({ src: `/projects/pj
 const jpImg = (n: number, caption?: string): CaseImage => ({ src: `/projects/jovem-potiguar/image${n}.png`, caption });
 const nexusImg = (n: number, caption?: string): CaseImage => ({ src: `/projects/nexus-imobiliaria/image${n}.png`, caption });
 
-const allProjects: Project[] = [
+export const projects: Project[] = [
   {
     slug: "pje",
     title: "PJe2 Mobile",
@@ -198,72 +194,34 @@ const allProjects: Project[] = [
     ],
   },
   {
-    slug: "intelbras-ucr",
-    title: "Intelbras UCR",
-    category: "Front-end · Software de gravação de chamadas",
-    year: "2021",
-    client: "Intelbras",
-    image: ucr,
-    // Não confirmado no CV novo: fica oculto até o Iésu confirmar.
-    hidden: true,
-    role: "Desenvolvedor front-end",
+    slug: "clari",
+    title: "Clari",
+    category: "IA aplicada · Agente no n8n",
+    client: "Atendimento de consultório odontológico",
+    featured: true,
+    role: "Criação e desenvolvimento",
     summary:
-      "Interface do UCR, o gravador de chamadas corporativo da Intelbras que trabalha junto com a central UnniTI.",
+      "Agente de IA no n8n que atende pacientes de um consultório odontológico: cadastra, agenda, remarca e cancela consultas no Google Calendar e no Google Sheets, com um LLM rodando localmente no Ollama.",
     problem:
-      "Empresas usam o UCR para gravar e consultar chamadas em tempo real. A interface precisava ser simples para quem opera no dia a dia e confiável para quem depende das gravações por segurança.",
+      "Num consultório pequeno, boa parte do dia vai em mensagens repetidas: cadastrar paciente novo, achar um horário livre, remarcar, cancelar. É trabalho que segue regras claras e que um agente pode fazer, desde que nunca marque duas pessoas no mesmo horário e deixe os dados organizados para a equipe.",
     process: [
       {
-        title: "Interface em React",
-        text: "Desenvolvi a interface em React, com Context API para o estado da aplicação. O foco foi manter a tela responsiva com dados chegando em tempo real, sem atrasos perceptíveis para quem usa.",
-      },
-    ],
-    result: ["O UCR é um produto comercializado pela Intelbras para ambientes corporativos."],
-    tools: ["React", "Context API", "TypeScript"],
-    links: [
-      {
-        label: "Página do produto na Intelbras",
-        url: "https://www.intelbras.com/pt-br/grave-chamadas-com-alta-qualidade-em-ambientes-corporativos-ucr",
-      },
-    ],
-  },
-  {
-    slug: "ufrn",
-    title: "Portais da UFRN",
-    category: "Front-end · Sistemas institucionais",
-    year: "2020–2022",
-    client: "UFRN — Universidade Federal do Rio Grande do Norte",
-    image: polare,
-    // Não confirmado no CV novo: fica oculto até o Iésu confirmar.
-    hidden: true,
-    role: "Desenvolvedor front-end",
-    summary:
-      "Portais públicos de três sistemas da UFRN: Polare, SIGRH e Enade. Interfaces usadas por servidores, alunos e pelo público em geral.",
-    problem:
-      "Sistemas institucionais concentram muita informação e são usados por perfis muito diferentes. O desafio comum aos três portais foi organizar esse conteúdo de forma clara e acessível, integrada aos sistemas Java que já existiam na universidade.",
-    process: [
-      {
-        title: "Polare — portal público",
-        text: "Interface em Angular com PrimeNG para reunir serviços institucionais num só lugar, com atenção a usabilidade e acessibilidade.",
-        images: [{ src: polare, caption: "Polare" }],
+        title: "Mapear as conversas",
+        text: "Separei as quatro intenções principais (cadastro, agendamento, remarcação e cancelamento) e o que o agente precisa saber em cada uma antes de agir.",
       },
       {
-        title: "SIGRH — portal público",
-        text: "Portal responsivo do Sistema Integrado de Gestão de Recursos Humanos, integrado ao back-end Java, com foco em transparência.",
-        images: [{ src: sigrh, caption: "SIGRH" }],
+        title: "Fluxos no n8n",
+        text: "Cada intenção vira um fluxo no n8n. A agenda fica no Google Calendar e o cadastro de pacientes no Google Sheets, onde a equipe já trabalha.",
       },
       {
-        title: "Enade UFRN",
-        text: "Portal informativo para alunos e coordenadores, com arquitetura da informação pensada para encontrar rápido o que importa sobre o exame.",
-        images: [{ src: enade, caption: "Enade UFRN" }],
+        title: "LLM local",
+        text: "O modelo de linguagem roda localmente com o Ollama e é ele quem interpreta a mensagem do paciente e escolhe o fluxo certo.",
       },
     ],
-    result: ["Os três portais estão no ar e são mantidos pela UFRN."],
-    tools: ["Angular", "PrimeNG", "Java (integração)", "HTML/CSS"],
-    links: [
-      { label: "Polare", url: "https://polare.sti.ufrn.br/" },
-      { label: "SIGRH", url: "https://sigrh.ufrn.br/publico/home" },
-      { label: "Enade UFRN", url: "https://enade.ufrn.br/" },
+    result: [
+      "Agente funcional que cadastra pacientes e agenda, remarca e cancela consultas direto no Google Calendar e no Google Sheets.",
     ],
+    tools: ["n8n", "Ollama", "Google Calendar", "Google Sheets"],
   },
   {
     slug: "my-treasure",
@@ -404,7 +362,6 @@ const allProjects: Project[] = [
     year: "2021",
     client: "SpillFabrikken (Trondheim, Noruega)",
     image: spillfabrikken,
-    featured: true,
     role: "Product & Game Designer",
     summary: "Jogos de tabuleiro e cartas, do conceito e protótipo até a produção, com identidade visual, embalagens e material de divulgação.",
     problem:
@@ -419,6 +376,24 @@ const allProjects: Project[] = [
     tools: ["Illustrator", "Photoshop", "3D", "Prototipagem"],
     links: [{ label: "Site da SpillFabrikken", url: "https://www.spillfabrikken.com/" }],
     gallery: spillGallery,
+  },
+  {
+    slug: "canal-de-videos-automatico",
+    title: "Canal de vídeos automático",
+    category: "IA aplicada · Automação de conteúdo",
+    client: "Projeto de automação",
+    role: "Criação e desenvolvimento",
+    summary:
+      "Pipeline que produz e publica vídeos motivacionais no YouTube sozinho: um LLM escreve as frases, o FFmpeg monta o vídeo e a API do YouTube faz o upload.",
+    problem:
+      "Manter um canal ativo exige produzir e publicar com regularidade. A ideia foi tirar o trabalho manual do caminho e ligar as etapas, do texto ao vídeo publicado.",
+    process: [
+      { title: "Texto", text: "As frases são geradas por um LLM acessado pelo OpenRouter." },
+      { title: "Montagem", text: "O FFmpeg junta texto, imagem e áudio num vídeo pronto para publicar." },
+      { title: "Publicação", text: "O upload é feito pela API do YouTube, sem passar pelo estúdio manualmente." },
+    ],
+    result: ["Canal alimentado de ponta a ponta pelo pipeline, do texto ao vídeo publicado."],
+    tools: ["OpenRouter", "LLMs", "FFmpeg", "YouTube Data API"],
   },
   {
     slug: "tertuliano-advocacia",
@@ -450,19 +425,6 @@ const allProjects: Project[] = [
   },
 ];
 
-// Slugs antigos que viraram um único estudo de caso.
-export const slugAliases: Record<string, string> = {
-  "polare-portal": "ufrn",
-  "sigrh-portal": "ufrn",
-  "enade-ufrn": "ufrn",
-};
-
-export const projects = allProjects.filter((p) => !p.hidden);
-
 export const featuredProjects = projects.filter((p) => p.featured);
 
-export const getProject = (slug: string | undefined) => {
-  if (!slug) return undefined;
-  const resolved = slugAliases[slug] ?? slug;
-  return projects.find((p) => p.slug === resolved);
-};
+export const getProject = (slug: string | undefined) => projects.find((p) => p.slug === slug);

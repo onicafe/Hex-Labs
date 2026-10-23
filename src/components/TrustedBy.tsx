@@ -8,7 +8,6 @@ import rnLogo from "@/assets/clients/rn.png";
 import spillLogo from "@/assets/clients/spillfabrikken.png";
 
 const clients = [
-    // UFRN e Intelbras ficam fora até o Iésu confirmar esses trabalhos.
     { name: "TRF5", logo: trf5Logo },
     { name: "IFRN", logo: ifrnLogo },
     { name: "Governo do RN", logo: rnLogo },

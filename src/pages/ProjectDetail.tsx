@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { updateSEO } from "@/lib/seo";
 import { getProject, projects, type CaseImage } from "@/data/projects";
+import ProjectCover from "@/components/ProjectCover";
 
 const SectionTitle = ({ children }: { children: React.ReactNode }) => (
   <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-6">{children}</h2>
@@ -66,7 +67,7 @@ const ProjectDetail = () => {
                 <p className="font-body text-sm tracking-[0.3em] text-primary mb-4">{project.category.toUpperCase()}</p>
                 <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-bold text-foreground">{project.title}</h1>
               </div>
-              <span className="font-display text-5xl md:text-7xl font-bold text-muted/40">{project.year}</span>
+              {project.year && <span className="font-display text-5xl md:text-7xl font-bold text-muted/40">{project.year}</span>}
             </div>
 
             <p className="font-body text-lg md:text-xl text-muted-foreground max-w-3xl leading-relaxed">{project.summary}</p>
@@ -83,7 +84,7 @@ const ProjectDetail = () => {
       >
         <div className="container mx-auto px-6 lg:px-12">
           <div className="relative overflow-hidden rounded-3xl aspect-[16/9] bg-card border border-white/5">
-            <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
+            <ProjectCover project={project} />
           </div>
         </div>
       </motion.section>

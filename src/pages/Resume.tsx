@@ -10,9 +10,9 @@ import { profile } from "@/data/profile";
 // Conteúdo alinhado ao CV de Produto/UX (out/2026).
 const tools = [
     { group: "Design", items: ["Figma", "Adobe XD", "Illustrator", "Photoshop", "Design systems", "Prototipagem"] },
-    { group: "Desenvolvimento", items: ["React", "TypeScript", "Flutter", "Angular", "Next.js", "Tailwind CSS", "Supabase", "Git"] },
+    { group: "Desenvolvimento", items: ["React", "TypeScript", "Tailwind CSS", "Flutter", "Supabase"] },
     { group: "Pesquisa e processo", items: ["Discovery", "Pesquisa com usuários", "Jornadas e fluxos", "Testes de usabilidade", "Acessibilidade"] },
-    { group: "IA e automação", items: ["Agentes de IA", "LLMs aplicados a produto", "n8n"] },
+    { group: "IA e automação", items: ["Agentes de IA", "n8n", "LLMs (Ollama, OpenRouter)", "FFmpeg", "Google APIs"] },
 ];
 
 type Experience = {
@@ -198,9 +198,9 @@ const Resume = () => {
 
                         <p className="font-body text-lg text-muted-foreground leading-relaxed">
                             Product Designer com mais de 7 anos de experiência que também escreve código. Desenhei e entreguei produtos
-                            para clientes no Japão, na Noruega e em Portugal, e colaborei como voluntário em projetos públicos do TRF5 e do
-                            Governo do RN. Uno UI/UX, design systems e front-end (React, Flutter, Angular) com automação e IA (agentes,
-                            n8n). Atuo do discovery ao produto publicado. Inglês bilíngue.
+                            para o TRF5 e o Governo do RN, além de clientes no Japão, na Noruega e em Portugal. Uno UI/UX, design systems e
+                            front-end (React, TypeScript, Flutter) com automação e IA (agentes, n8n). Atuo do discovery ao produto
+                            publicado. Inglês bilíngue.
                         </p>
                     </motion.div>
 
