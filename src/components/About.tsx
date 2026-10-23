@@ -55,7 +55,7 @@ const About = () => {
               ajudo a colocá-la de pé.
             </p>
             <p className="font-body text-muted-foreground mb-12 leading-relaxed">
-              Já trabalhei com organizações do Brasil, do Japão e da Noruega, e fiz trabalho voluntário em projetos públicos que me
+              Já trabalhei com organizações do Brasil, do Japão, da Noruega e de Portugal, e fiz trabalho voluntário em projetos públicos que me
               ensinaram muito sobre acessibilidade e sobre desenhar para quem tem pouca familiaridade com tecnologia.{" "}
               <Link to="/curriculo" className="text-primary hover:underline">
                 Veja o currículo completo
@@ -73,8 +73,8 @@ const About = () => {
               <p className="font-body text-xs tracking-[0.2em] text-primary mb-2">EMPRESA QUE FUNDEI</p>
               <h3 className="font-display text-xl font-bold text-foreground mb-2">Hex Labs</h3>
               <p className="font-body text-sm text-muted-foreground mb-4">
-                Fundei a Hex Labs para oferecer design e desenvolvimento de software. Para conquistar os primeiros clientes, criei dois
-                produtos próprios: a Rede Imobiliária e o EcoLaw.
+                Fundei a Hex Labs, um estúdio de produtos digitais com IA. Para conquistar os primeiros clientes, estou criando dois
+                produtos próprios: a Rede Imobiliária e o Lexus System.
               </p>
               <Link
                 to="/projects/hex-labs"

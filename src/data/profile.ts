@@ -3,6 +3,7 @@ export const profile = {
   name: "Iésu Jafé",
   title: "Product Designer · UX Engineer · IA aplicada",
   location: "Natal, RN — Brasil",
+  availability: "Disponível para remoto",
   email: "jafe.iesu@gmail.com",
   phoneLabel: "(84) 99903-4089",
   phoneHref: "https://wa.me/5584999034089",
@@ -13,5 +14,5 @@ export const profile = {
   // Enquanto estiver vazio, o botão "Baixar CV" leva à página de currículo, que tem opção de salvar em PDF.
   cvPdfUrl: "",
   seoDescription:
-    "Portfólio de Iésu Jafé, Product Designer e UX Engineer em Natal, RN. Estudos de caso de projetos para TRF5, Jovem Potiguar (IFRN/Governo do RN), Intelbras, UFRN e Dione.",
+    "Portfólio de Iésu Jafé, Product Designer e UX Engineer em Natal, RN. Estudos de caso de projetos para TRF5, Jovem Potiguar (IFRN/Governo do RN), Dione Solutions e SpillFabrikken.",
 };

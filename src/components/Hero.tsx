@@ -52,7 +52,7 @@ const Hero = () => {
           className="inline-flex items-center gap-2 font-body text-xs sm:text-sm tracking-[0.25em] text-primary mb-6"
         >
           <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-          DISPONÍVEL PARA NOVAS OPORTUNIDADES · {profile.location.split(" — ")[0].toUpperCase()}
+          {profile.availability.toUpperCase()} · {profile.location.split(" — ")[0].toUpperCase()}
         </motion.p>
 
         <motion.h1
@@ -79,8 +79,8 @@ const Hero = () => {
           transition={{ duration: 0.8, delay: 0.8 }}
           className="font-body text-lg md:text-xl text-white max-w-2xl mx-auto mb-12"
         >
-          Desenho e construo produtos digitais, da pesquisa com usuários ao código. Trabalhei em sistemas da UFRN, no software
-          UCR da Intelbras e em produtos da Dione, e colaborei como voluntário no PJe2 Mobile do TRF5 e no Jovem Potiguar.
+          Product Designer com mais de 7 anos de experiência que também escreve código. Desenhei produtos para clientes no
+          Japão, na Noruega e em Portugal, e colaborei como voluntário no PJe2 Mobile do TRF5 e no Jovem Potiguar, do Governo do RN.
         </motion.p>
 
         <motion.div

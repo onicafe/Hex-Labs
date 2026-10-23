@@ -2,17 +2,14 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 
 import ifrnLogo from "@/assets/clients/ifrn.png";
-import ufrnLogo from "@/assets/clients/ufrn.png";
 import trf5Logo from "@/assets/clients/trf5.png";
 import dioneLogo from "@/assets/clients/dione.png";
-import intelbrasLogo from "@/assets/clients/intelbras.png";
 import rnLogo from "@/assets/clients/rn.png";
 import spillLogo from "@/assets/clients/spillfabrikken.png";
 
 const clients = [
-    { name: "UFRN", logo: ufrnLogo },
+    // UFRN e Intelbras ficam fora até o Iésu confirmar esses trabalhos.
     { name: "TRF5", logo: trf5Logo },
-    { name: "Intelbras", logo: intelbrasLogo },
     { name: "IFRN", logo: ifrnLogo },
     { name: "Governo do RN", logo: rnLogo },
     { name: "Dione", logo: dioneLogo },

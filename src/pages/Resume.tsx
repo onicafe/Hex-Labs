@@ -7,18 +7,19 @@ import { useEffect } from "react";
 import { updateSEO } from "@/lib/seo";
 import { profile } from "@/data/profile";
 
+// Conteúdo alinhado ao CV de Produto/UX (out/2026).
 const tools = [
-    { group: "Design", items: ["Figma", "Adobe XD", "Illustrator", "Photoshop", "Prototipagem", "Design systems"] },
-    { group: "Desenvolvimento", items: ["React", "TypeScript", "Next.js", "Angular", "Tailwind CSS", "Framer Motion", "Supabase", "Git"] },
-    { group: "Pesquisa e processo", items: ["Pesquisa com usuários", "Jornadas e fluxos", "Testes de usabilidade", "Acessibilidade", "Design Thinking"] },
-    { group: "IA", items: ["LLMs aplicados a produto", "Automação de processos"] },
+    { group: "Design", items: ["Figma", "Adobe XD", "Illustrator", "Photoshop", "Design systems", "Prototipagem"] },
+    { group: "Desenvolvimento", items: ["React", "TypeScript", "Flutter", "Angular", "Next.js", "Tailwind CSS", "Supabase", "Git"] },
+    { group: "Pesquisa e processo", items: ["Discovery", "Pesquisa com usuários", "Jornadas e fluxos", "Testes de usabilidade", "Acessibilidade"] },
+    { group: "IA e automação", items: ["Agentes de IA", "LLMs aplicados a produto", "n8n"] },
 ];
 
 type Experience = {
     role: string;
     company: string;
     period: string;
-    description: string;
+    bullets: string[];
     volunteer?: boolean;
     link?: string;
 };
@@ -26,73 +27,106 @@ type Experience = {
 const experience: Experience[] = [
     {
         role: "Fundador",
-        company: "Hex Labs (Natal, Brasil)",
-        period: "Mar 2026 – presente",
-        description:
-            "Fundei uma empresa de design e desenvolvimento de software. Para atrair os primeiros clientes, criei dois produtos próprios: a Rede Imobiliária (Nexus Imobiliária) e o EcoLaw, para escritórios de advocacia.",
+        company: "Hex Labs · Natal, RN",
+        period: "Mar 2026 – atual",
+        bullets: [
+            "Fundei um estúdio de produtos digitais com IA e conduzo design, desenvolvimento e prospecção de clientes.",
+            "Construí o site e o CMS da empresa (React, TypeScript, Tailwind, Supabase), com blog e painel administrativo.",
+            "Desenvolvo a Rede Imobiliária, SaaS white-label com descrições de imóveis geradas por IA, e o Lexus System, gestão para escritórios de advocacia.",
+        ],
         link: "/projects/hex-labs",
     },
     {
-        role: "Customer Experience (voluntário)",
-        company: "AIESEC no Brasil (Curitiba)",
+        role: "Customer Experience",
+        company: "AIESEC no Brasil · Curitiba, PR (remoto)",
         period: "Mar 2025 – Dez 2025",
-        description:
-            "Trabalho voluntário em Customer Experience, apoiando a integração de voluntários internacionais.",
+        bullets: [
+            "Conduzi a experiência de voluntários internacionais em projetos com empresas parceiras, do onboarding à conclusão.",
+            "Resolvi demandas de participantes de diferentes países e culturas, em português e inglês.",
+        ],
         volunteer: true,
     },
     {
-        role: "UX/UI Designer (voluntário)",
-        company: "Jovem Potiguar — IFRN e SETHAS / Governo do RN",
+        role: "UI/UX Designer",
+        company: "PJe2 Mobile, TRF5 · Remoto",
         period: "2024",
-        description:
-            "Pesquisa, fluxos, wireframes, testes de usabilidade e telas da plataforma de inscrição que leva jovens do CadÚnico a cursos de qualificação do IFRN.",
-        volunteer: true,
-        link: "/projects/jovem-potiguar",
-    },
-    {
-        role: "Colaborador em UI/UX (voluntário)",
-        company: "PJe2 Mobile — TRF5",
-        period: "2024",
-        description:
-            "Ajudei um amigo que integrava a equipe oficial do projeto no TRF5 com a interface do novo app para magistrados. Minha colaboração foi registrada no TCC dele.",
+        bullets: [
+            "Contribuí com o redesign de UX do app oficial de magistrados da Justiça Federal, integrado à base do CNJ, ajudando um amigo que integrava a equipe oficial. Trabalho citado em TCC.",
+            "Resultados do projeto como um todo: migração do app para Flutter (Clean Architecture, BLoC), correção de 347 inconformidades de código e redução de mais de 50% nos cliques.",
+        ],
         volunteer: true,
         link: "/projects/pje",
     },
     {
-        role: "Communications Expert",
-        company: "TAP Air Portugal (Lisboa, Portugal)",
+        role: "UI/UX Designer",
+        company: "Jovem Potiguar, Governo do RN / IFRN · Natal, RN",
+        period: "2024",
+        bullets: [
+            "Desenhei o fluxo de inscrição de jovens do CadÚnico em cursos técnicos do IFRN, em etapas acessíveis em qualquer dispositivo.",
+            "O programa, parceria entre a SETHAS e o IFRN, foi noticiado pelo G1.",
+        ],
+        volunteer: true,
+        link: "/projects/jovem-potiguar",
+    },
+    {
+        role: "Communications Specialist",
+        company: "TAP Air Portugal · Lisboa, Portugal",
         period: "Fev 2023 – Ago 2023",
-        description: "Apoio às operações com gestão de conteúdo em sistemas internos (CMS) e automações.",
+        bullets: [
+            "Gerenciei o CMS da companhia para rastreamento de dados e automação de processos.",
+            "Dei suporte e manutenção aos sistemas, garantindo a integridade das informações operacionais.",
+        ],
+    },
+    {
+        role: "Designer de Produto (freelancer)",
+        company: "Oni · Remoto",
+        period: "Jun 2018 – Jun 2023",
+        bullets: ["Projetos de UI/UX, design gráfico e identidade visual para clientes no Brasil e no exterior."],
     },
     {
         role: "Product Designer",
-        company: "Dione (Tóquio, Japão)",
+        company: "Dione Solutions · Tóquio, Japão (remoto)",
         period: "Fev 2022 – Mai 2023",
-        description:
-            "Design de produto para sistemas de parceiros, entre eles o app MyTreasure e o dashboard de gestão hoteleira Hosuto.",
+        bullets: [
+            "Desenhei o dashboard de gestão de uma rede de 12 hotéis (reservas, limpeza, cozinha e estoque), com ganho de 30% em eficiência.",
+            "Projetei o MyTreasure, rede social para colecionadores publicada na Google Play, com posts configuráveis e módulo de lances.",
+            "Produzi materiais de apresentação e gerenciei redes sociais.",
+        ],
         link: "/projects/my-treasure",
     },
     {
-        role: "Product & Game Designer",
-        company: "SpillFabrikken (Trondheim, Noruega)",
+        role: "Product e Game Designer",
+        company: "SpillFabrikken · Trondheim, Noruega (remoto)",
         period: "Abr 2020 – Set 2021",
-        description: "Concepção, protótipos interativos e produção visual de jogos e experiências para mídias físicas e digitais.",
+        bullets: [
+            "Desenvolvi jogos de tabuleiro e cartas do conceito e protótipo até a produção.",
+            "Criei identidade visual, embalagens e material de divulgação, reduzindo componentes para baixar peso e custo.",
+        ],
         link: "/projects/spillfabrikken",
     },
     {
-        role: "Product Designer e desenvolvedor freelance",
-        company: "Oni",
-        period: "Jun 2018 – Jun 2023",
-        description: "Design de produto, sites e desenvolvimento front-end para clientes diversos, como freelancer.",
+        role: "Designer Gráfico",
+        company: "SESAP-RN · Natal, RN",
+        period: "Abr 2019 – Jul 2019",
+        bullets: ["Criei campanhas de saúde pública, newsletters e identidades de eventos."],
     },
 ];
 
 const education = [
-    { course: "Ciência da Computação (bacharelado)", inst: "Universidade Potiguar", year: "Jan 2024" },
-    { course: "Desenvolvimento para Metaverso (pós-graduação)", inst: "Centro Universitário UNA", year: "Mai 2023" },
-    { course: "Game Design & Development", inst: "EBAC — Escola Britânica de Artes Criativas e Tecnologia", year: "Out 2022" },
-    { course: "Design Gráfico", inst: "Universidade Potiguar", year: "2017 – 2019" },
+    { course: "Bacharelado em Ciência da Computação", inst: "Universidade Potiguar", year: "2024 – 2026 (trancado para reingresso)" },
+    { course: "Pós-graduação em Desenvolvimento de Metaverso", inst: "Centro Universitário UNA", year: "2023" },
+    { course: "Game Design e Desenvolvimento de Jogos (curso)", inst: "EBAC — Escola Britânica de Artes Criativas e Tecnologia", year: "2022" },
+    { course: "Pós-graduação em Marketing Digital", inst: "Faculdade Metropolitana", year: "2020" },
+    { course: "Bacharelado em Design Gráfico", inst: "Universidade Potiguar", year: "2017 – 2019" },
 ];
+
+const certifications = [
+    "Microsoft Certified: Azure Fundamentals",
+    "Análise Avançada de Imagens e Texto com IA na AWS (NEXA)",
+    "Explorando uma Carreira em Design de Experiência do Usuário",
+];
+
+const languages = ["Português (nativo)", "Inglês (bilíngue)"];
 
 const sectionTitle =
     "font-display font-bold text-foreground mb-10 pb-4 border-b border-white/10 uppercase tracking-widest text-sm print:mb-4 print:border-black/20";
@@ -155,7 +189,7 @@ const Resume = () => {
                                 </h1>
                                 <p className="font-body text-xl md:text-2xl text-primary font-medium">{profile.title}</p>
                                 <div className="flex flex-wrap gap-x-6 gap-y-2 mt-4 font-body text-sm text-muted-foreground">
-                                    <span className="inline-flex items-center gap-2"><MapPin className="w-4 h-4" />{profile.location}</span>
+                                    <span className="inline-flex items-center gap-2"><MapPin className="w-4 h-4" />{profile.location} · {profile.availability}</span>
                                     <a href={`mailto:${profile.email}`} className="inline-flex items-center gap-2 hover:text-primary"><Mail className="w-4 h-4" />{profile.email}</a>
                                     <a href={profile.linkedin} className="inline-flex items-center gap-2 hover:text-primary"><Linkedin className="w-4 h-4" />linkedin.com/in/iesujafe</a>
                                 </div>
@@ -163,10 +197,10 @@ const Resume = () => {
                         </div>
 
                         <p className="font-body text-lg text-muted-foreground leading-relaxed">
-                            Sou Product Designer e UX Engineer. Trabalho do entendimento do problema com quem usa até a interface pronta em
-                            código. Já atuei em projetos no Brasil, no Japão, na Noruega e em Portugal, de sistemas da UFRN e do software
-                            UCR da Intelbras a apps para clientes da Dione. Também colaborei como voluntário em projetos públicos, como o
-                            PJe2 Mobile do TRF5 e a plataforma do Jovem Potiguar.
+                            Product Designer com mais de 7 anos de experiência que também escreve código. Desenhei e entreguei produtos
+                            para clientes no Japão, na Noruega e em Portugal, e colaborei como voluntário em projetos públicos do TRF5 e do
+                            Governo do RN. Uno UI/UX, design systems e front-end (React, Flutter, Angular) com automação e IA (agentes,
+                            n8n). Atuo do discovery ao produto publicado. Inglês bilíngue.
                         </p>
                     </motion.div>
 
@@ -215,7 +249,14 @@ const Resume = () => {
                                             )}
                                         </h3>
                                         <h4 className="font-body text-lg text-primary mb-3 print:mb-1 print:text-base">{xp.company}</h4>
-                                        <p className="font-body text-base text-muted-foreground leading-relaxed">{xp.description}</p>
+                                        <ul className="space-y-2 print:space-y-1">
+                                            {xp.bullets.map((b) => (
+                                                <li key={b} className="flex gap-3 font-body text-base text-muted-foreground leading-relaxed">
+                                                    <span className="mt-2.5 w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
+                                                    <span>{b}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
                                         {xp.link && (
                                             <Link to={xp.link} className="inline-block mt-3 font-body text-sm text-foreground hover:text-primary transition-colors print:hidden">
                                                 Ver estudo de caso →
@@ -246,6 +287,31 @@ const Resume = () => {
                                     <span className="self-start font-mono text-xs text-muted-foreground">{edu.year}</span>
                                 </div>
                             ))}
+                        </div>
+                    </motion.div>
+
+                    {/* Certifications & languages */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 50 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.6 }}
+                        className="mt-24 grid md:grid-cols-2 gap-12 print:mt-8 print:grid-cols-2 print:gap-6 print:break-inside-avoid"
+                    >
+                        <div>
+                            <h2 className={sectionTitle}>Certificações</h2>
+                            <ul className="space-y-2">
+                                {certifications.map((c) => (
+                                    <li key={c} className="font-body text-muted-foreground">{c}</li>
+                                ))}
+                            </ul>
+                        </div>
+                        <div>
+                            <h2 className={sectionTitle}>Idiomas</h2>
+                            <ul className="space-y-2">
+                                {languages.map((l) => (
+                                    <li key={l} className="font-body text-muted-foreground">{l}</li>
+                                ))}
+                            </ul>
                         </div>
                     </motion.div>
 

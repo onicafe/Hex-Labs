@@ -42,8 +42,8 @@ const Contact = () => {
             <p className="font-body text-sm tracking-[0.3em] text-primary mb-4">CONTATO</p>
             <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-8">Vamos conversar?</h2>
             <p className="font-body text-lg text-muted-foreground mb-12">
-              Estou buscando uma vaga como Product Designer, UX Engineer ou em produtos com IA. Se você recruta para uma posição
-              assim, me escreva.
+              Estou buscando uma vaga como Product Designer, UX Engineer ou em produtos com IA. Moro em Natal e estou disponível
+              para trabalho remoto. Se você recruta para uma posição assim, me escreva.
             </p>
 
             <div className="space-y-6">

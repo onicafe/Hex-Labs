@@ -47,6 +47,8 @@ export interface Project {
   client: string;
   image: string;
   featured?: boolean;
+  /** Fora do site até ser confirmado. */
+  hidden?: boolean;
   /** Tipo de vínculo. Fica vazio quando não está confirmado. */
   engagement?: Engagement;
   /** Meu papel no projeto, em uma linha. */
@@ -71,7 +73,7 @@ const pjeImg = (n: number, caption?: string): CaseImage => ({ src: `/projects/pj
 const jpImg = (n: number, caption?: string): CaseImage => ({ src: `/projects/jovem-potiguar/image${n}.png`, caption });
 const nexusImg = (n: number, caption?: string): CaseImage => ({ src: `/projects/nexus-imobiliaria/image${n}.png`, caption });
 
-export const projects: Project[] = [
+const allProjects: Project[] = [
   {
     slug: "pje",
     title: "PJe2 Mobile",
@@ -81,7 +83,7 @@ export const projects: Project[] = [
     image: pje,
     featured: true,
     engagement: "Voluntário",
-    role: "Colaborador voluntário em UI/UX",
+    role: "UI/UX Designer (voluntário)",
     summary:
       "Redesign do app que magistrados da Justiça Federal usam para revisar e assinar minutas. Colaborei de forma voluntária com a interface, ajudando um amigo que fazia parte da equipe oficial do projeto no TRF5.",
     credits:
@@ -124,7 +126,8 @@ export const projects: Project[] = [
     result: [
       "Nova interface implementada pela equipe no app, com login por biometria, pareamento guiado, filtros múltiplos e assinatura em lote mais direta.",
       "O trabalho foi documentado no TCC de um integrante da equipe, com registro da minha colaboração.",
-      "Não houve medição formal de tempo por tarefa. O próprio TCC recomenda, como próximo passo, testes de usabilidade com magistrados e métricas como SUS e taxa de sucesso.",
+      "Resultados do projeto como um todo, não só da minha parte: o app migrou para Flutter (Clean Architecture e BLoC), as 347 inconformidades de código apontadas na análise foram corrigidas e os fluxos principais passaram a exigir mais de 50% menos cliques.",
+      "Como próximo passo, o TCC recomenda testes de usabilidade com magistrados e métricas como SUS e taxa de sucesso por tarefa.",
     ],
     tools: ["Adobe XD", "Figma", "Illustrator", "Photoshop"],
     links: [
@@ -148,9 +151,9 @@ export const projects: Project[] = [
     image: jovempotiguar,
     featured: true,
     engagement: "Voluntário",
-    role: "UX/UI Designer (voluntário)",
+    role: "UI/UX Designer (voluntário)",
     summary:
-      "Plataforma de inscrição que leva jovens do CadÚnico a cursos de qualificação do IFRN. Trabalhei como voluntário na pesquisa, nos fluxos e nas telas.",
+      "Plataforma de inscrição que leva jovens do CadÚnico a cursos de qualificação do IFRN. Como voluntário, desenhei o fluxo de inscrição em etapas acessíveis em qualquer dispositivo.",
     credits:
       "O programa é uma parceria entre o IFRN e a Secretaria de Estado do Trabalho, da Habitação e da Assistência Social (SETHAS). Atuei como voluntário no design da plataforma de inscrição.",
     problem:
@@ -201,7 +204,8 @@ export const projects: Project[] = [
     year: "2021",
     client: "Intelbras",
     image: ucr,
-    featured: true,
+    // Não confirmado no CV novo: fica oculto até o Iésu confirmar.
+    hidden: true,
     role: "Desenvolvedor front-end",
     summary:
       "Interface do UCR, o gravador de chamadas corporativo da Intelbras que trabalha junto com a central UnniTI.",
@@ -229,7 +233,8 @@ export const projects: Project[] = [
     year: "2020–2022",
     client: "UFRN — Universidade Federal do Rio Grande do Norte",
     image: polare,
-    featured: true,
+    // Não confirmado no CV novo: fica oculto até o Iésu confirmar.
+    hidden: true,
     role: "Desenvolvedor front-end",
     summary:
       "Portais públicos de três sistemas da UFRN: Polare, SIGRH e Enade. Interfaces usadas por servidores, alunos e pelo público em geral.",
@@ -265,7 +270,7 @@ export const projects: Project[] = [
     title: "MyTreasure",
     category: "Product Design · App social",
     year: "2023",
-    client: "Dione (Japão)",
+    client: "Dione Solutions (Tóquio, Japão)",
     image: prism,
     featured: true,
     role: "Product Designer",
@@ -289,10 +294,11 @@ export const projects: Project[] = [
     title: "Hosuto — gestão hoteleira",
     category: "Product Design · Dashboard",
     year: "2022",
-    client: "Dione (Japão)",
+    client: "Dione Solutions (Tóquio, Japão)",
     image: hosuto,
+    featured: true,
     role: "Product Designer",
-    summary: "Dashboard para as equipes de uma rede de hotéis gerenciarem limpeza, reservas, cozinha e estoque.",
+    summary: "Dashboard para as equipes de uma rede de 12 hotéis gerenciarem reservas, limpeza, cozinha e estoque.",
     problem:
       "O trabalho num hotel é presencial e corrido. A ferramenta digital precisava ajudar sem atrapalhar: informação fácil de ler e organizada conforme o que cada equipe precisa ver.",
     process: [
@@ -301,7 +307,10 @@ export const projects: Project[] = [
         text: "Compactei as informações e distribuí os itens conforme a rotina de cada equipe, para que cada pessoa encontre rápido o que é da sua função.",
       },
     ],
-    result: ["Sistema de uso interno, não disponível publicamente."],
+    result: [
+      "Usado pelas equipes de uma rede de 12 hotéis, com ganho de 30% em eficiência.",
+      "Sistema de uso interno, não disponível publicamente.",
+    ],
     tools: ["Figma"],
     gallery: Array.from({ length: 11 }, (_, i) => `/projects/hosuto/${i + 1}.png`),
   },
@@ -312,26 +321,31 @@ export const projects: Project[] = [
     year: "2026",
     client: "Hex Labs",
     image: "/projects/nexus-imobiliaria/hero.png",
+    featured: true,
     engagement: "Fundador",
     role: "Fundador",
     summary:
-      "Empresa de design e desenvolvimento de software que fundei. Para atrair os primeiros clientes, criei dois produtos próprios: a Rede Imobiliária e o EcoLaw.",
+      "Estúdio de produtos digitais com IA que fundei. Conduzo o design, o desenvolvimento e a prospecção de clientes. Para atrair os primeiros, estou criando dois produtos próprios: a Rede Imobiliária e o Lexus System.",
     problem:
       "Uma empresa nova não tem portfólio para mostrar. Em vez de esperar o primeiro cliente, decidi construir produtos completos para nichos que eu conhecia, e usá-los como prova do que a empresa sabe fazer.",
     process: [
       {
+        title: "Site e CMS da empresa",
+        text: "Construí o site e o CMS da Hex Labs em React, TypeScript, Tailwind e Supabase, com blog e painel administrativo.",
+      },
+      {
         title: "Rede Imobiliária (Nexus Imobiliária)",
-        text: "Plataforma para imobiliárias: painel para corretores cadastrarem e editarem imóveis, busca com mapa para o público, analytics dos anúncios e controle de permissões por equipe. O estudo de caso completo está na página da Nexus Imobiliária.",
+        text: "SaaS white-label para imobiliárias, com descrições de imóveis geradas por IA: painel para corretores cadastrarem e editarem imóveis, busca com mapa para o público, analytics dos anúncios e controle de permissões por equipe. O estudo de caso completo está na página da Nexus Imobiliária.",
         images: [nexusImg(31, "Painel do corretor"), nexusImg(18, "Busca com mapa")],
       },
       {
-        title: "EcoLaw",
+        title: "Lexus System (antigo EcoLaw)",
         text: "Sistema de gestão para escritórios de advocacia: acompanhamento de processos, prazos, honorários e um portal para o cliente. Ainda em desenvolvimento.",
       },
     ],
     result: [
       "A Rede Imobiliária está construída e documentada como estudo de caso.",
-      "O EcoLaw está em desenvolvimento.",
+      "O Lexus System está em desenvolvimento.",
       "A experiência de fundar a empresa me fez cuidar de tudo, da pesquisa ao código e à conversa com potenciais clientes.",
     ],
     tools: ["Next.js", "React", "TypeScript", "Supabase", "Tailwind CSS", "Figma"],
@@ -345,9 +359,9 @@ export const projects: Project[] = [
     client: "Hex Labs (produto próprio)",
     image: "/projects/nexus-imobiliaria/hero.png",
     engagement: "Fundador",
-    role: "Fundador da Hex Labs: produto e design",
+    role: "Fundador da Hex Labs: design e desenvolvimento",
     summary:
-      "Plataforma imobiliária com painel para corretores e busca com mapa para o público. É a Rede Imobiliária, um dos produtos que criei na Hex Labs.",
+      "Plataforma imobiliária com painel para corretores e busca com mapa para o público. É a Rede Imobiliária, SaaS white-label que desenvolvo na Hex Labs.",
     problem:
       "Corretores de todas as idades precisam cadastrar e atualizar imóveis sem depender de alguém de tecnologia. Do outro lado, quem procura imóvel quer ver a localização e os arredores sem se perder em informação demais.",
     process: [
@@ -390,8 +404,9 @@ export const projects: Project[] = [
     year: "2021",
     client: "SpillFabrikken (Trondheim, Noruega)",
     image: spillfabrikken,
+    featured: true,
     role: "Product & Game Designer",
-    summary: "Jogos de tabuleiro e experiências interativas, do protótipo ao produto final e ao material de divulgação.",
+    summary: "Jogos de tabuleiro e cartas, do conceito e protótipo até a produção, com identidade visual, embalagens e material de divulgação.",
     problem:
       "Os jogos precisavam atrair públicos de todas as idades e, ao mesmo tempo, ser econômicos de produzir: cada peça a mais aumenta peso e custo da entrega.",
     process: [
@@ -441,6 +456,8 @@ export const slugAliases: Record<string, string> = {
   "sigrh-portal": "ufrn",
   "enade-ufrn": "ufrn",
 };
+
+export const projects = allProjects.filter((p) => !p.hidden);
 
 export const featuredProjects = projects.filter((p) => p.featured);
 
