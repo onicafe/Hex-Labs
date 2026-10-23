@@ -15,6 +15,8 @@ import prism7 from "@/assets/projects/prism/7.png";
 import prism8 from "@/assets/projects/prism/8.png";
 import prism9 from "@/assets/projects/prism/9.png";
 
+import { publicUrl } from "@/lib/utils";
+
 // Fonte única dos projetos exibidos no site. As páginas públicas não dependem do Supabase.
 
 export type Engagement = "Voluntário" | "Fundador" | "Freelance" | "Contratado";
@@ -63,11 +65,11 @@ export interface Project {
 
 const spillGallery = "1.jpg 2.jpg 3.jpg 4.jpg 5.jpg 6.jpg 7.jpg 8.png 9.png 10.png 11.png 12.png 13.png 14.png 15.png 16.png 17.png 18.png 19.png 20.png 21.png 22.png 23.png 24.png 25.gif 26.jpg 27.jpg 28.jpg 29.jpg 30.png 31.png 32.png 33.png 34.jpg 35.jpg 36.png 37.png 38.png 39.png 40.png 41.png 42.png 43.png 44.png 45.png 46.png 47.png 48.png 49.png 50.png 51.png 52.png 53.png 54.png 55.png 56.png 57.png 58.png 59.png 60.png 61.png 62.png 63.png 64.png 65.png 66.png 67.png 68.gif 69.png 70.png 71.png 72.png 73.png 74.gif 75.png 76.png 77.png 78.png"
   .split(" ")
-  .map((file) => `/projects/spillfabrikken/${file}`);
+  .map((file) => publicUrl(`projects/spillfabrikken/${file}`));
 
-const pjeImg = (n: number, caption?: string): CaseImage => ({ src: `/projects/pje2-mobile/${n}.jpg`, caption });
-const jpImg = (n: number, caption?: string): CaseImage => ({ src: `/projects/jovem-potiguar/image${n}.png`, caption });
-const nexusImg = (n: number, caption?: string): CaseImage => ({ src: `/projects/nexus-imobiliaria/image${n}.png`, caption });
+const pjeImg = (n: number, caption?: string): CaseImage => ({ src: publicUrl(`projects/pje2-mobile/${n}.jpg`), caption });
+const jpImg = (n: number, caption?: string): CaseImage => ({ src: publicUrl(`projects/jovem-potiguar/image${n}.png`), caption });
+const nexusImg = (n: number, caption?: string): CaseImage => ({ src: publicUrl(`projects/nexus-imobiliaria/image${n}.png`), caption });
 
 export const projects: Project[] = [
   {
@@ -136,7 +138,7 @@ export const projects: Project[] = [
         url: "https://www.trf1.jus.br/trf1/noticias/novo-aplicativo-para-dispositivos-moveis-do-pje-facilitara-consulta-e-trara-novas-funcionalidades-",
       },
     ],
-    gallery: Array.from({ length: 15 }, (_, i) => `/projects/pje2-mobile/${i + 31}.jpg`),
+    gallery: Array.from({ length: 15 }, (_, i) => publicUrl(`projects/pje2-mobile/${i + 31}.jpg`)),
   },
   {
     slug: "jovem-potiguar",
@@ -270,7 +272,7 @@ export const projects: Project[] = [
       "Sistema de uso interno, não disponível publicamente.",
     ],
     tools: ["Figma"],
-    gallery: Array.from({ length: 11 }, (_, i) => `/projects/hosuto/${i + 1}.png`),
+    gallery: Array.from({ length: 11 }, (_, i) => publicUrl(`projects/hosuto/${i + 1}.png`)),
   },
   {
     slug: "hex-labs",
@@ -278,7 +280,7 @@ export const projects: Project[] = [
     category: "Empresa que fundei",
     year: "2026",
     client: "Hex Labs",
-    image: "/projects/nexus-imobiliaria/hero.png",
+    image: publicUrl("projects/nexus-imobiliaria/hero.png"),
     featured: true,
     engagement: "Fundador",
     role: "Fundador",
@@ -315,7 +317,7 @@ export const projects: Project[] = [
     category: "Produto da Hex Labs · Pesquisa, design e código",
     year: "2026",
     client: "Hex Labs (produto próprio)",
-    image: "/projects/nexus-imobiliaria/hero.png",
+    image: publicUrl("projects/nexus-imobiliaria/hero.png"),
     engagement: "Fundador",
     role: "Fundador da Hex Labs: design e desenvolvimento",
     summary:
@@ -353,7 +355,7 @@ export const projects: Project[] = [
       "Stack: Next.js (App Router), React 19, TypeScript, Supabase (PostgreSQL, Auth, Storage), Tailwind CSS, Framer Motion, Leaflet e Recharts.",
     ],
     tools: ["Figma", "Photoshop", "Next.js", "Supabase", "Tailwind CSS", "Framer Motion", "Leaflet", "Recharts"],
-    gallery: [17, 22, 4, 32, 16].map((n) => `/projects/nexus-imobiliaria/image${n}.png`),
+    gallery: [17, 22, 4, 32, 16].map((n) => publicUrl(`projects/nexus-imobiliaria/image${n}.png`)),
   },
   {
     slug: "spillfabrikken",

@@ -1,3 +1,5 @@
+import { publicUrl } from "@/lib/utils";
+
 // Dados pessoais usados na home, no currículo, no rodapé e no SEO.
 export const profile = {
   name: "Iésu Jafé",
@@ -12,7 +14,7 @@ export const profile = {
   behance: "https://behance.net/iesujafe",
   // Coloque o PDF do currículo em public/ (ex.: public/cv-iesu-jafe.pdf) e preencha o caminho aqui.
   // Enquanto estiver vazio, o botão "Baixar CV" leva à página de currículo, que tem opção de salvar em PDF.
-  cvPdfUrl: "/Iesu-Jafe-CV.pdf",
+  cvPdfUrl: publicUrl("Iesu-Jafe-CV.pdf"),
   seoDescription:
     "Portfólio de Iésu Jafé, Product Designer e UX Engineer em Natal, RN. Estudos de caso de projetos para TRF5, Jovem Potiguar (IFRN/Governo do RN), Dione Solutions e SpillFabrikken.",
 };

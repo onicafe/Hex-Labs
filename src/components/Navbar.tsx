@@ -19,6 +19,8 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const isHomePage = location.pathname === "/";
+  // Anchors outside the router need the base path when the site lives in a subfolder.
+  const homeAnchor = (id: string) => (isHomePage ? `#${id}` : `${import.meta.env.BASE_URL}#${id}`);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,8 +33,8 @@ const Navbar = () => {
   const navItems = [
     { label: "Projetos", href: "/projects" },
     { label: "Currículo", href: "/curriculo" },
-    { label: "Sobre", href: isHomePage ? "#about" : "/#about" },
-    { label: "Contato", href: isHomePage ? "#contact" : "/#contact" },
+    { label: "Sobre", href: homeAnchor("about"), anchor: true },
+    { label: "Contato", href: homeAnchor("contact"), anchor: true },
   ];
 
   return (
@@ -51,7 +53,7 @@ const Navbar = () => {
 
           <div className="hidden md:flex items-center gap-10">
             {navItems.map((item, index) => {
-              const isAnchor = item.href.startsWith("#") || item.href.includes("/#");
+              const isAnchor = "anchor" in item;
               const className =
                 "font-body text-sm tracking-wider text-muted-foreground hover:text-foreground transition-colors relative group";
               const underline = (
@@ -82,7 +84,7 @@ const Navbar = () => {
           </div>
 
           <motion.a
-            href={isHomePage ? "#contact" : "/#contact"}
+            href={homeAnchor("contact")}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.7 }}
@@ -107,7 +109,7 @@ const Navbar = () => {
               </SheetHeader>
               <div className="flex flex-col gap-6 mt-10">
                 {navItems.map((item) =>
-                  item.href.includes("#") ? (
+                  "anchor" in item ? (
                     <a key={item.label} href={item.href} className="font-body text-lg text-foreground/80 hover:text-primary transition-colors">
                       {item.label}
                     </a>
