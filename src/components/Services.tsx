@@ -20,8 +20,8 @@ const skills = [
     number: "03",
     title: "IA aplicada",
     description:
-      "Construo agentes e automações com n8n e LLMs, locais (Ollama) ou por API (OpenRouter). Exemplo: a Clari, agente que agenda consultas de um consultório odontológico.",
-    tags: ["Agentes", "n8n", "Ollama", "OpenRouter", "Automação"],
+      "Construo agentes e automações com n8n e LLMs e uso IA em funcionalidades de produto, como as descrições de imóveis geradas por IA na Rede Imobiliária.",
+    tags: ["Agentes", "n8n", "LLMs", "Automação"],
   },
 ];
 

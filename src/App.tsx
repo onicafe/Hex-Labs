@@ -6,6 +6,8 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import Index from "./pages/Index.tsx";
 import Projects from "./pages/Projects.tsx";
 import ProjectDetail from "./pages/ProjectDetail.tsx";
+import SpillFabrikken from "./pages/SpillFabrikken.tsx";
+import GameCase from "./pages/GameCase.tsx";
 import Blog from "./pages/Blog.tsx";
 import BlogPost from "./pages/BlogPost.tsx";
 import Resume from "./pages/Resume.tsx";
@@ -43,6 +45,8 @@ const App = () => (
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/projects" element={<Projects />} />
+              <Route path="/projects/spillfabrikken" element={<SpillFabrikken />} />
+              <Route path="/projects/spillfabrikken/:game" element={<GameCase />} />
               <Route path="/projects/:slug" element={<ProjectDetail />} />
               {/* Páginas da antiga identidade de agência: a Hex Labs agora é um projeto */}
               <Route path="/services" element={<Navigate to="/projects/hex-labs" replace />} />

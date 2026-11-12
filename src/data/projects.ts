@@ -1,5 +1,3 @@
-import bonno from "@/assets/projects/bonno.png";
-import tertuliano from "@/assets/projects/tertuliano.png";
 import spillfabrikken from "@/assets/projects/spillfabrikken.png";
 import pje from "@/assets/projects/pje.png";
 import jovempotiguar from "@/assets/projects/jovempotiguar.png";
@@ -63,9 +61,6 @@ export interface Project {
   gallery?: string[];
 }
 
-const spillGallery = "1.jpg 2.jpg 3.jpg 4.jpg 5.jpg 6.jpg 7.jpg 8.png 9.png 10.png 11.png 12.png 13.png 14.png 15.png 16.png 17.png 18.png 19.png 20.png 21.png 22.png 23.png 24.png 25.gif 26.jpg 27.jpg 28.jpg 29.jpg 30.png 31.png 32.png 33.png 34.jpg 35.jpg 36.png 37.png 38.png 39.png 40.png 41.png 42.png 43.png 44.png 45.png 46.png 47.png 48.png 49.png 50.png 51.png 52.png 53.png 54.png 55.png 56.png 57.png 58.png 59.png 60.png 61.png 62.png 63.png 64.png 65.png 66.png 67.png 68.gif 69.png 70.png 71.png 72.png 73.png 74.gif 75.png 76.png 77.png 78.png"
-  .split(" ")
-  .map((file) => publicUrl(`projects/spillfabrikken/${file}`));
 
 const pjeImg = (n: number, caption?: string): CaseImage => ({ src: publicUrl(`projects/pje2-mobile/${n}.jpg`), caption });
 const jpImg = (n: number, caption?: string): CaseImage => ({ src: publicUrl(`projects/jovem-potiguar/image${n}.png`), caption });
@@ -194,36 +189,6 @@ export const projects: Project[] = [
         url: "https://g1.globo.com/rn/rio-grande-do-norte/noticia/2024/09/20/projeto-jovem-potiguar-classifica-estudantes-de-escolas-publicas-para-intercambio-na-europa.ghtml",
       },
     ],
-  },
-  {
-    slug: "clari",
-    title: "Clari",
-    category: "IA aplicada · Agente no n8n",
-    client: "Atendimento de consultório odontológico",
-    featured: true,
-    role: "Criação e desenvolvimento",
-    summary:
-      "Agente de IA no n8n que atende pacientes de um consultório odontológico: cadastra, agenda, remarca e cancela consultas no Google Calendar e no Google Sheets, com um LLM rodando localmente no Ollama.",
-    problem:
-      "Num consultório pequeno, boa parte do dia vai em mensagens repetidas: cadastrar paciente novo, achar um horário livre, remarcar, cancelar. É trabalho que segue regras claras e que um agente pode fazer, desde que nunca marque duas pessoas no mesmo horário e deixe os dados organizados para a equipe.",
-    process: [
-      {
-        title: "Mapear as conversas",
-        text: "Separei as quatro intenções principais (cadastro, agendamento, remarcação e cancelamento) e o que o agente precisa saber em cada uma antes de agir.",
-      },
-      {
-        title: "Fluxos no n8n",
-        text: "Cada intenção vira um fluxo no n8n. A agenda fica no Google Calendar e o cadastro de pacientes no Google Sheets, onde a equipe já trabalha.",
-      },
-      {
-        title: "LLM local",
-        text: "O modelo de linguagem roda localmente com o Ollama e é ele quem interpreta a mensagem do paciente e escolhe o fluxo certo.",
-      },
-    ],
-    result: [
-      "Agente funcional que cadastra pacientes e agenda, remarca e cancela consultas direto no Google Calendar e no Google Sheets.",
-    ],
-    tools: ["n8n", "Ollama", "Google Calendar", "Google Sheets"],
   },
   {
     slug: "my-treasure",
@@ -360,70 +325,19 @@ export const projects: Project[] = [
   {
     slug: "spillfabrikken",
     title: "SpillFabrikken",
-    category: "Product & Game Design",
-    year: "2021",
+    category: "Product e Game Design · 8 jogos",
+    year: "2020–2021",
     client: "SpillFabrikken (Trondheim, Noruega)",
     image: spillfabrikken,
-    role: "Product & Game Designer",
-    summary: "Jogos de tabuleiro e cartas, do conceito e protótipo até a produção, com identidade visual, embalagens e material de divulgação.",
-    problem:
-      "Os jogos precisavam atrair públicos de todas as idades e, ao mesmo tempo, ser econômicos de produzir: cada peça a mais aumenta peso e custo da entrega.",
-    process: [
-      {
-        title: "Protótipo ao produto",
-        text: "Participei da concepção, dos protótipos interativos e da produção visual, usando cor e mecânicas de gamificação para deixar os jogos claros e atraentes com o mínimo de componentes.",
-      },
-    ],
-    result: ["Jogos publicados pela SpillFabrikken."],
-    tools: ["Illustrator", "Photoshop", "3D", "Prototipagem"],
-    links: [{ label: "Site da SpillFabrikken", url: "https://www.spillfabrikken.com/" }],
-    gallery: spillGallery,
-  },
-  {
-    slug: "canal-de-videos-automatico",
-    title: "Canal de vídeos automático",
-    category: "IA aplicada · Automação de conteúdo",
-    client: "Projeto de automação",
-    role: "Criação e desenvolvimento",
+    featured: true,
+    role: "Product e Game Designer",
     summary:
-      "Pipeline que produz e publica vídeos motivacionais no YouTube sozinho: um LLM escreve as frases, o FFmpeg monta o vídeo e a API do YouTube faz o upload.",
-    problem:
-      "Manter um canal ativo exige produzir e publicar com regularidade. A ideia foi tirar o trabalho manual do caminho e ligar as etapas, do texto ao vídeo publicado.",
-    process: [
-      { title: "Texto", text: "As frases são geradas por um LLM acessado pelo OpenRouter." },
-      { title: "Montagem", text: "O FFmpeg junta texto, imagem e áudio num vídeo pronto para publicar." },
-      { title: "Publicação", text: "O upload é feito pela API do YouTube, sem passar pelo estúdio manualmente." },
-    ],
-    result: ["Canal alimentado de ponta a ponta pelo pipeline, do texto ao vídeo publicado."],
-    tools: ["OpenRouter", "LLMs", "FFmpeg", "YouTube Data API"],
-  },
-  {
-    slug: "tertuliano-advocacia",
-    title: "Tertuliano Pinheiro Advocacia",
-    category: "Site institucional",
-    year: "2023",
-    client: "Tertuliano Pinheiro Advocacia",
-    image: tertuliano,
-    role: "Web design e desenvolvimento",
-    summary: "Site institucional para um escritório de advocacia.",
-    problem: "O escritório precisava de uma presença digital que transmitisse seriedade e facilitasse o contato.",
-    process: [{ title: "Design e SEO", text: "Layout responsivo, otimizado para busca e para levar o visitante ao contato." }],
-    result: ["Site no ar."],
-    links: [{ label: "Ver site", url: "https://tpadvocaciarn.com.br/" }],
-  },
-  {
-    slug: "bonno-personalizados",
-    title: "Bonno Personalizados",
-    category: "Site empresarial",
-    year: "2023",
-    client: "Bonno",
-    image: bonno,
-    role: "Web design",
-    summary: "Site para uma empresa de produtos personalizados.",
-    problem: "Apresentar um catálogo variado de forma atraente e facilitar o pedido de orçamento.",
-    process: [{ title: "Vitrine de produtos", text: "Interface visual focada nos produtos e num caminho curto até o contato." }],
-    result: ["Site no ar."],
-    links: [{ label: "Ver site", url: "https://bonnopersonalizados.com/" }],
+      "Identidade visual, cartas, regras e embalagens de uma linha de jogos de festa noruegueses, do Kryptert e suas quatro edições ao Tipsy e ao Paranoia.",
+    // A página desta marca é própria (src/pages/SpillFabrikken.tsx); os campos abaixo só servem de resumo.
+    problem: "Criar uma linha de jogos com personalidades diferentes que, juntos, parecessem da mesma editora.",
+    process: [{ title: "Do conceito à caixa", text: "Identidade, game design, cartas, embalagem e renders." }],
+    result: ["Oito jogos, um sistema de embalagem comum e quatro edições do Kryptert."],
+    tools: ["Illustrator", "Photoshop", "Renders 3D"],
   },
 ];
 

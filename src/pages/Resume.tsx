@@ -12,7 +12,7 @@ const tools = [
     { group: "Design", items: ["Figma", "Adobe XD", "Illustrator", "Photoshop", "Design systems", "Prototipagem"] },
     { group: "Desenvolvimento", items: ["React", "TypeScript", "Tailwind CSS", "Flutter", "Supabase"] },
     { group: "Pesquisa e processo", items: ["Discovery", "Pesquisa com usuários", "Jornadas e fluxos", "Testes de usabilidade", "Acessibilidade"] },
-    { group: "IA e automação", items: ["Agentes de IA", "n8n", "LLMs (Ollama, OpenRouter)", "FFmpeg", "Google APIs"] },
+    { group: "IA e automação", items: ["Agentes de IA", "n8n", "Desenvolvimento assistido por IA", "Azure", "AWS"] },
 ];
 
 type Experience = {
