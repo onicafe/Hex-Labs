@@ -36,7 +36,7 @@ const ProjectDetail = () => {
           <button
             type="button"
             onClick={() => setSelectedImage(img.src)}
-            className="block w-full overflow-hidden rounded-xl border border-white/5 bg-card cursor-zoom-in"
+            className="block w-full overflow-hidden rounded-xl border border-border bg-card cursor-zoom-in"
           >
             <img src={img.src} alt={img.caption ?? project.title} loading="lazy" className="w-full h-auto hover:opacity-90 transition-opacity" />
           </button>
@@ -67,7 +67,7 @@ const ProjectDetail = () => {
                 <p className="font-body text-sm tracking-[0.3em] text-primary mb-4">{project.category.toUpperCase()}</p>
                 <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-bold text-foreground">{project.title}</h1>
               </div>
-              {project.year && <span className="font-display text-5xl md:text-7xl font-bold text-muted/40">{project.year}</span>}
+              {project.year && <span className="font-display text-5xl md:text-7xl font-bold text-foreground/15">{project.year}</span>}
             </div>
 
             <p className="font-body text-lg md:text-xl text-muted-foreground max-w-3xl leading-relaxed">{project.summary}</p>
@@ -83,7 +83,7 @@ const ProjectDetail = () => {
         className="pb-20"
       >
         <div className="container mx-auto px-6 lg:px-12">
-          <div className="relative overflow-hidden rounded-3xl aspect-[16/9] bg-card border border-white/5">
+          <div className="relative overflow-hidden rounded-3xl aspect-[16/9] bg-card border border-border">
             <ProjectCover project={project} />
           </div>
         </div>
@@ -201,7 +201,7 @@ const ProjectDetail = () => {
                   key={img}
                   type="button"
                   onClick={() => setSelectedImage(img)}
-                  className="overflow-hidden rounded-xl bg-background border border-white/5 aspect-square cursor-zoom-in"
+                  className="overflow-hidden rounded-xl bg-background border border-border aspect-square cursor-zoom-in"
                 >
                   <img
                     src={img}
@@ -267,7 +267,7 @@ const ProjectDetail = () => {
           <img
             src={selectedImage}
             alt="Imagem ampliada"
-            className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl border border-white/10"
+            className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl border border-border"
             onClick={(e) => e.stopPropagation()}
           />
         </div>

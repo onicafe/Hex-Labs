@@ -246,7 +246,6 @@ export const projects: Project[] = [
     year: "2026",
     client: "Hex Labs",
     image: publicUrl("projects/nexus-imobiliaria/hero.webp"),
-    featured: true,
     engagement: "Fundador",
     role: "Fundador",
     summary:

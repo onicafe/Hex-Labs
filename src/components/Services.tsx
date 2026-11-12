@@ -1,79 +1,56 @@
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { Link } from "react-router-dom";
+import { ArrowUpRight } from "lucide-react";
 
 const skills = [
   {
-    number: "01",
-    title: "Product Design & UX",
-    description:
-      "Pesquisa com usuários, jornadas, fluxos, wireframes e protótipos. Testo cedo para achar problemas antes que virem código.",
-    tags: ["Pesquisa", "Fluxos", "Prototipagem", "Testes de usabilidade", "Acessibilidade"],
+    title: "Game design",
+    description: "Mecânicas, cartas, regras e embalagens, da ideia até a arte final que vai para a fábrica.",
+    tags: ["Cartas e regras", "Embalagem", "Prototipagem", "Produção"],
+    proof: { label: "SpillFabrikken", to: "/projects/spillfabrikken" },
   },
   {
-    number: "02",
-    title: "UX Engineering",
-    description:
-      "Levo o design até a tela real. Construo interfaces em React, TypeScript e Flutter e converso com o time de engenharia na mesma língua.",
-    tags: ["React", "TypeScript", "Tailwind CSS", "Flutter", "Supabase", "Design systems"],
+    title: "Product design e UX",
+    description: "Pesquisa, fluxos e interfaces para produtos complexos, de app jurídico a plataforma pública de inscrição.",
+    tags: ["Pesquisa", "Fluxos", "Testes de usabilidade", "Acessibilidade"],
+    proof: { label: "Jovem Potiguar", to: "/projects/jovem-potiguar" },
   },
   {
-    number: "03",
-    title: "IA aplicada",
-    description:
-      "Construo agentes e automações com n8n e LLMs e uso IA em funcionalidades de produto, como as descrições de imóveis geradas por IA na Rede Imobiliária.",
-    tags: ["Agentes", "n8n", "LLMs", "Automação"],
+    title: "UI e front-end",
+    description: "Levo o design até a tela em React, TypeScript e Flutter, e uso IA e automação (agentes, n8n) no processo.",
+    tags: ["React", "TypeScript", "Flutter", "Design systems"],
+    proof: { label: "Hex Labs", to: "/projects/hex-labs" },
   },
 ];
 
-const Services = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(containerRef, { once: true, margin: "-100px" });
+const Services = () => (
+  <section id="services" className="py-24 md:py-32 bg-secondary/60 border-y border-border">
+    <div className="container mx-auto px-6 lg:px-12">
+      <p className="font-mono text-xs text-muted-foreground mb-4">
+        <span className="text-primary">02</span> / O que eu faço
+      </p>
+      <h2 className="font-display text-4xl md:text-5xl font-semibold text-foreground max-w-2xl mb-14">
+        Três frentes, sempre com o trabalho como prova.
+      </h2>
 
-  return (
-    <section id="services" className="py-32 bg-background" ref={containerRef}>
-      <div className="container mx-auto px-4 lg:px-12">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="mb-20"
-        >
-          <p className="font-body text-sm tracking-[0.3em] text-primary mb-4">O QUE EU FAÇO</p>
-          <h2 className="font-display text-4xl md:text-6xl font-bold text-foreground">Do problema ao produto</h2>
-        </motion.div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {skills.map((skill, index) => (
-            <motion.div
-              key={skill.number}
-              initial={{ opacity: 0, y: 50 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: index * 0.1 }}
-              className="group relative p-6 sm:p-8 card-gradient border border-border rounded-2xl hover:border-primary/30 transition-all duration-500"
-            >
-              <div className="absolute top-6 right-6 font-display text-5xl font-bold text-muted/30 group-hover:text-primary/20 transition-colors duration-500">
-                {skill.number}
-              </div>
-
-              <h3 className="font-display text-xl lg:text-2xl font-bold text-foreground mb-4 group-hover:text-primary transition-colors duration-300 pr-8">
-                {skill.title}
-              </h3>
-
-              <p className="font-body text-sm text-muted-foreground mb-6">{skill.description}</p>
-
-              <div className="flex flex-wrap gap-2">
-                {skill.tags.map((tag) => (
-                  <span key={tag} className="px-2 py-1 text-[10px] font-body text-muted-foreground bg-secondary rounded-full">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </motion.div>
-          ))}
-        </div>
+      <div className="grid md:grid-cols-3 gap-px bg-border rounded-3xl overflow-hidden border border-border">
+        {skills.map((s, i) => (
+          <div key={s.title} className="bg-background p-7 md:p-8 flex flex-col">
+            <p className="font-mono text-xs text-primary mb-6">{String(i + 1).padStart(2, "0")}</p>
+            <h3 className="font-display text-2xl font-semibold text-foreground mb-3">{s.title}</h3>
+            <p className="font-body text-[15px] text-muted-foreground leading-relaxed mb-6">{s.description}</p>
+            <ul className="flex flex-wrap gap-2 mb-8">
+              {s.tags.map((t) => (
+                <li key={t} className="px-2.5 py-1 rounded-full bg-secondary font-mono text-[11px] text-foreground">{t}</li>
+              ))}
+            </ul>
+            <Link to={s.proof.to} className="mt-auto inline-flex items-center gap-1 font-body text-sm font-medium text-foreground hover:text-primary">
+              Ver em {s.proof.label} <ArrowUpRight className="w-4 h-4" />
+            </Link>
+          </div>
+        ))}
       </div>
-    </section>
-  );
-};
+    </div>
+  </section>
+);
 
 export default Services;

@@ -5,14 +5,17 @@ import type { AnatomyPoint, Figure, Specs, Status } from "@/data/spillfabrikken"
 // Peças das pranchas dos estudos de caso: tudo é montado com a arte real dos projetos.
 
 const statusStyle: Record<Status, string> = {
-  live: "border-emerald-400/40 bg-emerald-400/10 text-emerald-300",
-  cancelled: "border-zinc-500/40 bg-zinc-500/10 text-zinc-300",
-  proposal: "border-amber-400/40 bg-amber-400/10 text-amber-200",
+  live: "border-emerald-700/25 bg-emerald-600/10 text-emerald-800",
+  cancelled: "border-stone-500/30 bg-stone-500/10 text-stone-700",
+  proposal: "border-amber-700/25 bg-amber-500/10 text-amber-800",
 };
+
+/** Cor do jogo escurecida para virar texto legível sobre o papel. */
+export const textAccent = (accent?: string) => (accent ? `color-mix(in oklab, ${accent} 72%, black)` : undefined);
 
 export const StatusBadge = ({ status }: { status: { kind: Status; label: string } }) => (
   <span className={`inline-flex items-center gap-2 px-3 py-1 rounded-full border font-mono text-[11px] tracking-wide ${statusStyle[status.kind]}`}>
-    <span className={`w-1.5 h-1.5 rounded-full ${status.kind === "live" ? "bg-emerald-300" : status.kind === "proposal" ? "bg-amber-200" : "bg-zinc-400"}`} />
+    <span className={`w-1.5 h-1.5 rounded-full ${status.kind === "live" ? "bg-emerald-600" : status.kind === "proposal" ? "bg-amber-600" : "bg-stone-500"}`} />
     {status.label}
   </span>
 );
@@ -22,7 +25,7 @@ export const ImpactStrip = ({ items, note, accent }: { items: { value: string; l
     <div className="grid sm:grid-cols-3 gap-px bg-border rounded-2xl overflow-hidden border border-border">
       {items.map((item) => (
         <div key={item.label} className="bg-background p-6 lg:p-8">
-          <p className="font-display text-4xl lg:text-5xl font-bold mb-2" style={{ color: accent }}>{item.value}</p>
+          <p className="font-display text-4xl lg:text-5xl font-bold mb-2" style={{ color: textAccent(accent) }}>{item.value}</p>
           <p className="font-body text-sm text-muted-foreground leading-relaxed">{item.label}</p>
         </div>
       ))}
@@ -35,7 +38,7 @@ export const ProcessSteps = ({ steps, accent }: { steps: { title: string; text: 
   <ol className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-border rounded-2xl overflow-hidden border border-border">
     {steps.map((step, i) => (
       <li key={step.title} className="bg-background p-6">
-        <p className="font-mono text-xs mb-4" style={{ color: accent }}>{String(i + 1).padStart(2, "0")}</p>
+        <p className="font-mono text-xs mb-4" style={{ color: textAccent(accent) }}>{String(i + 1).padStart(2, "0")}</p>
         <h3 className="font-display text-lg font-bold text-foreground mb-2">{step.title}</h3>
         <p className="font-body text-sm text-muted-foreground leading-relaxed">{step.text}</p>
       </li>
@@ -46,7 +49,7 @@ export const ProcessSteps = ({ steps, accent }: { steps: { title: string; text: 
 /** Logotipo desenhado a partir de uma máscara: positivo, negativo e na cor do jogo. */
 export const LogoTile = ({ mask, bg, fg, label }: { mask: string; bg: string; fg: string; label: string }) => (
   <figure>
-    <div className="aspect-[16/10] rounded-2xl border border-white/10 p-[14%] grid" style={{ background: bg }}>
+    <div className="aspect-[16/10] rounded-2xl border border-border p-[14%] grid" style={{ background: bg }}>
       <div
         role="img"
         aria-label={label}
@@ -77,7 +80,7 @@ export const LogoBoard = ({ mask, name, accent }: { mask: string; name: string; 
 
 export const SectionHeading = ({ index, label, title, accent }: { index: number; label: string; title: string; accent?: string }) => (
   <header className="mb-10 border-t border-border pt-6">
-    <p className="font-mono text-xs tracking-[0.25em] uppercase mb-4" style={{ color: accent }}>
+    <p className="font-mono text-xs tracking-[0.25em] uppercase mb-4" style={{ color: textAccent(accent) }}>
       {String(index).padStart(2, "0")} / {label}
     </p>
     <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground max-w-3xl">{title}</h2>
@@ -132,7 +135,7 @@ export const PaletteRow = ({ colors }: { colors: string[] }) => (
     <div className="grid grid-cols-5 gap-2">
       {colors.map((c) => (
         <div key={c}>
-          <div className="aspect-square rounded-xl border border-white/10" style={{ background: c }} />
+          <div className="aspect-square rounded-xl border border-border" style={{ background: c }} />
           <p className="font-mono text-[11px] text-muted-foreground mt-2 uppercase">{c}</p>
         </div>
       ))}
@@ -182,7 +185,7 @@ export const FigureGrid = ({
           <button
             type="button"
             onClick={() => onOpen(f.src)}
-            className={`block w-full overflow-hidden rounded-2xl border border-white/5 cursor-zoom-in ${uniform ? "aspect-[4/3]" : ""} ${paper ? "bg-[#f4f3f0] p-3 md:p-6" : "bg-card"}`}
+            className={`block w-full overflow-hidden rounded-2xl border border-border cursor-zoom-in ${uniform ? "aspect-[4/3]" : ""} ${paper ? "bg-white p-3 md:p-6" : "bg-card"}`}
           >
             <img
               src={f.src}
@@ -200,7 +203,7 @@ export const FigureGrid = ({
 
 export const Anatomy = ({ image, points, accent }: { image: string; points: AnatomyPoint[]; accent: string }) => (
   <div className="grid lg:grid-cols-[2fr_1fr] gap-8 items-start">
-    <div className="relative rounded-2xl overflow-hidden border border-white/5 bg-white">
+    <div className="relative rounded-2xl overflow-hidden border border-border bg-white">
       <img src={image} alt="Anatomia da carta" className="w-full h-auto" />
       {points.map((p, i) => (
         <span

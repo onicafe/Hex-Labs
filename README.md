@@ -32,12 +32,22 @@ VITE_SUPABASE_URL=https://SEU-PROJETO.supabase.co
 VITE_SUPABASE_ANON_KEY=sua-chave-anon
 ```
 
+## Publicação (GitHub Pages)
+
+```bash
+npm run build:pages
+```
+
+Gera a pasta `dist/` para https://onicafe.github.io/Hex-Labs/, com uma página por rota (status 200 e prévia própria no LinkedIn e no WhatsApp), `404.html` e `.nojekyll`. Depois, o conteúdo de `dist/` vai para a branch `gh-pages`.
+
 ## Onde editar o conteúdo
 
 | O quê | Arquivo |
 | --- | --- |
 | Nome, título, contatos e link do PDF do CV | `src/data/profile.ts` |
 | Projetos e estudos de caso | `src/data/projects.ts` |
+| SpillFabrikken (marca, jogos e pranchas) | `src/data/spillfabrikken.ts` |
+| Título e prévia de cada página publicada | `src/data/routeMeta.ts` |
 | Experiência, formação e ferramentas | `src/pages/Resume.tsx` |
 | Logos das organizações | `src/components/TrustedBy.tsx` |
 

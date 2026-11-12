@@ -129,7 +129,7 @@ const certifications = [
 const languages = ["Português (nativo)", "Inglês (bilíngue)"];
 
 const sectionTitle =
-    "font-display font-bold text-foreground mb-10 pb-4 border-b border-white/10 uppercase tracking-widest text-sm print:mb-4 print:border-black/20";
+    "font-display font-bold text-foreground mb-10 pb-4 border-b border-border uppercase tracking-widest text-sm print:mb-4 print:border-black/20";
 
 const Resume = () => {
     useEffect(() => {
@@ -234,11 +234,11 @@ const Resume = () => {
                             {experience.map((xp) => (
                                 <div key={xp.company + xp.role} className="grid md:grid-cols-[200px_1fr] gap-2 md:gap-8 print:grid-cols-[150px_1fr] print:break-inside-avoid">
                                     <div className="md:text-right pt-1">
-                                        <span className="font-mono text-sm px-3 py-1 rounded-full bg-white/5 text-muted-foreground border border-white/10 print:p-0 print:border-0">
+                                        <span className="font-mono text-sm px-3 py-1 rounded-full bg-secondary text-muted-foreground border border-border print:p-0 print:border-0">
                                             {xp.period}
                                         </span>
                                     </div>
-                                    <div className="relative md:pl-8 md:border-l border-white/10 print:border-0 print:pl-0">
+                                    <div className="relative md:pl-8 md:border-l border-border print:border-0 print:pl-0">
                                         <div className="hidden md:block print:hidden absolute w-4 h-4 rounded-full bg-background border-2 border-primary -left-[9px] top-1"></div>
                                         <h3 className="font-display text-xl md:text-2xl font-bold text-foreground mb-1 print:text-lg">
                                             {xp.role}
@@ -279,7 +279,7 @@ const Resume = () => {
 
                         <div className="grid md:grid-cols-2 gap-6 print:grid-cols-2 print:gap-3">
                             {education.map((edu) => (
-                                <div key={edu.course} className="p-6 bg-card border border-white/5 rounded-2xl flex flex-col justify-between print:p-0 print:border-0">
+                                <div key={edu.course} className="p-6 bg-card border border-border rounded-2xl flex flex-col justify-between print:p-0 print:border-0">
                                     <div>
                                         <h3 className="font-display text-lg font-bold text-foreground mb-1">{edu.course}</h3>
                                         <p className="font-body text-sm text-primary mb-4 print:mb-1">{edu.inst}</p>

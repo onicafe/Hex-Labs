@@ -15,6 +15,7 @@ import {
   ProcessSteps,
   SectionHeading,
   StatusBadge,
+  textAccent,
   useLightbox,
 } from "@/components/case/CaseKit";
 
@@ -47,7 +48,7 @@ const SpillFabrikken = () => {
 
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <motion.div className="min-w-0" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-              <p className="font-mono text-xs tracking-[0.25em] uppercase mb-5" style={{ color: ACCENT }}>
+              <p className="font-mono text-xs tracking-[0.25em] uppercase mb-5" style={{ color: textAccent(ACCENT) }}>
                 Estudo de caso · Product e Game Design
               </p>
               <h1 className="font-display text-4xl sm:text-5xl md:text-7xl font-bold text-foreground leading-[0.95] mb-3 break-words">SpillFabrikken</h1>
@@ -69,7 +70,7 @@ const SpillFabrikken = () => {
               className="grid grid-cols-2 gap-3"
             >
               {collage.map((g) => (
-                <Link key={g.slug} to={`/projects/spillfabrikken/${g.slug}`} className="block rounded-2xl overflow-hidden border border-white/5 aspect-square">
+                <Link key={g.slug} to={`/projects/spillfabrikken/${g.slug}`} className="block rounded-2xl overflow-hidden border border-border aspect-square">
                   <img src={g.cover} alt={g.name} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
                 </Link>
               ))}
@@ -126,7 +127,7 @@ const SpillFabrikken = () => {
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             {brand.logoFiles.light.map((f) => (
               <figure key={f.src}>
-                <div className="aspect-square rounded-2xl bg-white border border-white/10 overflow-hidden">
+                <div className="aspect-square rounded-2xl bg-white border border-border overflow-hidden">
                   <img src={f.src} alt={f.caption} loading="lazy" className="w-full h-full object-contain" />
                 </div>
                 <figcaption className="font-mono text-[11px] text-muted-foreground mt-3">{f.caption}</figcaption>
@@ -134,7 +135,7 @@ const SpillFabrikken = () => {
             ))}
             {brand.logoFiles.dark.map((f) => (
               <figure key={f.src}>
-                <div className="aspect-square rounded-2xl bg-[#111] border border-white/10 overflow-hidden">
+                <div className="aspect-square rounded-2xl bg-[#111] border border-border overflow-hidden">
                   <img src={f.src} alt={f.caption} loading="lazy" className="w-full h-full object-contain" />
                 </div>
                 <figcaption className="font-mono text-[11px] text-muted-foreground mt-3">{f.caption}</figcaption>
@@ -195,7 +196,7 @@ const SpillFabrikken = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 -mt-4 mb-10">
             {brand.packagingSystem.map((item, i) => (
               <div key={item.label} className="rounded-2xl border border-border p-6">
-                <p className="font-mono text-xs mb-3" style={{ color: ACCENT }}>{String(i + 1).padStart(2, "0")}</p>
+                <p className="font-mono text-xs mb-3" style={{ color: textAccent(ACCENT) }}>{String(i + 1).padStart(2, "0")}</p>
                 <h3 className="font-display font-bold text-foreground mb-2">{item.label}</h3>
                 <p className="font-body text-sm text-muted-foreground leading-relaxed">{item.text}</p>
               </div>

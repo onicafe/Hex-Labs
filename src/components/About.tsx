@@ -1,94 +1,59 @@
-import { motion, useInView, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
-import aboutImage from "@/assets/about-image.webp";
+import { ArrowUpRight } from "lucide-react";
+import { profile } from "@/data/profile";
 
-const About = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const imageRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(containerRef, { once: true, margin: "-100px" });
+const facts = [
+  { label: "Base", value: profile.location },
+  { label: "Formato", value: "Remoto ou híbrido em Natal" },
+  { label: "Idiomas", value: "Português (nativo) e inglês (bilíngue)" },
+  { label: "Ferramentas", value: "Figma, Illustrator, Photoshop, React, Flutter" },
+  { label: "Formação", value: "Design Gráfico (UnP), pós em Desenvolvimento de Metaverso (UNA)" },
+];
 
-  const { scrollYProgress } = useScroll({
-    target: imageRef,
-    offset: ["start end", "end start"],
-  });
-
-  const imageY = useTransform(scrollYProgress, [0, 1], [100, -100]);
-
-  return (
-    <section id="about" className="py-32 bg-background overflow-hidden" ref={containerRef}>
-      <div className="container mx-auto px-6 lg:px-12">
-        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-          {/* Image with Parallax */}
-          <motion.div
-            ref={imageRef}
-            initial={{ opacity: 0, x: -50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 1 }}
-            className="relative order-2 lg:order-1"
-          >
-            <motion.div style={{ y: imageY }} className="relative">
-              <div className="relative overflow-hidden rounded-2xl">
-                <img src={aboutImage} alt="Mesa de trabalho com código na tela" className="w-full aspect-square object-cover" />
-              </div>
-
-              {/* Floating accent */}
-              <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-primary rounded-2xl -z-10 animate-pulse-glow" />
-            </motion.div>
-          </motion.div>
-
-          {/* Content */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 1, delay: 0.2 }}
-            className="order-1 lg:order-2"
-          >
-            <p className="font-body text-sm tracking-[0.3em] text-primary mb-4">SOBRE MIM</p>
-            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-8">
-              Designer que também escreve código
-            </h2>
-            <p className="font-body text-lg text-muted-foreground mb-6 leading-relaxed">
-              Sou o Iésu, de Natal (RN). Comecei no design gráfico, passei por game design e cheguei ao design de produto e ao
-              desenvolvimento front-end. Hoje trabalho na interseção dos dois: entendo o problema com quem usa, desenho a solução e
-              ajudo a colocá-la de pé.
-            </p>
-            <p className="font-body text-muted-foreground mb-12 leading-relaxed">
-              Já trabalhei com organizações do Brasil, do Japão, da Noruega e de Portugal, e fiz trabalho voluntário em projetos públicos que me
-              ensinaram muito sobre acessibilidade e sobre desenhar para quem tem pouca familiaridade com tecnologia.{" "}
-              <Link to="/curriculo" className="text-primary hover:underline">
-                Veja o currículo completo
-              </Link>
-              .
-            </p>
-
-            {/* Hex Labs */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="p-6 rounded-2xl bg-card/50 border border-white/5 backdrop-blur-sm"
-            >
-              <p className="font-body text-xs tracking-[0.2em] text-primary mb-2">EMPRESA QUE FUNDEI</p>
-              <h3 className="font-display text-xl font-bold text-foreground mb-2">Hex Labs</h3>
-              <p className="font-body text-sm text-muted-foreground mb-4">
-                Fundei a Hex Labs, um estúdio de produtos digitais com IA. Para conquistar os primeiros clientes, estou criando dois
-                produtos próprios: a Rede Imobiliária e o Lexus System.
-              </p>
-              <Link
-                to="/projects/hex-labs"
-                className="inline-flex items-center gap-2 font-body text-sm text-foreground hover:text-primary transition-colors"
-              >
-                Conhecer a Hex Labs
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </motion.div>
-          </motion.div>
+const About = () => (
+  <section id="about" className="py-24 md:py-32 scroll-mt-16">
+    <div className="container mx-auto px-6 lg:px-12 grid lg:grid-cols-12 gap-12 lg:gap-16">
+      <div className="lg:col-span-7">
+        <p className="font-mono text-xs text-muted-foreground mb-4">
+          <span className="text-primary">03</span> / Sobre
+        </p>
+        <h2 className="font-display text-4xl md:text-5xl font-semibold text-foreground mb-8">
+          Designer que também escreve código.
+        </h2>
+        <div className="space-y-5 font-body text-lg text-muted-foreground leading-relaxed">
+          <p>
+            Comecei no design gráfico, passei pelo game design e cheguei ao design de produto e ao front-end. Hoje trabalho entre
+            os dois: entendo o problema com quem usa, desenho a solução e ajudo a colocá-la de pé.
+          </p>
+          <p>
+            Trabalhei com organizações do Brasil, do Japão, da Noruega e de Portugal, sempre de forma remota. Fui o único designer
+            de uma editora norueguesa de jogos e desenhei produtos digitais para a Dione Solutions, de Tóquio. Como voluntário,
+            colaborei em projetos públicos do TRF5 e do Governo do RN.
+          </p>
+          <p>
+            Em 2026 fundei a Hex Labs, um estúdio de produtos digitais com IA, onde construo produtos próprios do design ao código.
+          </p>
+        </div>
+        <div className="flex flex-wrap gap-6 mt-10">
+          <Link to="/curriculo" className="inline-flex items-center gap-1 font-body text-sm font-medium text-foreground hover:text-primary">
+            Currículo completo <ArrowUpRight className="w-4 h-4" />
+          </Link>
+          <Link to="/projects/hex-labs" className="inline-flex items-center gap-1 font-body text-sm font-medium text-foreground hover:text-primary">
+            Hex Labs <ArrowUpRight className="w-4 h-4" />
+          </Link>
         </div>
       </div>
-    </section>
-  );
-};
+
+      <dl className="lg:col-span-5 self-start rounded-3xl border border-border bg-card divide-y divide-border">
+        {facts.map((f) => (
+          <div key={f.label} className="grid grid-cols-[7rem_1fr] gap-4 px-6 py-5">
+            <dt className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground pt-0.5">{f.label}</dt>
+            <dd className="font-body text-[15px] text-foreground">{f.value}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+);
 
 export default About;

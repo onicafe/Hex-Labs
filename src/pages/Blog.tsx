@@ -81,9 +81,9 @@ const Blog = () => {
                                     className="group"
                                 >
                                     <Link to={`/blog/${post.slug}`} className="block">
-                                        <div className="p-8 rounded-3xl bg-card border border-white/5 hover:border-white/10 transition-all duration-300">
+                                        <div className="p-8 rounded-3xl bg-card border border-border hover:border-border transition-all duration-300">
                                             {post.main_image && (
-                                                <div className="w-full aspect-[2/1] rounded-2xl overflow-hidden mb-6 border border-white/10">
+                                                <div className="w-full aspect-[2/1] rounded-2xl overflow-hidden mb-6 border border-border">
                                                     <img src={post.main_image} alt={post.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                                                 </div>
                                             )}

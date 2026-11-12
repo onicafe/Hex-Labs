@@ -70,7 +70,7 @@ const BlogPost = () => {
             <Navbar />
 
             {/* Hero Section */}
-            <section className="pt-32 pb-12 border-b border-white/5 bg-card/30">
+            <section className="pt-32 pb-12 border-b border-border bg-card/30">
                 <div className="container mx-auto px-6 lg:px-12 max-w-4xl">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
@@ -111,7 +111,7 @@ const BlogPost = () => {
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.1 }}
-                        className="w-full aspect-video md:aspect-[21/9] rounded-3xl overflow-hidden shadow-2xl border border-white/10"
+                        className="w-full aspect-video md:aspect-[21/9] rounded-3xl overflow-hidden shadow-2xl border border-border"
                     >
                         <img src={post.main_image} alt={post.title} className="w-full h-full object-cover" />
                     </motion.div>
@@ -128,7 +128,7 @@ const BlogPost = () => {
                 <div className="container mx-auto px-6 lg:px-12 max-w-3xl">
                     {/* TipTap content rendering */}
                     <div
-                        className="prose prose-invert prose-lg md:prose-xl prose-p:font-body prose-headings:font-display prose-a:text-primary hover:prose-a:text-primary/80 prose-img:rounded-2xl max-w-none"
+                        className="prose prose-lg md:prose-xl prose-p:font-body prose-headings:font-display prose-a:text-primary hover:prose-a:text-primary/80 prose-img:rounded-2xl max-w-none"
                         dangerouslySetInnerHTML={{ __html: post.content }}
                     />
                 </div>

@@ -15,6 +15,7 @@ import {
   SectionHeading,
   SpecSheet,
   StatusBadge,
+  textAccent,
   useLightbox,
 } from "@/components/case/CaseKit";
 import CardBlueprint from "@/components/case/CardBlueprint";
@@ -54,7 +55,7 @@ const GameCase = () => {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <motion.div className="min-w-0" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
               <div className="flex flex-wrap items-center gap-3 mb-5">
-                <p className="font-mono text-xs tracking-[0.25em] uppercase" style={{ color: game.accent }}>
+                <p className="font-mono text-xs tracking-[0.25em] uppercase" style={{ color: textAccent(game.accent) }}>
                   {game.category}
                 </p>
                 {game.status && <StatusBadge status={game.status} />}
@@ -83,7 +84,7 @@ const GameCase = () => {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.15 }}
-              className="block rounded-3xl overflow-hidden border border-white/5 bg-card cursor-zoom-in"
+              className="block rounded-3xl overflow-hidden border border-border bg-card cursor-zoom-in"
             >
               <img src={game.cover} alt={`${game.name}: imagem principal`} className="w-full h-auto" />
             </motion.button>
@@ -110,7 +111,7 @@ const GameCase = () => {
             <ol className="space-y-8">
               {game.howToPlay.map((step, i) => (
                 <li key={step} className="grid grid-cols-[3rem_1fr] gap-4">
-                  <span className="font-display text-3xl font-bold" style={{ color: game.accent }}>
+                  <span className="font-display text-3xl font-bold" style={{ color: textAccent(game.accent) }}>
                     {i + 1}
                   </span>
                   <p className="font-body text-lg text-muted-foreground leading-relaxed pt-1">{step}</p>
@@ -215,7 +216,7 @@ const GameCase = () => {
                   key={src}
                   type="button"
                   onClick={() => open(src)}
-                  className="overflow-hidden rounded-xl bg-card border border-white/5 aspect-[4/3] cursor-zoom-in"
+                  className="overflow-hidden rounded-xl bg-card border border-border aspect-[4/3] cursor-zoom-in"
                 >
                   <img src={src} alt={`${game.name}, imagem ${i + 1}`} loading="lazy" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
                 </button>

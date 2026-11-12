@@ -3,7 +3,9 @@ import { publicUrl } from "@/lib/utils";
 // Dados pessoais usados na home, no currículo, no rodapé e no SEO.
 export const profile = {
   name: "Iésu Jafé",
-  title: "Product Designer · UX Engineer · IA aplicada",
+  title: "Product & Game Designer",
+  /** Especialidades, abaixo do título. */
+  focus: "UX/UI, design de jogos e produtos digitais",
   location: "Natal, RN — Brasil",
   availability: "Disponível para remoto",
   email: "jafe.iesu@gmail.com",
@@ -12,9 +14,14 @@ export const profile = {
   linkedin: "https://www.linkedin.com/in/iesujafe/",
   github: "https://github.com/onicafe/",
   behance: "https://behance.net/iesujafe",
-  // Coloque o PDF do currículo em public/ (ex.: public/cv-iesu-jafe.pdf) e preencha o caminho aqui.
-  // Enquanto estiver vazio, o botão "Baixar CV" leva à página de currículo, que tem opção de salvar em PDF.
   cvPdfUrl: publicUrl("Iesu-Jafe-CV.pdf"),
   seoDescription:
-    "Portfólio de Iésu Jafé, Product Designer e UX Engineer em Natal, RN. Estudos de caso de projetos para TRF5, Jovem Potiguar (IFRN/Governo do RN), Dione Solutions e SpillFabrikken.",
+    "Portfólio de Iésu Jafé, Product & Game Designer em Natal, RN. Estudos de caso da SpillFabrikken (Kryptert, Jentekveld, Tipsy), do PJe2 Mobile (TRF5), do Jovem Potiguar e da Dione Solutions.",
+  /** Números da faixa de destaque da home. Todos conferidos no CV ou no catálogo da SpillFabrikken. */
+  highlights: [
+    { value: "7+", label: "anos desenhando produtos" },
+    { value: "7", label: "jogos que desenhei, à venda na Noruega" },
+    { value: "4", label: "países: Brasil, Japão, Noruega e Portugal" },
+    { value: "PT · EN", label: "trabalho em português e inglês" },
+  ],
 };
