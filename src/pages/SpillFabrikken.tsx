@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import { ArrowRight, ExternalLink } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { updateSEO } from "@/lib/seo";
 import { brand, extras, games, sf, STORE_URL } from "@/data/spillfabrikken";
 import {
   FigureGrid,
@@ -25,7 +24,6 @@ const SpillFabrikken = () => {
   const { open, lightbox } = useLightbox();
 
   useEffect(() => {
-    updateSEO("SpillFabrikken", brand.summary, sf(49));
     window.scrollTo(0, 0);
   }, []);
 

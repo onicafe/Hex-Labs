@@ -3,8 +3,6 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ArrowLeft, Download, Mail, Linkedin, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
-import { updateSEO } from "@/lib/seo";
 import { profile } from "@/data/profile";
 
 // Conteúdo alinhado ao CV de Produto/UX (out/2026).
@@ -132,10 +130,6 @@ const sectionTitle =
     "font-display font-bold text-foreground mb-10 pb-4 border-b border-border uppercase tracking-widest text-sm print:mb-4 print:border-black/20";
 
 const Resume = () => {
-    useEffect(() => {
-        updateSEO("Currículo", `${profile.name}: ${profile.title}. Experiência, projetos e ferramentas.`);
-    }, []);
-
     return (
         <div className="min-h-screen bg-background flex flex-col">
             <Navbar />

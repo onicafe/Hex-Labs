@@ -1,83 +1,46 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import Index from "./pages/Index.tsx";
-import Projects from "./pages/Projects.tsx";
-import ProjectDetail from "./pages/ProjectDetail.tsx";
-import SpillFabrikken from "./pages/SpillFabrikken.tsx";
-import GameCase from "./pages/GameCase.tsx";
-import Blog from "./pages/Blog.tsx";
-import BlogPost from "./pages/BlogPost.tsx";
-import Resume from "./pages/Resume.tsx";
+import { lazy, Suspense } from "react";
 import NotFound from "./pages/NotFound.tsx";
-import { AuthProvider } from "@/contexts/AuthContext";
-import { AuthGuard } from "@/components/admin/AuthGuard";
-import AdminLayout from "@/components/admin/AdminLayout";
-import AdminLogin from "@/pages/admin/Login";
-import AdminOverview from "@/pages/admin/Overview";
-import Analytics from "@/pages/admin/Analytics";
-import AdminPosts from "@/pages/admin/Posts";
-import PostEditor from "@/pages/admin/PostEditor";
-import AdminProjects from "@/pages/admin/ProjectsList";
-import ProjectEditor from "@/pages/admin/ProjectEditor";
-import ProductsList from "@/pages/admin/ProductsList";
-import ProductEditor from "@/pages/admin/ProductEditor";
-import BrandsList from "@/pages/admin/BrandsList";
-import SEOSettings from './pages/admin/SEOSettings';
+import { publicRoutes } from "./publicRoutes";
 import ScrollToTop from './components/ScrollToTop';
 import SEOHead from './components/SEOHead';
 import { AnalyticsWrapper } from "@/components/AnalyticsWrapper";
+
+// Blog e admin dependem do Supabase e carregam sob demanda, fora do pacote das páginas públicas.
+const Blog = lazy(() => import("./pages/Blog.tsx"));
+const BlogPost = lazy(() => import("./pages/BlogPost.tsx"));
+const AdminApp = lazy(() => import("./pages/admin/AdminApp.tsx"));
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <AuthProvider>
-      <TooltipProvider>
+    <TooltipProvider>
         <Toaster />
         <Sonner />
         <BrowserRouter basename={import.meta.env.BASE_URL}>
           <ScrollToTop />
           <SEOHead />
           <AnalyticsWrapper>
+            <Suspense fallback={<div className="min-h-screen bg-background" />}>
             <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/projects" element={<Projects />} />
-              <Route path="/projects/spillfabrikken" element={<SpillFabrikken />} />
-              <Route path="/projects/spillfabrikken/:game" element={<GameCase />} />
-              <Route path="/projects/:slug" element={<ProjectDetail />} />
-              {/* Páginas da antiga identidade de agência: a Hex Labs agora é um projeto */}
-              <Route path="/services" element={<Navigate to="/projects/hex-labs" replace />} />
-              <Route path="/products" element={<Navigate to="/projects/hex-labs" replace />} />
+              {publicRoutes}
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
-              <Route path="/curriculo" element={<Resume />} />
-              <Route path="/iesu-jafe" element={<Navigate to="/curriculo" replace />} />
 
-              {/* Admin Routes */}
-              <Route path="/admin/login" element={<AdminLogin />} />
-              <Route path="/admin" element={<AuthGuard><AdminLayout /></AuthGuard>}>
-                <Route index element={<AdminOverview />} />
-                <Route path="analytics" element={<Analytics />} />
-                <Route path="posts" element={<AdminPosts />} />
-                <Route path="posts/:id" element={<PostEditor />} />
-                <Route path="projects" element={<AdminProjects />} />
-                <Route path="projects/:id" element={<ProjectEditor />} />
-                <Route path="products" element={<ProductsList />} />
-                <Route path="products/:id" element={<ProductEditor />} />
-                <Route path="brands" element={<BrandsList />} />
-                <Route path="seo" element={<SEOSettings />} />
-              </Route>
+              <Route path="/admin/*" element={<AdminApp />} />
 
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
+            </Suspense>
           </AnalyticsWrapper>
         </BrowserRouter>
-      </TooltipProvider>
-    </AuthProvider>
+    </TooltipProvider>
   </QueryClientProvider>
 );
 

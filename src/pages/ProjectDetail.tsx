@@ -1,277 +1,273 @@
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link, Navigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { ArrowLeft, ArrowRight, ExternalLink, X } from "lucide-react";
+import { ArrowRight, ArrowUpRight, ExternalLink } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { updateSEO } from "@/lib/seo";
-import { getProject, projects, type CaseImage } from "@/data/projects";
 import ProjectCover from "@/components/ProjectCover";
+import { getProject, projects, type Board, type CaseSection, type Project } from "@/data/projects";
+import {
+  Anatomy,
+  CompareBoard,
+  FigureGrid,
+  ImpactStrip,
+  MetaStrip,
+  OverviewGrid,
+  PaletteRow,
+  PhoneBoard,
+  ProcessSteps,
+  SectionHeading,
+  textAccent,
+  useLightbox,
+} from "@/components/case/CaseKit";
 
-const SectionTitle = ({ children }: { children: React.ReactNode }) => (
-  <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-6">{children}</h2>
-);
+const DEFAULT_ACCENT = "#c2410c";
+
+/** Projetos no formato simples (só `process`) viram seções do formato completo. */
+const sectionsOf = (project: Project): CaseSection[] => {
+  if (project.sections) return project.sections;
+  return [
+    { label: "Contexto", title: "O problema", text: [project.problem] },
+    ...(project.process ?? []).map((step) => ({
+      label: "Processo",
+      title: step.title,
+      text: step.text ? [step.text] : undefined,
+      boards: step.images?.length
+        ? [{ kind: "grid" as const, columns: (step.images.length > 1 ? 2 : 1) as 1 | 2, figures: step.images }]
+        : undefined,
+    })),
+  ];
+};
+
+const BoardView = ({ board, accent, onOpen }: { board: Board; accent: string; onOpen: (src: string) => void }) => {
+  switch (board.kind) {
+    case "phones":
+      return <PhoneBoard figures={board.figures} steps={board.steps} accent={accent} onOpen={onOpen} />;
+    case "compare":
+      return <CompareBoard before={board.before} after={board.after} labels={board.labels} accent={accent} onOpen={onOpen} />;
+    case "anatomy":
+      return <Anatomy image={board.image} alt={board.alt} points={board.points} accent={accent} narrow />;
+    case "steps":
+      return <ProcessSteps steps={board.steps} accent={accent} />;
+    case "palette":
+      return <PaletteRow colors={board.colors} />;
+    case "grid":
+      return (
+        <FigureGrid
+          figures={board.figures}
+          columns={board.columns}
+          paper={board.paper}
+          ink={board.ink}
+          uniform={board.uniform}
+          contain={board.contain}
+          onOpen={onOpen}
+        />
+      );
+  }
+};
 
 const ProjectDetail = () => {
   const { slug } = useParams<{ slug: string }>();
   const project = getProject(slug);
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const { open, lightbox } = useLightbox();
 
   useEffect(() => {
-    if (project) updateSEO(project.title, project.summary, project.image);
     window.scrollTo(0, 0);
-  }, [project]);
+  }, [slug]);
 
   if (!project) return <Navigate to="/projects" replace />;
   if (slug !== project.slug) return <Navigate to={`/projects/${project.slug}`} replace />;
 
+  const accent = project.accent ?? DEFAULT_ACCENT;
+  const sections = sectionsOf(project);
   const index = projects.findIndex((p) => p.slug === project.slug);
-  const prevProject = index > 0 ? projects[index - 1] : null;
-  const nextProject = index < projects.length - 1 ? projects[index + 1] : null;
+  const next = projects[(index + 1) % projects.length];
+  const nextHref = `/projects/${next.slug}`;
 
-  const renderImages = (images: CaseImage[]) => (
-    <div className={`grid gap-4 mt-6 ${images.length > 1 ? "sm:grid-cols-2" : ""}`}>
-      {images.map((img) => (
-        <figure key={img.src} className="space-y-2">
-          <button
-            type="button"
-            onClick={() => setSelectedImage(img.src)}
-            className="block w-full overflow-hidden rounded-xl border border-border bg-card cursor-zoom-in"
-          >
-            <img src={img.src} alt={img.caption ?? project.title} loading="lazy" className="w-full h-auto hover:opacity-90 transition-opacity" />
-          </button>
-          {img.caption && <figcaption className="font-body text-xs text-muted-foreground">{img.caption}</figcaption>}
-        </figure>
-      ))}
-    </div>
-  );
+  const meta = [
+    { label: "Meu papel", value: project.role },
+    { label: "Organização", value: project.client },
+    { label: project.platform ? "Plataforma" : "Categoria", value: project.platform ?? project.category },
+    { label: "Ano", value: project.year ?? "—" },
+  ];
+
+  let n = 0;
 
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
 
-      {/* Hero */}
+      {/* Abertura */}
       <section className="pt-32 pb-12">
         <div className="container mx-auto px-6 lg:px-12">
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-            <Link
-              to="/projects"
-              className="inline-flex items-center gap-2 font-body text-sm text-muted-foreground hover:text-primary transition-colors mb-8"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              Voltar para Projetos
-            </Link>
-
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-6">
-              <div>
-                <p className="font-body text-sm tracking-[0.3em] text-primary mb-4">{project.category.toUpperCase()}</p>
-                <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-bold text-foreground">{project.title}</h1>
-              </div>
-              {project.year && <span className="font-display text-5xl md:text-7xl font-bold text-foreground/15">{project.year}</span>}
-            </div>
-
-            <p className="font-body text-lg md:text-xl text-muted-foreground max-w-3xl leading-relaxed">{project.summary}</p>
+          <nav className="font-mono text-xs tracking-wide text-muted-foreground mb-10 flex gap-2">
+            <Link to="/projects" className="hover:text-foreground">Projetos</Link>
+            <span>/</span>
+            <span className="text-foreground">{project.title}</span>
+          </nav>
+          <motion.div className="max-w-4xl" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+            <p className="font-mono text-xs tracking-[0.25em] uppercase mb-5" style={{ color: textAccent(accent) }}>
+              Estudo de caso · {project.category}
+            </p>
+            <h1 className="font-display text-4xl sm:text-5xl md:text-7xl font-bold text-foreground leading-[0.95] mb-6 break-words">
+              {project.title}
+            </h1>
+            <p className="font-body text-lg md:text-xl text-muted-foreground leading-relaxed">{project.summary}</p>
+            {project.engagement && (
+              <span className="inline-flex items-center gap-2 mt-6 px-3 py-1 rounded-full border border-border font-mono text-[11px] tracking-wide text-foreground">
+                <span className="w-1.5 h-1.5 rounded-full" style={{ background: accent }} />
+                {project.engagement === "Voluntário" ? "Trabalho voluntário" : project.engagement}
+              </span>
+            )}
           </motion.div>
         </div>
       </section>
 
-      {/* Main Image */}
-      <motion.section
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.2 }}
-        className="pb-20"
-      >
-        <div className="container mx-auto px-6 lg:px-12">
-          <div className="relative overflow-hidden rounded-3xl aspect-[16/9] bg-card border border-border">
-            <ProjectCover project={project} />
-          </div>
-        </div>
-      </motion.section>
+      <div className="container mx-auto px-6 lg:px-12 space-y-12">
+        <MetaStrip items={meta} />
 
-      {/* Case study */}
-      <section className="py-20 border-t border-border">
-        <div className="container mx-auto px-6 lg:px-12">
-          <div className="grid lg:grid-cols-3 gap-12 lg:gap-20">
-            {/* Info Column */}
-            <aside className="space-y-8 lg:sticky lg:top-28 self-start">
-              <div>
-                <h3 className="font-body text-sm tracking-[0.2em] text-muted-foreground mb-3">MEU PAPEL</h3>
-                <p className="font-display text-xl text-foreground">{project.role}</p>
-                {project.engagement && (
-                  <span className="inline-block mt-3 px-3 py-1 rounded-full border border-primary/40 bg-primary/10 font-body text-xs text-primary">
-                    {project.engagement === "Voluntário" ? "Trabalho voluntário" : project.engagement}
-                  </span>
-                )}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.15 }}
+          className="relative overflow-hidden rounded-3xl aspect-[16/10] bg-card border border-border"
+        >
+          <ProjectCover project={project} />
+        </motion.div>
+
+        {project.overview && (
+          <OverviewGrid
+            accent={accent}
+            items={[
+              { label: "Desafio", text: project.overview.challenge },
+              { label: "O que eu fiz", text: project.overview.contribution },
+              { label: "Resultado", text: project.overview.outcome },
+            ]}
+          />
+        )}
+
+        {project.credits && (
+          <aside className="rounded-2xl border border-border bg-secondary/60 p-6 lg:p-8">
+            <p className="font-mono text-[11px] tracking-[0.2em] uppercase text-muted-foreground mb-3">Quem fez o quê</p>
+            <p className="font-body text-[15px] text-foreground/85 leading-relaxed max-w-4xl">{project.credits}</p>
+          </aside>
+        )}
+
+        {project.metrics && <ImpactStrip items={project.metrics} note={project.metricsNote ?? ""} accent={accent} />}
+      </div>
+
+      <main className="container mx-auto px-6 lg:px-12 py-24 space-y-28">
+        {sections.map((section) => (
+          <section key={`${section.label}-${section.title}`}>
+            <SectionHeading index={++n} label={section.label} title={section.title} accent={accent} />
+            {section.text && (
+              <div className="max-w-3xl space-y-4 -mt-2 mb-10">
+                {section.text.map((paragraph) => (
+                  <p key={paragraph} className="font-body text-lg text-muted-foreground leading-relaxed">
+                    {paragraph}
+                  </p>
+                ))}
               </div>
-              <div>
-                <h3 className="font-body text-sm tracking-[0.2em] text-muted-foreground mb-3">ORGANIZAÇÃO</h3>
-                <p className="font-display text-xl text-foreground">{project.client}</p>
+            )}
+            {section.boards && (
+              <div className="space-y-8">
+                {section.boards.map((board, i) => (
+                  <BoardView key={i} board={board} accent={accent} onOpen={open} />
+                ))}
               </div>
+            )}
+          </section>
+        ))}
+
+        <section>
+          <SectionHeading index={++n} label="Resultado" title="O que ficou" accent={accent} />
+          <div className="grid lg:grid-cols-[3fr_2fr] gap-12">
+            <ul className="space-y-5">
+              {project.result.map((item) => (
+                <li key={item} className="flex items-start gap-4">
+                  <span className="mt-2.5 w-2 h-2 rounded-full shrink-0" style={{ background: accent }} />
+                  <span className="font-body text-lg text-muted-foreground leading-relaxed">{item}</span>
+                </li>
+              ))}
+            </ul>
+            <div className="space-y-8">
+              {project.learnings && (
+                <div className="rounded-2xl border border-border p-6">
+                  <p className="font-mono text-[11px] tracking-[0.2em] uppercase text-muted-foreground mb-4">O que aprendi</p>
+                  <ul className="space-y-3">
+                    {project.learnings.map((l) => (
+                      <li key={l} className="font-body text-[15px] text-foreground/85 leading-relaxed">{l}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
               {project.tools && project.tools.length > 0 && (
                 <div>
-                  <h3 className="font-body text-sm tracking-[0.2em] text-muted-foreground mb-3">FERRAMENTAS</h3>
-                  <div className="flex flex-wrap gap-2">
+                  <p className="font-mono text-[11px] tracking-[0.2em] uppercase text-muted-foreground mb-3">Ferramentas</p>
+                  <ul className="flex flex-wrap gap-2">
                     {project.tools.map((tool) => (
-                      <span key={tool} className="px-3 py-1 font-body text-xs text-foreground bg-secondary rounded-full">
-                        {tool}
-                      </span>
+                      <li key={tool} className="px-3 py-1 rounded-full bg-secondary font-mono text-[11px] text-foreground">{tool}</li>
                     ))}
-                  </div>
+                  </ul>
                 </div>
               )}
               {project.links && project.links.length > 0 && (
-                <div className="flex flex-col gap-3">
-                  {project.links.map((link, i) => {
-                    const className = `inline-flex items-center justify-center gap-2 px-6 py-3 font-body text-sm font-medium rounded-full transition-all duration-300 ${
-                      i === 0
-                        ? "bg-primary text-primary-foreground hover:glow-accent"
-                        : "border border-border text-foreground hover:bg-secondary"
-                    }`;
-                    return link.url.startsWith("/") ? (
-                      <Link key={link.url} to={link.url} className={className}>
-                        {link.label}
-                        <ArrowRight className="w-4 h-4" />
+                <div className="flex flex-col items-start gap-3">
+                  {project.links.map((link) =>
+                    link.url.startsWith("/") ? (
+                      <Link key={link.url} to={link.url} className="inline-flex items-center gap-2 font-body text-sm font-medium text-foreground hover:text-primary">
+                        {link.label} <ArrowRight className="w-4 h-4" />
                       </Link>
                     ) : (
-                      <a key={link.url} href={link.url} target="_blank" rel="noopener noreferrer" className={className}>
-                        {link.label}
-                        <ExternalLink className="w-4 h-4" />
+                      <a
+                        key={link.url}
+                        href={link.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 font-body text-sm font-medium text-foreground hover:text-primary"
+                      >
+                        {link.label} <ExternalLink className="w-4 h-4" />
                       </a>
-                    );
-                  })}
+                    ),
+                  )}
                 </div>
               )}
-            </aside>
-
-            {/* Story Column */}
-            <div className="lg:col-span-2 space-y-16">
-              {project.credits && (
-                <div className="p-6 rounded-2xl border border-primary/20 bg-primary/5">
-                  <h3 className="font-body text-sm tracking-[0.2em] text-primary mb-3">QUEM FEZ O QUÊ</h3>
-                  <p className="font-body text-base text-foreground/90 leading-relaxed">{project.credits}</p>
-                </div>
-              )}
-
-              <div>
-                <SectionTitle>O problema</SectionTitle>
-                <p className="font-body text-lg text-muted-foreground leading-relaxed">{project.problem}</p>
-              </div>
-
-              <div>
-                <SectionTitle>O processo</SectionTitle>
-                <ol className="space-y-12">
-                  {project.process.map((step, i) => (
-                    <li key={step.title}>
-                      <h3 className="font-display text-xl font-bold text-foreground mb-3">
-                        <span className="text-primary mr-3">{String(i + 1).padStart(2, "0")}</span>
-                        {step.title}
-                      </h3>
-                      {step.text && <p className="font-body text-base md:text-lg text-muted-foreground leading-relaxed">{step.text}</p>}
-                      {step.images && step.images.length > 0 && renderImages(step.images)}
-                    </li>
-                  ))}
-                </ol>
-              </div>
-
-              <div>
-                <SectionTitle>O resultado</SectionTitle>
-                <ul className="space-y-4">
-                  {project.result.map((item) => (
-                    <li key={item} className="flex items-start gap-3">
-                      <span className="mt-2 w-2 h-2 rounded-full bg-primary shrink-0" />
-                      <span className="font-body text-base md:text-lg text-muted-foreground leading-relaxed">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Gallery */}
-      {project.gallery && project.gallery.length > 0 && (
-        <section className="py-20 bg-card">
-          <div className="container mx-auto px-6 lg:px-12">
-            <h2 className="font-display text-3xl font-bold text-foreground mb-12">Galeria</h2>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-              {project.gallery.map((img, i) => (
-                <button
-                  key={img}
-                  type="button"
-                  onClick={() => setSelectedImage(img)}
-                  className="overflow-hidden rounded-xl bg-background border border-border aspect-square cursor-zoom-in"
-                >
-                  <img
-                    src={img}
-                    alt={`${project.title}, imagem ${i + 1}`}
-                    loading="lazy"
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-                  />
-                </button>
-              ))}
             </div>
           </div>
         </section>
-      )}
 
-      {/* Navigation */}
-      <section className="py-20 border-t border-border">
-        <div className="container mx-auto px-6 lg:px-12">
-          <div className="flex flex-col md:flex-row justify-between gap-8">
-            {prevProject ? (
-              <Link to={`/projects/${prevProject.slug}`} className="group flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full border border-border flex items-center justify-center group-hover:border-primary group-hover:bg-primary transition-all duration-300">
-                  <ArrowLeft className="w-5 h-5 text-muted-foreground group-hover:text-primary-foreground transition-colors" />
-                </div>
-                <div>
-                  <p className="font-body text-sm text-muted-foreground">Anterior</p>
-                  <p className="font-display text-lg font-bold text-foreground group-hover:text-primary transition-colors">{prevProject.title}</p>
-                </div>
-              </Link>
+        {project.gallery && project.gallery.length > 0 && (
+          <section>
+            <SectionHeading index={++n} label="Galeria" title="Outras telas" accent={accent} />
+            {project.galleryPhones ? (
+              <PhoneBoard figures={project.gallery.map((src) => ({ src }))} accent={accent} onOpen={open} />
             ) : (
-              <div />
+              <FigureGrid figures={project.gallery.map((src) => ({ src }))} columns={3} uniform onOpen={open} />
             )}
+          </section>
+        )}
+      </main>
 
-            {nextProject && (
-              <Link to={`/projects/${nextProject.slug}`} className="group flex items-center gap-4 md:flex-row-reverse md:text-right">
-                <div className="w-12 h-12 rounded-full border border-border flex items-center justify-center group-hover:border-primary group-hover:bg-primary transition-all duration-300">
-                  <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary-foreground transition-colors" />
-                </div>
-                <div>
-                  <p className="font-body text-sm text-muted-foreground">Próximo</p>
-                  <p className="font-display text-lg font-bold text-foreground group-hover:text-primary transition-colors">{nextProject.title}</p>
-                </div>
-              </Link>
-            )}
-          </div>
+      {/* Próximo projeto */}
+      <section className="border-t border-border">
+        <div className="container mx-auto px-6 lg:px-12 py-16">
+          <Link to={nextHref} className="group grid grid-cols-[1fr_auto] items-center gap-6">
+            <div className="min-w-0">
+              <p className="font-mono text-xs tracking-[0.25em] uppercase text-muted-foreground mb-3">Próximo estudo de caso</p>
+              <p className="font-display text-3xl md:text-5xl font-bold text-foreground group-hover:text-primary transition-colors break-words">
+                {next.title}
+              </p>
+              <p className="font-body text-muted-foreground mt-2">{next.category}</p>
+            </div>
+            <span className="w-14 h-14 rounded-full border border-border grid place-items-center group-hover:bg-foreground group-hover:text-background transition-colors">
+              <ArrowUpRight className="w-6 h-6" />
+            </span>
+          </Link>
         </div>
       </section>
 
       <Footer />
-
-      {/* Image Lightbox */}
-      {selectedImage && (
-        <div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-md p-4 md:p-10 cursor-zoom-out"
-          onClick={() => setSelectedImage(null)}
-        >
-          <button
-            className="absolute top-6 right-6 p-2 text-white/70 hover:text-white transition-colors"
-            onClick={() => setSelectedImage(null)}
-            aria-label="Fechar imagem"
-          >
-            <X className="w-8 h-8" />
-          </button>
-          <img
-            src={selectedImage}
-            alt="Imagem ampliada"
-            className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl border border-border"
-            onClick={(e) => e.stopPropagation()}
-          />
-        </div>
-      )}
+      {lightbox}
     </div>
   );
 };

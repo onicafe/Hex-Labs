@@ -3,6 +3,12 @@ import { publicUrl } from "@/lib/utils";
 // Dados pessoais usados na home, no currículo, no rodapé e no SEO.
 export const profile = {
   name: "Iésu Jafé",
+  /** Grafia sem acento, para quem busca "Iesu Jafe". */
+  alternateName: "Iesu Jafe",
+  /** Endereço público do site, sem barra no fim. Ao trocar de domínio, mude só aqui. */
+  siteUrl: "https://onicafe.github.io/Hex-Labs",
+  /** Código da tag HTML do Google Search Console (só o valor de content). Vazio = sem tag. */
+  googleSiteVerification: "",
   title: "Product & Game Designer",
   /** Especialidades, abaixo do título. */
   focus: "UX/UI, design de jogos e produtos digitais",

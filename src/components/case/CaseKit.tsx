@@ -132,7 +132,7 @@ export const SpecSheet = ({ specs, accent }: { specs: Specs; accent: string }) =
 export const PaletteRow = ({ colors }: { colors: string[] }) => (
   <div>
     <p className="font-mono text-[11px] tracking-[0.2em] uppercase text-muted-foreground mb-3">Paleta</p>
-    <div className="grid grid-cols-5 gap-2">
+    <div className={`grid grid-cols-5 gap-2 ${colors.length > 5 ? "md:grid-cols-9" : ""}`}>
       {colors.map((c) => (
         <div key={c}>
           <div className="aspect-square rounded-xl border border-border" style={{ background: c }} />
@@ -165,19 +165,23 @@ export const FigureGrid = ({
   uniform = false,
   paper = false,
   contain = false,
+  ink = false,
   onOpen,
 }: {
   figures: Figure[];
-  columns?: 1 | 2 | 3;
+  columns?: 1 | 2 | 3 | 4;
   /** Recorta todas as imagens na mesma proporção, para pranchas com fotos de tamanhos diferentes. */
   uniform?: boolean;
   /** Fundo de papel claro, para arquivos técnicos. */
   paper?: boolean;
   /** Com uniform: mostra a imagem inteira em vez de recortar. */
   contain?: boolean;
+  /** Fundo escuro, para peças pensadas sobre preto. */
+  ink?: boolean;
   onOpen: (src: string) => void;
 }) => {
-  const cols = columns === 1 ? "" : columns === 3 ? "sm:grid-cols-2 lg:grid-cols-3" : "sm:grid-cols-2";
+  const cols =
+    columns === 1 ? "" : columns === 3 ? "sm:grid-cols-2 lg:grid-cols-3" : columns === 4 ? "grid-cols-2 lg:grid-cols-4" : "sm:grid-cols-2";
   return (
     <div className={`grid gap-4 ${cols}`}>
       {figures.map((f) => (
@@ -185,7 +189,7 @@ export const FigureGrid = ({
           <button
             type="button"
             onClick={() => onOpen(f.src)}
-            className={`block w-full overflow-hidden rounded-2xl border border-border cursor-zoom-in ${uniform ? "aspect-[4/3]" : ""} ${paper ? "bg-white p-3 md:p-6" : "bg-card"}`}
+            className={`block w-full overflow-hidden rounded-2xl border border-border cursor-zoom-in ${uniform ? "aspect-[4/3]" : ""} ${paper ? "bg-white p-3 md:p-6" : ink ? "bg-ink p-2 md:p-3" : "bg-card"}`}
           >
             <img
               src={f.src}
@@ -201,10 +205,23 @@ export const FigureGrid = ({
   );
 };
 
-export const Anatomy = ({ image, points, accent }: { image: string; points: AnatomyPoint[]; accent: string }) => (
-  <div className="grid lg:grid-cols-[2fr_1fr] gap-8 items-start">
-    <div className="relative rounded-2xl overflow-hidden border border-border bg-white">
-      <img src={image} alt="Anatomia da carta" className="w-full h-auto" />
+export const Anatomy = ({
+  image,
+  points,
+  accent,
+  narrow = false,
+  alt = "Anatomia da carta",
+}: {
+  image: string;
+  points: AnatomyPoint[];
+  accent: string;
+  /** Para telas de celular: a imagem fica estreita e a legenda ganha espaço. */
+  narrow?: boolean;
+  alt?: string;
+}) => (
+  <div className={`grid gap-8 items-start ${narrow ? "md:grid-cols-[minmax(0,340px)_1fr] lg:gap-16" : "lg:grid-cols-[2fr_1fr]"}`}>
+    <div className={`relative rounded-2xl overflow-hidden border border-border bg-white ${narrow ? "max-w-[340px] w-full mx-auto shadow-xl" : ""}`}>
+      <img src={image} alt={alt} className="w-full h-auto" />
       {points.map((p, i) => (
         <span
           key={p.label}
@@ -230,4 +247,97 @@ export const Anatomy = ({ image, points, accent }: { image: string; points: Anat
       ))}
     </ol>
   </div>
+);
+
+/** Telas de celular lado a lado, opcionalmente numeradas como passos de um fluxo. */
+export const PhoneBoard = ({
+  figures,
+  steps = false,
+  accent,
+  onOpen,
+}: {
+  figures: Figure[];
+  steps?: boolean;
+  accent?: string;
+  onOpen: (src: string) => void;
+}) => {
+  const cols = figures.length >= 4 ? "lg:grid-cols-4" : figures.length === 3 ? "lg:grid-cols-3" : "";
+  return (
+    <div
+      className="rounded-3xl border border-border p-5 sm:p-8 lg:p-10"
+      style={{ background: accent ? `color-mix(in oklab, ${accent} 9%, hsl(var(--background)))` : undefined }}
+    >
+      <ol className={`grid grid-cols-2 ${cols} gap-5 lg:gap-8 mx-auto ${figures.length >= 4 ? "max-w-5xl" : "max-w-4xl"}`}>
+        {figures.map((f, i) => (
+          <li key={f.src} className="min-w-0">
+            <button
+              type="button"
+              onClick={() => onOpen(f.src)}
+              className="block w-full overflow-hidden rounded-[1.4rem] border-[5px] border-neutral-900 bg-neutral-900 shadow-xl cursor-zoom-in"
+            >
+              <img src={f.src} alt={f.caption ?? ""} loading="lazy" className="w-full aspect-[9/19.5] object-cover object-top bg-white" />
+            </button>
+            {(steps || f.caption) && (
+              <p className="mt-3 font-mono text-[11px] leading-relaxed text-muted-foreground">
+                {steps && (
+                  <span className="font-bold mr-1.5" style={{ color: textAccent(accent) }}>
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                )}
+                {f.caption}
+              </p>
+            )}
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
+};
+
+/** Duas versões da mesma tela lado a lado (por exemplo, wireframe e tela final). */
+export const CompareBoard = ({
+  before,
+  after,
+  labels = ["Wireframe", "Tela final"],
+  accent,
+  onOpen,
+}: {
+  before: Figure;
+  after: Figure;
+  labels?: [string, string];
+  accent?: string;
+  onOpen: (src: string) => void;
+}) => (
+  <div className="grid md:grid-cols-2 gap-4 md:gap-6">
+    {[before, after].map((f, i) => (
+      <figure key={f.src} className="flex flex-col">
+        <p className="font-mono text-[11px] tracking-[0.2em] uppercase mb-3" style={{ color: i === 1 ? textAccent(accent) : undefined }}>
+          {i === 0 ? "Antes · " : "Depois · "}
+          {labels[i]}
+        </p>
+        <button
+          type="button"
+          onClick={() => onOpen(f.src)}
+          className={`flex-1 block w-full overflow-hidden rounded-2xl border border-border cursor-zoom-in p-3 md:p-5 ${i === 0 ? "bg-secondary" : "bg-white"}`}
+        >
+          <img src={f.src} alt={f.caption ?? labels[i]} loading="lazy" className="w-full h-full object-contain object-top" />
+        </button>
+        {f.caption && <figcaption className="font-mono text-[11px] tracking-wide text-muted-foreground mt-3">{f.caption}</figcaption>}
+      </figure>
+    ))}
+  </div>
+);
+
+/** Três colunas do "em resumo": desafio, o que eu fiz e resultado. */
+export const OverviewGrid = ({ items, accent }: { items: { label: string; text: string }[]; accent?: string }) => (
+  <dl className="grid md:grid-cols-3 gap-px bg-border rounded-2xl overflow-hidden border border-border">
+    {items.map((item) => (
+      <div key={item.label} className="bg-background p-6 lg:p-8">
+        <dt className="font-mono text-[11px] tracking-[0.2em] uppercase mb-3" style={{ color: textAccent(accent) }}>
+          {item.label}
+        </dt>
+        <dd className="font-body text-[15px] text-foreground/85 leading-relaxed">{item.text}</dd>
+      </div>
+    ))}
+  </dl>
 );

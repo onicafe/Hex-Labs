@@ -17,8 +17,8 @@ const setMetaTag = (name: string, content: string | undefined, property: boolean
 };
 
 // SEO is static on purpose: it must not depend on Supabase being online.
-export const updateSEO = (customTitle?: string, customDescription?: string, customImage?: string) => {
-    const title = customTitle ? `${customTitle} | ${SITE_NAME}` : DEFAULT_TITLE;
+export const updateSEO = (customTitle?: string, customDescription?: string, customImage?: string, fullTitle = false) => {
+    const title = customTitle ? (fullTitle ? customTitle : `${customTitle} | ${SITE_NAME}`) : DEFAULT_TITLE;
     const description = customDescription || DEFAULT_DESCRIPTION;
 
     document.title = title;

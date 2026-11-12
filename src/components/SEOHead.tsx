@@ -1,28 +1,32 @@
-import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import { updateSEO } from '@/lib/seo';
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { updateSEO } from "@/lib/seo";
+import { canonicalUrl, findRouteMeta } from "@/data/routeMeta";
+import { profile } from "@/data/profile";
 
+// Aplica o título, a descrição e a prévia de cada rota quando a navegação acontece dentro do site.
+// Os mesmos valores vão para o HTML gerado no build (scripts/prerender.mjs).
 const SEOHead = () => {
-    const { pathname } = useLocation();
+  const { pathname } = useLocation();
 
-    useEffect(() => {
-        // Default route-based SEO titles
-        let tempTitle = undefined;
-        if (pathname.includes('/blog')) tempTitle = `Blog`;
-        if (pathname.includes('/projects')) tempTitle = `Projetos`;
-        if (pathname.includes('/curriculo')) tempTitle = `Currículo`;
+  useEffect(() => {
+    if (pathname.startsWith("/admin") || pathname.startsWith("/blog/")) return;
+    const meta = findRouteMeta(pathname);
+    if (!meta) {
+      updateSEO(pathname.startsWith("/blog") ? "Blog" : undefined);
+      return;
+    }
+    updateSEO(meta.title, meta.description, `${profile.siteUrl}/${meta.image}`, true);
+    let link = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+    if (!link) {
+      link = document.createElement("link");
+      link.rel = "canonical";
+      document.head.appendChild(link);
+    }
+    link.href = canonicalUrl(meta.path);
+  }, [pathname]);
 
-        // If we are deep inside a dynamic route like /blog/my-post, we skip resetting to defaults
-        // because the individual component (BlogPost) will call updateSEO(postTitle) once it fetches the data.
-        // We only apply defaults here if it's a "listing" page basically.
-        const isDynamicDetailRoute = pathname.split('/').length > 2 && (pathname.includes('/blog/') || pathname.includes('/projects/'));
-
-        if (!isDynamicDetailRoute && !pathname.includes('/admin')) {
-            updateSEO(tempTitle);
-        }
-    }, [pathname]);
-
-    return null; // This component doesn't render anything visible
+  return null;
 };
 
 export default SEOHead;

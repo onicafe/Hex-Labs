@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "build:dev": "vite build --mode development",
-    "build:pages": "vite build --mode pages && vite build --mode pages --ssr src/data/routeMeta.ts --outDir dist-ssr && node scripts/prerender.mjs",
+    "build:pages": "vite build --mode pages && vite build --mode pages --ssr src/entry-server.tsx --outDir dist-ssr && node scripts/prerender.mjs",
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest run",

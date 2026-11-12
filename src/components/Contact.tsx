@@ -1,6 +1,29 @@
 import { ArrowUpRight, Download } from "lucide-react";
 import { profile } from "@/data/profile";
 
+const offers = [
+  {
+    kicker: "Para empresas e estúdios",
+    title: "Vagas",
+    items: [
+      "Product Designer ou Game Designer",
+      "Estúdios de jogos e times de produto digital",
+      "Remoto, ou híbrido em Natal (RN)",
+      "Trabalho em português e inglês",
+    ],
+  },
+  {
+    kicker: "Para quem tem uma ideia",
+    title: "Projetos sob demanda",
+    items: [
+      "Jogo de cartas ou de tabuleiro: regras, cartas, caixa e arte final",
+      "Embalagem e arquivos para a gráfica: faca, sangria e gabaritos",
+      "UX/UI de app ou sistema: fluxos, protótipo e telas para o desenvolvimento",
+      "Protótipo navegável para testar uma ideia antes de investir no código",
+    ],
+  },
+];
+
 const Contact = () => {
   const links = [
     { label: "LinkedIn", href: profile.linkedin },
@@ -17,9 +40,25 @@ const Contact = () => {
         </p>
         <h2 className="font-display text-4xl md:text-6xl font-semibold mb-6 max-w-3xl">Vamos conversar?</h2>
         <p className="font-body text-lg text-paper/70 max-w-2xl mb-12">
-          Estou buscando uma vaga como Product Designer ou Game Designer, de preferência em estúdios de jogos ou produtos
-          digitais. Remoto ou híbrido em Natal.
+          Estou aberto a vagas e a projetos. Conte o que você precisa e eu respondo com escopo, prazo e orçamento.
         </p>
+
+        <div className="grid md:grid-cols-2 gap-px bg-paper/15 rounded-2xl overflow-hidden border border-paper/15 mb-14 max-w-5xl">
+          {offers.map((o) => (
+            <div key={o.title} className="bg-ink p-6 lg:p-8">
+              <p className="font-mono text-[11px] tracking-[0.2em] uppercase text-primary mb-3">{o.kicker}</p>
+              <h3 className="font-display text-2xl font-semibold mb-4">{o.title}</h3>
+              <ul className="space-y-2">
+                {o.items.map((item) => (
+                  <li key={item} className="flex gap-3 font-body text-[15px] text-paper/75 leading-relaxed">
+                    <span className="mt-2 w-1.5 h-1.5 rounded-full bg-paper/40 shrink-0" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
 
         <a
           href={`mailto:${profile.email}`}

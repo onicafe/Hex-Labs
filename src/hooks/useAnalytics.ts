@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { supabase, isSupabaseConfigured } from '@/lib/supabase';
+import { isSupabaseConfigured } from '@/lib/supabaseConfig';
 
 export const useAnalytics = () => {
     const location = useLocation();
@@ -33,6 +33,7 @@ export const useAnalytics = () => {
                 }
 
                 // Save to Supabase
+                const { supabase } = await import('@/lib/supabase');
                 await supabase.from('page_views').insert({
                     path: location.pathname + location.search,
                     device_type: deviceType,

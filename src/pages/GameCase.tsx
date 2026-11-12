@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight, ExternalLink } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { updateSEO } from "@/lib/seo";
 import { brand, games, getGame } from "@/data/spillfabrikken";
 import {
   Anatomy,
@@ -26,7 +25,6 @@ const GameCase = () => {
   const { open, lightbox } = useLightbox();
 
   useEffect(() => {
-    if (game) updateSEO(`${game.name} · SpillFabrikken`, game.summary, game.cover);
     window.scrollTo(0, 0);
   }, [game]);
 
