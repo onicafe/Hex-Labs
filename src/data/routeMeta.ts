@@ -92,6 +92,8 @@ const metaFor = (lang: Lang): RouteMeta[] => {
     lang,
     alternate: localePath(other, ptPath),
     ...rest,
+    // Cada prévia tem uma versão em inglês com o mesmo nome e o sufixo -en.
+    image: en ? rest.image.replace(/\.jpg$/, "-en.jpg") : rest.image,
   });
 
   return [

@@ -1,9 +1,12 @@
 import { profile } from "../profile";
+import { publicUrl } from "@/lib/utils";
 
 // Campos de texto do perfil em inglês; contatos e links vêm do perfil em português.
 export const profileEn: typeof profile = {
   ...profile,
   focus: "UX/UI, game design and digital products",
+  cvPdfUrl: publicUrl("Iesu-Jafe-CV-EN.pdf"),
+  cvGamesPdfUrl: publicUrl("Iesu-Jafe-CV-Games-EN.pdf"),
   location: "Natal, Brazil",
   availability: "Open to remote work",
   seoDescription:

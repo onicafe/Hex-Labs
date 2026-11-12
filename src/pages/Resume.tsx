@@ -52,15 +52,26 @@ const Resume = () => {
                 <ArrowLeft className="w-4 h-4" />
                 {tr("Voltar ao início", "Back to home")}
               </Link>
-              <a
-                href={profile.cvPdfUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-foreground text-background font-body text-sm font-medium rounded-full hover:bg-primary transition-colors"
-              >
-                <Download className="w-4 h-4" />
-                {tr("CV em PDF", "CV (PDF)")}
-              </a>
+              <div className="flex flex-wrap gap-3">
+                <a
+                  href={profile.cvPdfUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-5 py-3 bg-foreground text-background font-body text-sm font-medium rounded-full hover:bg-primary transition-colors"
+                >
+                  <Download className="w-4 h-4" />
+                  {tr("CV de produto (PDF)", "Product CV (PDF)")}
+                </a>
+                <a
+                  href={profile.cvGamesPdfUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-5 py-3 border border-foreground/20 text-foreground font-body text-sm font-medium rounded-full hover:border-foreground transition-colors"
+                >
+                  <Download className="w-4 h-4" />
+                  {tr("CV de jogos (PDF)", "Games CV (PDF)")}
+                </a>
+              </div>
             </div>
 
             <p className="font-mono text-xs tracking-[0.25em] uppercase text-primary mb-5">{tr("Currículo", "Résumé")}</p>

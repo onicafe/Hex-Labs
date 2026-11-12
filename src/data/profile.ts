@@ -21,6 +21,8 @@ export const profile = {
   github: "https://github.com/onicafe/",
   behance: "https://behance.net/iesujafe",
   cvPdfUrl: publicUrl("Iesu-Jafe-CV.pdf"),
+  /** Versão do CV com foco em jogos. */
+  cvGamesPdfUrl: publicUrl("Iesu-Jafe-CV-Jogos.pdf"),
   seoDescription:
     "Portfólio de Iésu Jafé, Product & Game Designer em Natal, RN. Estudos de caso da SpillFabrikken (Kryptert, Jentekveld, Tipsy), do Lan House Simulator, do PJe2 Mobile (TRF5), do Jovem Potiguar e da Dione Solutions.",
   /** Números da faixa de destaque da home. Todos conferidos no CV ou no catálogo da SpillFabrikken. */

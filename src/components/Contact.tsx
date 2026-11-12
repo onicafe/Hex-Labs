@@ -78,7 +78,15 @@ const Contact = () => {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-paper text-foreground font-body text-sm font-medium hover:bg-primary hover:text-primary-foreground transition-colors"
           >
-            <FileText className="w-4 h-4" /> {tr("CV em PDF", "CV (PDF)")}
+            <FileText className="w-4 h-4" /> {tr("CV de produto", "Product CV")}
+          </a>
+          <a
+            href={profile.cvGamesPdfUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-paper text-foreground font-body text-sm font-medium hover:bg-primary hover:text-primary-foreground transition-colors"
+          >
+            <FileText className="w-4 h-4" /> {tr("CV de jogos", "Games CV")}
           </a>
           {links.map((l) => (
             <a
