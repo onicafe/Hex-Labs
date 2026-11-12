@@ -5,12 +5,15 @@ import { ArrowRight, ArrowUpRight, ExternalLink } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ProjectCover from "@/components/ProjectCover";
-import { getProject, projects, type Board, type CaseSection, type Project } from "@/data/projects";
+import type { Board, CaseSection, Project } from "@/data/projects";
+import { useI18n } from "@/i18n";
+import { useData } from "@/i18n/data";
 import {
   Anatomy,
   CompareBoard,
   FigureGrid,
   ImpactStrip,
+  LoopVideo,
   MetaStrip,
   OverviewGrid,
   PaletteRow,
@@ -19,17 +22,18 @@ import {
   SectionHeading,
   textAccent,
   useLightbox,
+  VideoBoard,
 } from "@/components/case/CaseKit";
 
 const DEFAULT_ACCENT = "#c2410c";
 
 /** Projetos no formato simples (só `process`) viram seções do formato completo. */
-const sectionsOf = (project: Project): CaseSection[] => {
+const sectionsOf = (project: Project, tr: (pt: string, en: string) => string): CaseSection[] => {
   if (project.sections) return project.sections;
   return [
-    { label: "Contexto", title: "O problema", text: [project.problem] },
+    { label: tr("Contexto", "Context"), title: tr("O problema", "The problem"), text: [project.problem] },
     ...(project.process ?? []).map((step) => ({
-      label: "Processo",
+      label: tr("Processo", "Process"),
       title: step.title,
       text: step.text ? [step.text] : undefined,
       boards: step.images?.length
@@ -51,6 +55,8 @@ const BoardView = ({ board, accent, onOpen }: { board: Board; accent: string; on
       return <ProcessSteps steps={board.steps} accent={accent} />;
     case "palette":
       return <PaletteRow colors={board.colors} />;
+    case "video":
+      return <VideoBoard src={board.src} poster={board.poster} caption={board.caption} />;
     case "grid":
       return (
         <FigureGrid
@@ -68,27 +74,28 @@ const BoardView = ({ board, accent, onOpen }: { board: Board; accent: string; on
 
 const ProjectDetail = () => {
   const { slug } = useParams<{ slug: string }>();
-  const project = getProject(slug);
+  const { lp, tr } = useI18n();
+  const { projects } = useData();
+  const project = projects.find((p) => p.slug === slug);
   const { open, lightbox } = useLightbox();
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [slug]);
 
-  if (!project) return <Navigate to="/projects" replace />;
-  if (slug !== project.slug) return <Navigate to={`/projects/${project.slug}`} replace />;
+  if (!project) return <Navigate to={lp("/projects")} replace />;
 
   const accent = project.accent ?? DEFAULT_ACCENT;
-  const sections = sectionsOf(project);
+  const sections = sectionsOf(project, tr);
   const index = projects.findIndex((p) => p.slug === project.slug);
   const next = projects[(index + 1) % projects.length];
-  const nextHref = `/projects/${next.slug}`;
+  const nextHref = lp(`/projects/${next.slug}`);
 
   const meta = [
-    { label: "Meu papel", value: project.role },
-    { label: "Organização", value: project.client },
-    { label: project.platform ? "Plataforma" : "Categoria", value: project.platform ?? project.category },
-    { label: "Ano", value: project.year ?? "—" },
+    { label: tr("Meu papel", "My role"), value: project.role },
+    { label: tr("Organização", "Organization"), value: project.client },
+    { label: project.platform ? tr("Plataforma", "Platform") : tr("Categoria", "Category"), value: project.platform ?? project.category },
+    { label: tr("Ano", "Year"), value: project.year ?? "—" },
   ];
 
   let n = 0;
@@ -101,22 +108,28 @@ const ProjectDetail = () => {
       <section className="pt-32 pb-12">
         <div className="container mx-auto px-6 lg:px-12">
           <nav className="font-mono text-xs tracking-wide text-muted-foreground mb-10 flex gap-2">
-            <Link to="/projects" className="hover:text-foreground">Projetos</Link>
+            <Link to={lp("/projects")} className="hover:text-foreground">{tr("Projetos", "Projects")}</Link>
             <span>/</span>
             <span className="text-foreground">{project.title}</span>
           </nav>
           <motion.div className="max-w-4xl" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
             <p className="font-mono text-xs tracking-[0.25em] uppercase mb-5" style={{ color: textAccent(accent) }}>
-              Estudo de caso · {project.category}
+              {tr("Estudo de caso", "Case study")} · {project.category}
             </p>
             <h1 className="font-display text-4xl sm:text-5xl md:text-7xl font-bold text-foreground leading-[0.95] mb-6 break-words">
               {project.title}
             </h1>
             <p className="font-body text-lg md:text-xl text-muted-foreground leading-relaxed">{project.summary}</p>
             {project.engagement && (
-              <span className="inline-flex items-center gap-2 mt-6 px-3 py-1 rounded-full border border-border font-mono text-[11px] tracking-wide text-foreground">
+              <span className="inline-flex items-center gap-2 mt-6 px-3 py-1 rounded-full border border-border font-mono text-xs tracking-wide text-foreground">
                 <span className="w-1.5 h-1.5 rounded-full" style={{ background: accent }} />
-                {project.engagement === "Voluntário" ? "Trabalho voluntário" : project.engagement}
+                {project.engagement === "Voluntário"
+                  ? tr("Trabalho voluntário", "Volunteer work")
+                  : project.engagement === "Projeto autoral"
+                    ? tr("Projeto autoral", "Personal project")
+                    : project.engagement === "Fundador"
+                      ? tr("Fundador", "Founder")
+                      : project.engagement}
               </span>
             )}
           </motion.div>
@@ -132,23 +145,27 @@ const ProjectDetail = () => {
           transition={{ duration: 0.8, delay: 0.15 }}
           className="relative overflow-hidden rounded-3xl aspect-[16/10] bg-card border border-border"
         >
-          <ProjectCover project={project} />
+          {project.loop ? (
+            <LoopVideo src={project.loop.src} poster={project.loop.poster} label={project.title} />
+          ) : (
+            <ProjectCover project={project} />
+          )}
         </motion.div>
 
         {project.overview && (
           <OverviewGrid
             accent={accent}
             items={[
-              { label: "Desafio", text: project.overview.challenge },
-              { label: "O que eu fiz", text: project.overview.contribution },
-              { label: "Resultado", text: project.overview.outcome },
+              { label: tr("Desafio", "Challenge"), text: project.overview.challenge },
+              { label: tr("O que eu fiz", "What I did"), text: project.overview.contribution },
+              { label: tr("Resultado", "Outcome"), text: project.overview.outcome },
             ]}
           />
         )}
 
         {project.credits && (
           <aside className="rounded-2xl border border-border bg-secondary/60 p-6 lg:p-8">
-            <p className="font-mono text-[11px] tracking-[0.2em] uppercase text-muted-foreground mb-3">Quem fez o quê</p>
+            <p className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground mb-3">{tr("Quem fez o quê", "Who did what")}</p>
             <p className="font-body text-[15px] text-foreground/85 leading-relaxed max-w-4xl">{project.credits}</p>
           </aside>
         )}
@@ -180,7 +197,7 @@ const ProjectDetail = () => {
         ))}
 
         <section>
-          <SectionHeading index={++n} label="Resultado" title="O que ficou" accent={accent} />
+          <SectionHeading index={++n} label={tr("Resultado", "Outcome")} title={tr("O que ficou", "Where it landed")} accent={accent} />
           <div className="grid lg:grid-cols-[3fr_2fr] gap-12">
             <ul className="space-y-5">
               {project.result.map((item) => (
@@ -193,7 +210,7 @@ const ProjectDetail = () => {
             <div className="space-y-8">
               {project.learnings && (
                 <div className="rounded-2xl border border-border p-6">
-                  <p className="font-mono text-[11px] tracking-[0.2em] uppercase text-muted-foreground mb-4">O que aprendi</p>
+                  <p className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground mb-4">{tr("O que aprendi", "What I learned")}</p>
                   <ul className="space-y-3">
                     {project.learnings.map((l) => (
                       <li key={l} className="font-body text-[15px] text-foreground/85 leading-relaxed">{l}</li>
@@ -203,10 +220,10 @@ const ProjectDetail = () => {
               )}
               {project.tools && project.tools.length > 0 && (
                 <div>
-                  <p className="font-mono text-[11px] tracking-[0.2em] uppercase text-muted-foreground mb-3">Ferramentas</p>
+                  <p className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground mb-3">{tr("Ferramentas", "Tools")}</p>
                   <ul className="flex flex-wrap gap-2">
                     {project.tools.map((tool) => (
-                      <li key={tool} className="px-3 py-1 rounded-full bg-secondary font-mono text-[11px] text-foreground">{tool}</li>
+                      <li key={tool} className="px-3 py-1 rounded-full bg-secondary font-mono text-xs text-foreground">{tool}</li>
                     ))}
                   </ul>
                 </div>
@@ -215,7 +232,7 @@ const ProjectDetail = () => {
                 <div className="flex flex-col items-start gap-3">
                   {project.links.map((link) =>
                     link.url.startsWith("/") ? (
-                      <Link key={link.url} to={link.url} className="inline-flex items-center gap-2 font-body text-sm font-medium text-foreground hover:text-primary">
+                      <Link key={link.url} to={lp(link.url)} className="inline-flex items-center gap-2 font-body text-sm font-medium text-foreground hover:text-primary">
                         {link.label} <ArrowRight className="w-4 h-4" />
                       </Link>
                     ) : (
@@ -238,7 +255,7 @@ const ProjectDetail = () => {
 
         {project.gallery && project.gallery.length > 0 && (
           <section>
-            <SectionHeading index={++n} label="Galeria" title="Outras telas" accent={accent} />
+            <SectionHeading index={++n} label={tr("Galeria", "Gallery")} title={tr("Outras telas", "More screens")} accent={accent} />
             {project.galleryPhones ? (
               <PhoneBoard figures={project.gallery.map((src) => ({ src }))} accent={accent} onOpen={open} />
             ) : (
@@ -253,7 +270,7 @@ const ProjectDetail = () => {
         <div className="container mx-auto px-6 lg:px-12 py-16">
           <Link to={nextHref} className="group grid grid-cols-[1fr_auto] items-center gap-6">
             <div className="min-w-0">
-              <p className="font-mono text-xs tracking-[0.25em] uppercase text-muted-foreground mb-3">Próximo estudo de caso</p>
+              <p className="font-mono text-xs tracking-[0.25em] uppercase text-muted-foreground mb-3">{tr("Próximo estudo de caso", "Next case study")}</p>
               <p className="font-display text-3xl md:text-5xl font-bold text-foreground group-hover:text-primary transition-colors break-words">
                 {next.title}
               </p>

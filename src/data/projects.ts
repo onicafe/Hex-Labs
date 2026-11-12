@@ -13,7 +13,7 @@ import { publicUrl } from "@/lib/utils";
 
 // Fonte única dos projetos exibidos no site. As páginas públicas não dependem do Supabase.
 
-export type Engagement = "Voluntário" | "Fundador" | "Freelance" | "Contratado";
+export type Engagement = "Voluntário" | "Fundador" | "Freelance" | "Contratado" | "Projeto autoral";
 
 export interface CaseImage {
   src: string;
@@ -38,7 +38,8 @@ export type Board =
   | { kind: "compare"; before: CaseImage; after: CaseImage; labels?: [string, string] }
   | { kind: "anatomy"; image: string; alt: string; points: { x: number; y: number; label: string; text: string }[] }
   | { kind: "steps"; steps: { title: string; text: string }[] }
-  | { kind: "palette"; colors: string[] };
+  | { kind: "palette"; colors: string[] }
+  | { kind: "video"; src: string; poster: string; caption?: string };
 
 export interface CaseSection {
   /** Rótulo curto (ex.: "Navegação"). */
@@ -89,15 +90,234 @@ export interface Project {
   metricsNote?: string;
   sections?: CaseSection[];
   learnings?: string[];
+  /** Vídeo curto e mudo, em loop, usado no lugar da capa (case e destaque da home). */
+  loop?: { src: string; poster: string };
 }
 
 
 const pjeImg = (n: number, caption?: string): CaseImage => ({ src: publicUrl(`projects/pje2-mobile/${n}.webp`), caption });
 const jpImg = (n: number, caption?: string): CaseImage => ({ src: publicUrl(`projects/jovem-potiguar/image${n}.webp`), caption });
+const lh = (name: string) => publicUrl(`projects/lan-house/${name}.webp`);
+const lhImg = (name: string, caption: string): CaseImage => ({ src: lh(name), caption });
 const mtLogo = (n: number, caption: string): CaseImage => ({ src: publicUrl(`projects/my-treasure/logo-${n}.webp`), caption });
 const nexusImg = (n: number, caption?: string): CaseImage => ({ src: publicUrl(`projects/nexus-imobiliaria/image${n}.webp`), caption });
 
 export const projects: Project[] = [
+  {
+    slug: "spillfabrikken",
+    title: "SpillFabrikken",
+    category: "Product e Game Design · 8 jogos",
+    year: "2020–2021",
+    client: "SpillFabrikken (Trondheim, Noruega)",
+    image: spillfabrikken,
+    featured: true,
+    role: "Product e Game Designer",
+    summary:
+      "Identidade visual, cartas, regras e embalagens de uma linha de jogos de festa noruegueses, do Kryptert e suas quatro edições ao Tipsy e ao Paranoia.",
+    // A página desta marca é própria (src/pages/SpillFabrikken.tsx); os campos abaixo só servem de resumo.
+    problem: "Criar uma linha de jogos com personalidades diferentes que, juntos, parecessem da mesma editora.",
+    process: [{ title: "Do conceito à caixa", text: "Identidade, game design, cartas, embalagem e renders." }],
+    result: ["Oito jogos, um sistema de embalagem comum e quatro edições do Kryptert."],
+    tools: ["Illustrator", "Photoshop", "Renders 3D"],
+  },
+  {
+    slug: "lan-house-simulator",
+    title: "Lan House Simulator",
+    category: "Game design · Jogo 3D para PC",
+    year: "2026",
+    client: "Projeto autoral",
+    image: lh("pv-lan-cheia"),
+    ogImage: "og-lan-house.jpg",
+    accent: "#b45309",
+    platform: "PC · Godot 4",
+    featured: true,
+    engagement: "Projeto autoral",
+    role: "Game designer e diretor de arte",
+    summary:
+      "Simulador em primeira pessoa de uma lan house brasileira, recriada na garagem em que eu tive a minha, em Pedro Velho (RN), como ela era em 2012. Dentro dele roda um segundo jogo: o Pingado Pro, o programa do caixa, em pixel art. Em desenvolvimento.",
+    credits:
+      "Projeto autoral, em desenvolvimento. Eu defino o design, as regras, a direção de arte e o nível de fidelidade; jogo cada versão e mando as correções. A programação é feita com agentes de IA (Claude Code) sob a minha direção. Recursos de terceiros, todos com licença livre: pessoas da Microsoft Rocketbox (MIT), texturas do ambientCG (CC0), modelos do Objaverse (CC0 e CC BY, com créditos no jogo), ruas do OpenStreetMap (ODbL), vozes geradas no próprio PC com o Kokoro (Apache 2.0) e sons de ambiente em domínio público.",
+    problem:
+      "Transformar uma memória, a lan house de bairro, num jogo de gerenciamento com clientes que parecem gente e num lugar que quem viveu aquela época reconhece.",
+    overview: {
+      challenge:
+        "Transformar uma memória, a lan house de bairro, num jogo de gerenciamento que dê vontade de jogar: clientes que parecem gente de verdade e um lugar que quem viveu aquela época reconhece.",
+      contribution:
+        "Game design, economia e regras de satisfação, direção de arte, roteiro das falas e o design do Pingado Pro. Cada versão passa por mim jogando e por robôs que jogam um dia inteiro pela interface.",
+      outcome:
+        "Versão jogável no PC, com dois cenários, ciclo de dia e noite, clientes com sete necessidades, contas mensais e o Pingado Pro completo. Ainda sem data de lançamento.",
+    },
+    metrics: [
+      { value: "2012", label: "Pedro Velho (RN) refeita casa por casa a partir de fotos de 2012 e do OpenStreetMap" },
+      { value: "7", label: "necessidades por cliente: fome, conforto, bexiga, energia, diversão, social e higiene" },
+      { value: "2 em 1", label: "um jogo de gerenciamento em pixel art rodando dentro do monitor 3D" },
+    ],
+    metricsNote: "Contagens do próprio jogo, documentadas no README do projeto.",
+    sections: [
+      {
+        label: "Conceito",
+        title: "A minha antiga lan house, virada jogo",
+        text: [
+          "Você é o dono. O cliente chega, olha a fila e decide se espera. No caixa, você libera a máquina, acerta o tempo e liga os adicionais. Durante a sessão, ele come, vai ao banheiro, pede mais meia hora, reclama da máquina suja ou da tela azul. Na saída, paga e leva a fama da lan para o bairro. No dia 30, chegam o aluguel e a internet.",
+          "O ciclo é curto e se repete o dia inteiro, então cada etapa precisa ter uma decisão e um retorno claro.",
+        ],
+        boards: [
+          {
+            kind: "steps",
+            steps: [
+              { title: "Chegada", text: "O cliente olha o tamanho da fila. Se achar grande demais, vai embora." },
+              { title: "Fila", text: "O balão mostra o humor. Quem espera demais reclama e desiste." },
+              { title: "Liberar", text: "No Pingado Pro: escolher a máquina, acertar o tempo, ligar os adicionais." },
+              { title: "Sessão", text: "Necessidades caem, surgem pedidos e problemas: tela azul, sujeira, fome." },
+              { title: "Saída", text: "Paga, dá gorjeta ou sai insatisfeito e espalha no boca a boca." },
+              { title: "Fim do mês", text: "Aluguel e internet. A fama decide quantos clientes vêm amanhã." },
+            ],
+          },
+          {
+            kind: "grid",
+            columns: 2,
+            figures: [
+              lhImg("pv-lan-cheia-corredor", "A garagem com os PCs dos dois lados, começando na entrada"),
+              lhImg("pv-mesa-na-entrada", "Clientes indo até a mesa do dono, com o humor no balão"),
+            ],
+          },
+        ],
+      },
+      {
+        label: "Lugar",
+        title: "Pedro Velho, 2012, casa por casa",
+        text: [
+          "O cenário principal é a rua da minha antiga lan, em Pedro Velho (RN), como ela aparece nas fotos do Street View de março de 2012. As fotos servem só de referência: as medidas vêm delas e do OpenStreetMap, e as texturas são de bibliotecas livres.",
+          "Cada casa do nosso lado da rua foi refeita uma a uma, com a calçada, a altura e a rampa de cada lote. A área é andável até depois da Praça 14 de Julho, com a cigarreira, o ponto de mototáxi e a Igreja de São Francisco.",
+        ],
+        boards: [
+          {
+            kind: "grid",
+            columns: 3,
+            uniform: true,
+            figures: [
+              lhImg("pv-fachada", "A esquina da lan, com o PARE e as bicicletas na calçada"),
+              lhImg("pv-2012-casa-166", "A casa amarela 166, de alpendre e janelas em arco"),
+              lhImg("pv-2012-cigarreira", "A cigarreira de alvenaria no fim do canteiro"),
+              lhImg("pv-2012-rua-carros", "A rua com os carros parados, como nas fotos de 2012"),
+              lhImg("pv-praca-14-de-julho", "Praça 14 de Julho, elevada, com mureta de pedra"),
+              lhImg("pv-igreja", "Igreja de São Francisco, ao fim do caminho"),
+            ],
+          },
+        ],
+      },
+      {
+        label: "Luz e clima",
+        title: "Do amanhecer à noite, a luz conta a hora",
+        text: [
+          "O sol da manhã passa por cima do isopor colado nas frestas, as nuvens deixam sombra na rua e, à noite, só as lâmpadas amarelas no fio e os monitores iluminam a garagem. A luz rebatida vem de iluminação global em tempo real (SDFGI). Onde ela não alcança, há luzes suaves posicionadas à mão e conferidas pela luminância dos prints.",
+          "Entre um dia e outro, a noite passa do lado de fora em alguns planos, até o sol nascer e o galo cantar.",
+        ],
+        boards: [
+          {
+            kind: "grid",
+            columns: 3,
+            uniform: true,
+            figures: [
+              lhImg("pv-amanhecer", "Amanhecer, na cena entre um dia e outro"),
+              lhImg("pv-frestas-manha", "Luz da manhã entrando pelas frestas"),
+              lhImg("pv-sombra-de-nuvem", "Sombra de nuvem passando pela fachada"),
+              lhImg("pv-lampadas-incandescentes", "As duas lâmpadas incandescentes do começo do jogo"),
+              lhImg("pv-isopor", "O isopor nas frestas: a luz só vaza pelas bordas"),
+              lhImg("pv-noite", "A rua à noite"),
+            ],
+          },
+        ],
+      },
+      {
+        label: "Pessoas",
+        title: "Clientes com vontade própria",
+        text: [
+          "Cada cliente tem sete medidores e, às vezes, um jeito de ser: o faminto, o de bexiga fraca, a reclamona que não senta em máquina suja, o limpinho e a turma gamer, que chega em grupo, grita e incomoda quem está do lado. Pedidos ignorados viram insatisfação, e a insatisfação vira fama perdida.",
+          "Todo mundo fala, com voz gerada no próprio PC e legenda colorida pela emoção. O visual das pessoas é de PS2 de propósito (malha simplificada, textura de 15 bits e animação a 15 quadros por segundo), o que dá mais apelo emocional e um leve estranhamento.",
+        ],
+        boards: [
+          {
+            kind: "grid",
+            columns: 2,
+            figures: [
+              lhImg("pv-npcs-ps2", "Clientes no balcão, com o humor de cada um no balão"),
+              lhImg("clientes-jogando", "Sessão em andamento, na lan do centro"),
+              lhImg("cliente-comendo", "Comer leva tempo: a sessão corre enquanto o cliente come"),
+              lhImg("balao-humor", "Humor da fila em tempo real"),
+            ],
+          },
+        ],
+      },
+      {
+        label: "Jogo dentro do jogo",
+        title: "Pingado Pro 3.0, o programa do caixa",
+        text: [
+          "O programa que libera as máquinas é um jogo de gerenciamento à parte, no estilo dos jogos de 1999 a 2003. Ele roda no monitor 3D do caixa, em 507 por 441 pixels ampliados, com fonte pixel própria, efeito de tubo de imagem e a loja visível em volta da tela.",
+          "O mapa isométrico é a mesma lan do 3D vista de cima: cada pessoa está onde está de verdade, com as roupas do seu modelo, e balões mostram fome, sono ou raiva. Há radar em fósforo verde, cartão de comandos como nos jogos de estratégia, retrato em vídeo do cliente escolhido e metas do dia.",
+        ],
+        boards: [
+          {
+            kind: "grid",
+            columns: 2,
+            figures: [
+              lhImg("pingado-no-monitor", "O Pingado Pro no monitor do caixa, com a loja em volta"),
+              lhImg("pingado-liberar", "Mapa isométrico: escolher a máquina e liberar"),
+              lhImg("pingado-pessoa", "Cliente escolhido, com retrato em vídeo e medidores"),
+              lhImg("pingado-metas", "Metas do dia cumpridas"),
+              lhImg("pingado-aba-jogos", "Aba de jogos: coleção, vitrine e o que a clientela pediu"),
+              lhImg("pingado-noite", "À noite, as lâmpadas e os monitores iluminam o mapa"),
+            ],
+          },
+        ],
+      },
+      {
+        label: "Mecânicas",
+        title: "Problemas de lan que viram jogo",
+        text: [
+          "A tela azul se resolve indo até a máquina e segurando o botão do gabinete: soltar na faixa verde reinicia, soltar cedo não adianta e segurar demais faz o Windows verificar o disco. Quem come deixa lixo, quem passa suja o chão, e máquina suja irrita o próximo cliente. Jogos novos chegam pela loja e precisam ser instalados máquina por máquina.",
+        ],
+        boards: [
+          {
+            kind: "grid",
+            columns: 2,
+            figures: [
+              lhImg("reiniciar-no-dedo", "Reinício no dedo, no botão do gabinete"),
+              lhImg("maquina-com-lixo", "Máquina com lixo: o próximo cliente reclama"),
+              lhImg("capas-nas-maquinas", "Capas dos jogos nas telas de quem está jogando"),
+              lhImg("pv-fornecedor-previa-3d", "Fornecedor, com a prévia em 3D do item"),
+            ],
+          },
+        ],
+      },
+      {
+        label: "Processo",
+        title: "Fidelidade se mede, não se discute",
+        text: [
+          "Para cada trecho da rua, o print do jogo é comparado com a foto de 2012, lado a lado e no mesmo ângulo: polígono da calçada, telhado, grades, postes, até a rua abaulada. Só depois de bater, o trabalho segue para o próximo trecho.",
+          "A jogabilidade passa por testes automáticos: um robô joga um dia inteiro pela interface, em velocidade acelerada, e outro modo mede tremor e brilho da imagem parada. Foi assim que apareceu um piscar no forro que nenhum print isolado mostrava.",
+        ],
+        boards: [
+          {
+            kind: "steps",
+            steps: [
+              { title: "Referência", text: "Foto de 2012 e traçado do OpenStreetMap." },
+              { title: "Medida", text: "Larguras, alturas e recuos tirados da foto e do mapa." },
+              { title: "Construção", text: "Casa, calçada e telhado montados por código." },
+              { title: "Print no mesmo ângulo", text: "Câmera do jogo posicionada como a da foto." },
+              { title: "Comparação", text: "Lado a lado, item por item, até bater." },
+              { title: "Teste jogando", text: "Robô e jogo de verdade, antes da próxima rodada." },
+            ],
+          },
+        ],
+      },
+    ],
+    result: [
+      "Versão jogável no PC, com dois cenários (Pedro Velho e uma lan de centro), ciclo de dia e noite, contas mensais e o Pingado Pro completo.",
+      "Próximos passos: sotaque nordestino nas vozes, balanceamento da economia ao longo de vários meses e uma versão executável para testes com jogadores.",
+    ],
+    tools: ["Godot 4", "GDScript", "Claude Code", "Kokoro (vozes)", "OpenStreetMap", "Street View (referência)"],
+  },
   {
     slug: "pje",
     title: "PJe2 Mobile",
@@ -112,9 +332,9 @@ export const projects: Project[] = [
     engagement: "Voluntário",
     role: "UI/UX Designer (voluntário)",
     summary:
-      "Redesign do app que magistrados da Justiça Federal usam para revisar e assinar minutas. Colaborei de forma voluntária com a interface, ajudando um amigo que fazia parte da equipe oficial do projeto no TRF5.",
+      "Redesign da interface do app que magistrados da Justiça Federal usam para revisar e assinar minutas. Atuei como designer voluntário, a convite de um integrante da equipe de residência do TRF5.",
     credits:
-      "O projeto foi conduzido por uma equipe de residência ligada ao TRF5. Meu amigo, que integrava essa equipe, apresentou o trabalho no TCC dele e registrou minha colaboração. A refatoração do código em Flutter, a nova arquitetura e a integração com a API do CNJ são trabalho da equipe. Minha contribuição foi na interface e na experiência de uso. Nomes e CPFs que apareciam nas telas foram borrados.",
+      "O projeto foi conduzido por uma equipe de residência ligada ao TRF5, responsável pela refatoração do código em Flutter, pela nova arquitetura e pela integração com a API do CNJ. Fui convidado por um integrante da equipe para desenhar a interface e a experiência de uso, e minha colaboração está registrada no TCC dele. Nomes e CPFs que apareciam nas telas foram borrados.",
     problem:
       "O PJe2 Mobile já existia, mas a versão herdada era difícil de usar e de manter. A navegação dependia de um menu gaveta escondido, os filtros aceitavam só uma opção por vez e erros apareciam em diálogos que interrompiam o fluxo.",
     overview: {
@@ -126,12 +346,11 @@ export const projects: Project[] = [
         "A equipe implementou a nova interface em Flutter. Nos fluxos principais, o número de cliques caiu mais de 50%.",
     },
     metrics: [
-      { value: "347", label: "inconformidades de código corrigidas na refatoração" },
       { value: "50%+", label: "menos cliques nos fluxos principais" },
-      { value: "67 · 280", label: "warnings e hints apontados na análise do app herdado" },
+      { value: "347", label: "inconformidades de código corrigidas pela equipe de engenharia na refatoração" },
     ],
     metricsNote:
-      "Números do projeto inteiro, registrados no TCC de um integrante da equipe. O código e a refatoração são da equipe; a minha parte foi a interface.",
+      "Resultados do projeto inteiro, registrados no TCC de um integrante da equipe. A refatoração é da equipe de engenharia; a minha parte foi a interface.",
     sections: [
       {
         label: "Contexto",
@@ -438,10 +657,6 @@ export const projects: Project[] = [
         label: "Notícia do IFRN: 840 vagas",
         url: "https://portal.ifrn.edu.br/campus/reitoria/noticias/jovem-potiguar-abertas-as-inscricoes-para-840-vagas-em-cursos-de-qualificacao-no-rn/",
       },
-      {
-        label: "Notícia do G1 sobre o programa",
-        url: "https://g1.globo.com/rn/rio-grande-do-norte/noticia/2024/09/20/projeto-jovem-potiguar-classifica-estudantes-de-escolas-publicas-para-intercambio-na-europa.ghtml",
-      },
     ],
   },
   {
@@ -465,7 +680,7 @@ export const projects: Project[] = [
         "Cada colecionador quer mostrar coisas diferentes: uns acompanham o valor da coleção em segredo, outros querem uma vitrine pública com lances. O app precisava atender os dois sem virar dois produtos.",
       contribution:
         "Defini os modos de uso, desenhei as telas do feed, dos leilões, do chat de negociação e do perfil, e propus a marca: um M em forma de joia, com variações em ouro, prata e branco.",
-      outcome: "O app foi publicado na Google Play.",
+      outcome: "O app chegou a ser publicado na Google Play. Hoje ele não está mais disponível na loja.",
     },
     sections: [
       {
@@ -473,7 +688,7 @@ export const projects: Project[] = [
         title: "Uma vitrine de coleções, com o valor à mostra ou não",
         text: [
           "O app é uma rede social com feed interativo. Cada usuário registra seus itens, e a soma do valor deles vira o valor do perfil, que alimenta um ranking entre colecionadores. Cada post é configurável: dá para esconder o preço, expor a peça numa vitrine pública ou abrir um leilão com lances.",
-          "O conceito visual partiu da ideia de exclusividade: preto, dourado e fotografia com cara de revista. Nos slides de apresentação, o app aparece com o nome Prism.",
+          "O conceito visual partiu da ideia de exclusividade: preto, dourado e fotografia com cara de revista. O nome provisório do projeto era MyTreasure; nos slides de apresentação, o app aparece como Prism.",
         ],
         boards: [
           {
@@ -533,9 +748,8 @@ export const projects: Project[] = [
         ],
       },
     ],
-    result: ["App publicado na Google Play.", "Marca com oito combinações de cor, pensada para o ícone do app e para as telas escuras."],
-    tools: ["Figma", "Design Thinking"],
-    links: [{ label: "Ver na Google Play", url: "https://play.google.com/store/apps/details?id=com.my_treasure_app" }],
+    result: ["O app chegou a ser publicado na Google Play; hoje não está mais disponível na loja.", "Marca com oito combinações de cor, pensada para o ícone do app e para as telas escuras."],
+    tools: ["Figma"],
   },
   {
     slug: "hosuto",
@@ -544,7 +758,7 @@ export const projects: Project[] = [
     year: "2022",
     client: "Dione Solutions (Tóquio, Japão)",
     image: hosuto,
-    featured: true,
+    featured: false,
     role: "Product Designer",
     summary: "Dashboard para as equipes de uma rede de 12 hotéis gerenciarem reservas, limpeza, cozinha e estoque.",
     problem:
@@ -552,7 +766,7 @@ export const projects: Project[] = [
     process: [
       {
         title: "Uma tela por necessidade",
-        text: "Compactei as informações e distribuí os itens conforme a rotina de cada equipe, para que cada pessoa encontre rápido o que é da sua função.",
+        text: "Organizei o painel pela rotina de cada equipe (reservas, limpeza, cozinha e estoque), com a informação mais usada de cada função à vista, para que cada pessoa encontre rápido o que é dela.",
       },
     ],
     result: [
@@ -568,13 +782,12 @@ export const projects: Project[] = [
     category: "Empresa que fundei",
     year: "2026",
     client: "Hex Labs",
-    image: publicUrl("projects/nexus-imobiliaria/hero.webp"),
     engagement: "Fundador",
     role: "Fundador",
     summary:
-      "Estúdio de produtos digitais com IA que fundei. Conduzo o design, o desenvolvimento e a prospecção de clientes. Para atrair os primeiros, estou criando dois produtos próprios: a Rede Imobiliária e o Lexus System.",
+      "Estúdio de produtos digitais com IA, fundado em 2026. Conduzo o design, o desenvolvimento e a prospecção, e construo produtos próprios que mostram o que o estúdio entrega: a Rede Imobiliária e o Lexus System.",
     problem:
-      "Uma empresa nova não tem portfólio para mostrar. Em vez de esperar o primeiro cliente, decidi construir produtos completos para nichos que eu conhecia, e usá-los como prova do que a empresa sabe fazer.",
+      "Um estúdio novo precisa provar o que sabe fazer. Em vez de esperar o primeiro cliente, construí produtos completos e uso cada um como vitrine.",
     process: [
       {
         title: "Site e CMS da empresa",
@@ -593,7 +806,7 @@ export const projects: Project[] = [
     result: [
       "A Rede Imobiliária está construída e documentada como estudo de caso.",
       "O Lexus System está em desenvolvimento.",
-      "A experiência de fundar a empresa me fez cuidar de tudo, da pesquisa ao código e à conversa com potenciais clientes.",
+      "Atuo em todas as frentes: pesquisa, design, código e relacionamento com potenciais clientes.",
     ],
     tools: ["Next.js", "React", "TypeScript", "Supabase", "Tailwind CSS", "Figma"],
     links: [{ label: "Estudo de caso: Nexus Imobiliária", url: "/projects/nexus-imobiliaria" }],
@@ -605,6 +818,7 @@ export const projects: Project[] = [
     year: "2026",
     client: "Hex Labs (produto próprio)",
     image: publicUrl("projects/nexus-imobiliaria/hero.webp"),
+    featured: true,
     engagement: "Fundador",
     role: "Fundador da Hex Labs: design e desenvolvimento",
     summary:
@@ -623,7 +837,7 @@ export const projects: Project[] = [
       },
       {
         title: "Painel da corretora",
-        text: "O botão de novo imóvel se destaca por ser a ação principal. A ficha de cadastro tem prévia do anúncio, as edições entram no ar ao salvar e a página de analytics mostra horários, dispositivos e imóveis mais vistos.",
+        text: "Cadastrar imóvel é a tarefa mais frequente da corretora, por isso o botão de novo imóvel é o destaque do painel. A ficha de cadastro tem prévia do anúncio, as edições entram no ar ao salvar e a página de analytics mostra horários, dispositivos e imóveis mais vistos.",
         images: [nexusImg(31, "Dashboard"), nexusImg(20, "Cadastro de imóvel"), nexusImg(14, "Analytics")],
       },
       {
@@ -639,27 +853,9 @@ export const projects: Project[] = [
     ],
     result: [
       "Produto construído de ponta a ponta, da pesquisa ao código, como vitrine da Hex Labs.",
-      "Stack: Next.js (App Router), React 19, TypeScript, Supabase (PostgreSQL, Auth, Storage), Tailwind CSS, Framer Motion, Leaflet e Recharts.",
     ],
-    tools: ["Figma", "Photoshop", "Next.js", "Supabase", "Tailwind CSS", "Framer Motion", "Leaflet", "Recharts"],
+    tools: ["Figma", "Photoshop", "Next.js (App Router)", "React 19", "TypeScript", "Supabase", "Tailwind CSS", "Framer Motion", "Leaflet", "Recharts"],
     gallery: [17, 22, 4, 32, 16].map((n) => publicUrl(`projects/nexus-imobiliaria/image${n}.webp`)),
-  },
-  {
-    slug: "spillfabrikken",
-    title: "SpillFabrikken",
-    category: "Product e Game Design · 8 jogos",
-    year: "2020–2021",
-    client: "SpillFabrikken (Trondheim, Noruega)",
-    image: spillfabrikken,
-    featured: true,
-    role: "Product e Game Designer",
-    summary:
-      "Identidade visual, cartas, regras e embalagens de uma linha de jogos de festa noruegueses, do Kryptert e suas quatro edições ao Tipsy e ao Paranoia.",
-    // A página desta marca é própria (src/pages/SpillFabrikken.tsx); os campos abaixo só servem de resumo.
-    problem: "Criar uma linha de jogos com personalidades diferentes que, juntos, parecessem da mesma editora.",
-    process: [{ title: "Do conceito à caixa", text: "Identidade, game design, cartas, embalagem e renders." }],
-    result: ["Oito jogos, um sistema de embalagem comum e quatro edições do Kryptert."],
-    tools: ["Illustrator", "Photoshop", "Renders 3D"],
   },
 ];
 

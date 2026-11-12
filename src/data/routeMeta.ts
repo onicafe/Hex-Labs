@@ -1,13 +1,16 @@
 import { profile } from "@/data/profile";
-import { projects } from "@/data/projects";
-import { brand, games } from "@/data/spillfabrikken";
+import { dataFor } from "@/i18n/data";
+import { localePath, type Lang } from "@/i18n";
 
-// Título, descrição, imagem de prévia e dados estruturados (schema.org) de cada rota pública.
+// Título, descrição, imagem de prévia e dados estruturados (schema.org) de cada rota pública, nos dois idiomas.
 // O build de publicação (scripts/prerender.mjs) gera uma página por rota com esses dados,
 // e o SEOHead aplica os mesmos valores quando a navegação acontece dentro do site.
 
 export interface RouteMeta {
   path: string;
+  lang: Lang;
+  /** A mesma página no outro idioma (para hreflang e para o seletor PT/EN). */
+  alternate: string;
   title: string;
   description: string;
   /** Arquivo em public/ usado como prévia no LinkedIn, WhatsApp etc. */
@@ -24,128 +27,137 @@ const absolute = (src?: string) => (src ? (src.startsWith("http") ? src : `${ori
 
 const personId = `${site}/#person`;
 
-const person = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "@id": personId,
-  name: profile.name,
-  alternateName: profile.alternateName,
-  jobTitle: profile.title,
-  description: profile.seoDescription,
-  url: `${site}/`,
-  image: `${site}/og-image.jpg`,
-  email: `mailto:${profile.email}`,
-  address: { "@type": "PostalAddress", addressLocality: "Natal", addressRegion: "RN", addressCountry: "BR" },
-  sameAs: [profile.linkedin, profile.behance, profile.github],
-  knowsLanguage: ["pt-BR", "en"],
-  knowsAbout: [
-    "Game design",
-    "Design de jogos de cartas",
-    "Design de embalagem",
-    "Product design",
-    "UX design",
-    "UI design",
-    "Prototipagem",
-    "React",
-    "Flutter",
-  ],
-};
+const metaFor = (lang: Lang): RouteMeta[] => {
+  const { profile: p, projects, brand, games } = dataFor(lang);
+  const en = lang === "en";
+  const other: Lang = en ? "pt" : "en";
+  const lp = (path: string) => localePath(lang, path);
+  const tr = (pt: string, enText: string) => (en ? enText : pt);
+  const inLanguage = en ? "en" : "pt-BR";
 
-const breadcrumb = (items: { name: string; path: string }[]) => ({
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  itemListElement: items.map((item, i) => ({ "@type": "ListItem", position: i + 1, name: item.name, item: canonicalUrl(item.path) })),
-});
-
-const creativeWork = (opts: { path: string; name: string; description: string; image?: string; year?: string; about?: string }) => ({
-  "@context": "https://schema.org",
-  "@type": "CreativeWork",
-  name: opts.name,
-  description: opts.description,
-  url: canonicalUrl(opts.path),
-  image: absolute(opts.image),
-  dateCreated: opts.year?.match(/\d{4}/)?.[0],
-  about: opts.about,
-  inLanguage: "pt-BR",
-  creator: { "@id": personId, "@type": "Person", name: profile.name },
-});
-
-const suffix = `${profile.name} · ${profile.title}`;
-const home = { name: "Início", path: "/" };
-const work = { name: "Projetos", path: "/projects" };
-const sfCrumb = { name: "SpillFabrikken", path: "/projects/spillfabrikken" };
-
-export const routeMeta = (): RouteMeta[] => [
-  {
-    path: "/",
-    title: suffix,
-    description: profile.seoDescription,
-    image: "og-image.jpg",
-    schema: [
-      person,
-      {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        name: profile.name,
-        url: `${site}/`,
-        inLanguage: "pt-BR",
-        author: { "@id": personId },
-      },
+  const person = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": personId,
+    name: p.name,
+    alternateName: p.alternateName,
+    jobTitle: p.title,
+    description: p.seoDescription,
+    url: `${site}/`,
+    image: `${site}/og-image.jpg`,
+    email: `mailto:${p.email}`,
+    address: { "@type": "PostalAddress", addressLocality: "Natal", addressRegion: "RN", addressCountry: "BR" },
+    sameAs: [p.linkedin, p.behance, p.github],
+    knowsLanguage: ["pt-BR", "en"],
+    knowsAbout: [
+      "Game design",
+      tr("Design de jogos de cartas", "Card game design"),
+      tr("Design de embalagem", "Packaging design"),
+      "Product design",
+      "UX design",
+      "UI design",
+      tr("Prototipagem", "Prototyping"),
+      "Godot",
+      "React",
+      "Flutter",
     ],
-  },
-  {
-    path: "/projects",
-    title: `Projetos | ${suffix}`,
-    description: "Estudos de caso de game design, product design e UX: papel, processo e resultado de cada projeto.",
-    image: "og-image.jpg",
-    schema: [breadcrumb([home, work])],
-  },
-  {
-    path: "/curriculo",
-    title: `Currículo | ${suffix}`,
-    description: `Currículo de ${profile.name}, ${profile.title}. Experiência, formação, ferramentas e idiomas.`,
-    image: "og-image.jpg",
-    schema: [person, breadcrumb([home, { name: "Currículo", path: "/curriculo" }])],
-  },
-  {
-    path: "/projects/spillfabrikken",
-    title: `SpillFabrikken: oito jogos, do briefing à fábrica | ${profile.name}`,
-    description: brand.summary,
-    image: "og-spillfabrikken.jpg",
-    schema: [
-      creativeWork({ path: "/projects/spillfabrikken", name: "SpillFabrikken", description: brand.summary, year: "2020", about: "Game design e embalagem de jogos de festa" }),
-      breadcrumb([home, work, sfCrumb]),
-    ],
-  },
-  ...games.map((g) => {
-    const path = `/projects/spillfabrikken/${g.slug}`;
-    return {
-      path,
-      title: `${g.name} · SpillFabrikken | ${profile.name}`,
-      description: g.summary,
+  };
+
+  const breadcrumb = (items: { name: string; path: string }[]) => ({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, i) => ({ "@type": "ListItem", position: i + 1, name: item.name, item: canonicalUrl(item.path) })),
+  });
+
+  const creativeWork = (opts: { path: string; name: string; description: string; image?: string; year?: string; about?: string }) => ({
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    name: opts.name,
+    description: opts.description,
+    url: canonicalUrl(opts.path),
+    image: absolute(opts.image),
+    dateCreated: opts.year?.match(/\d{4}/)?.[0],
+    about: opts.about,
+    inLanguage,
+    creator: { "@id": personId, "@type": "Person", name: p.name },
+  });
+
+  const suffix = `${p.name} · ${p.title}`;
+  const home = { name: tr("Início", "Home"), path: lp("/") };
+  const work = { name: tr("Projetos", "Projects"), path: lp("/projects") };
+  const sfPath = lp("/projects/spillfabrikken");
+  const sfCrumb = { name: "SpillFabrikken", path: sfPath };
+  const route = (ptPath: string, rest: Omit<RouteMeta, "path" | "lang" | "alternate">): RouteMeta => ({
+    path: lp(ptPath),
+    lang,
+    alternate: localePath(other, ptPath),
+    ...rest,
+  });
+
+  return [
+    route("/", {
+      title: suffix,
+      description: p.seoDescription,
+      image: "og-image.jpg",
+      schema: [person, { "@context": "https://schema.org", "@type": "WebSite", name: p.name, url: `${site}${en ? "/en/" : "/"}`, inLanguage, author: { "@id": personId } }],
+    }),
+    route("/projects", {
+      title: `${tr("Projetos", "Projects")} | ${suffix}`,
+      description: tr(
+        "Estudos de caso de game design, product design e UX: papel, processo e resultado de cada projeto.",
+        "Game design, product design and UX case studies: my role, the process and the outcome of each project.",
+      ),
+      image: "og-image.jpg",
+      schema: [breadcrumb([home, work])],
+    }),
+    route("/curriculo", {
+      title: `${tr("Currículo", "Résumé")} | ${suffix}`,
+      description: tr(
+        `Currículo de ${p.name}, ${p.title}. Experiência, formação, ferramentas e idiomas.`,
+        `Résumé of ${p.name}, ${p.title}. Experience, education, tools and languages.`,
+      ),
+      image: "og-image.jpg",
+      schema: [person, breadcrumb([home, { name: tr("Currículo", "Résumé"), path: lp("/curriculo") }])],
+    }),
+    route("/projects/spillfabrikken", {
+      title: `${tr("SpillFabrikken: oito projetos de jogo, do briefing à arte final", "SpillFabrikken: eight game projects, from brief to print")} | ${p.name}`,
+      description: brand.summary,
       image: "og-spillfabrikken.jpg",
       schema: [
-        creativeWork({ path, name: `${g.name} (SpillFabrikken)`, description: g.summary, image: g.cover, about: "Jogo de cartas" }),
-        breadcrumb([home, work, sfCrumb, { name: g.name, path }]),
+        creativeWork({ path: sfPath, name: "SpillFabrikken", description: brand.summary, year: "2020", about: tr("Game design e embalagem de jogos de festa", "Party game design and packaging") }),
+        breadcrumb([home, work, sfCrumb]),
       ],
-    };
-  }),
-  ...projects
-    .filter((p) => p.slug !== "spillfabrikken")
-    .map((p) => {
-      const path = `/projects/${p.slug}`;
-      return {
-        path,
-        title: `${p.title} | ${profile.name}`,
-        description: p.summary,
-        image: p.ogImage ?? "og-image.jpg",
-        schema: [
-          creativeWork({ path, name: p.title, description: p.summary, image: p.image, year: p.year, about: p.category }),
-          breadcrumb([home, work, { name: p.title, path }]),
-        ],
-      };
     }),
-];
+    ...games.map((g) => {
+      const ptPath = `/projects/spillfabrikken/${g.slug}`;
+      return route(ptPath, {
+        title: `${g.name} · SpillFabrikken | ${p.name}`,
+        description: g.summary,
+        image: "og-spillfabrikken.jpg",
+        schema: [
+          creativeWork({ path: lp(ptPath), name: `${g.name} (SpillFabrikken)`, description: g.summary, image: g.cover, about: tr("Jogo de cartas", "Card game") }),
+          breadcrumb([home, work, sfCrumb, { name: g.name, path: lp(ptPath) }]),
+        ],
+      });
+    }),
+    ...projects
+      .filter((project) => project.slug !== "spillfabrikken")
+      .map((project) => {
+        const ptPath = `/projects/${project.slug}`;
+        return route(ptPath, {
+          title: `${project.title} | ${p.name}`,
+          description: project.summary,
+          image: project.ogImage ?? "og-image.jpg",
+          schema: [
+            creativeWork({ path: lp(ptPath), name: project.title, description: project.summary, image: project.image, year: project.year, about: project.category }),
+            breadcrumb([home, work, { name: project.title, path: lp(ptPath) }]),
+          ],
+        });
+      }),
+  ];
+};
+
+export const routeMeta = (): RouteMeta[] => [...metaFor("pt"), ...metaFor("en")];
 
 /** Metadados da rota atual; aceita caminhos com ou sem barra no fim. */
 export const findRouteMeta = (pathname: string) => {

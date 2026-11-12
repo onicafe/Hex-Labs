@@ -10,9 +10,7 @@ import ScrollToTop from './components/ScrollToTop';
 import SEOHead from './components/SEOHead';
 import { AnalyticsWrapper } from "@/components/AnalyticsWrapper";
 
-// Blog e admin dependem do Supabase e carregam sob demanda, fora do pacote das páginas públicas.
-const Blog = lazy(() => import("./pages/Blog.tsx"));
-const BlogPost = lazy(() => import("./pages/BlogPost.tsx"));
+// O admin depende do Supabase e carrega sob demanda, fora do pacote das páginas públicas.
 const AdminApp = lazy(() => import("./pages/admin/AdminApp.tsx"));
 
 const queryClient = new QueryClient();
@@ -29,8 +27,6 @@ const App = () => (
             <Suspense fallback={<div className="min-h-screen bg-background" />}>
             <Routes>
               {publicRoutes}
-              <Route path="/blog" element={<Blog />} />
-              <Route path="/blog/:slug" element={<BlogPost />} />
 
               <Route path="/admin/*" element={<AdminApp />} />
 

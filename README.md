@@ -55,16 +55,20 @@ O admin e o blog dependem do Supabase e carregam sob demanda, fora do pacote das
 
 Ao trocar de endereço (domínio próprio ou repositório `onicafe.github.io`), mude `siteUrl` em `src/data/profile.ts` e `base` em `vite.config.ts`.
 
+## Idiomas
+
+O site tem português (raiz) e inglês (`/en`). Os textos fixos dos componentes usam `tr("pt", "en")` de `src/i18n`. O conteúdo fica em dois conjuntos de arquivos com a mesma estrutura: `src/data/*.ts` (português) e `src/data/en/*.ts` (inglês). Ao mudar um projeto em português, mude também a versão em inglês. O build gera as duas versões de cada página, com `hreflang` ligando uma à outra.
+
 ## Onde editar o conteúdo
 
 | O quê | Arquivo |
 | --- | --- |
 | Nome, título, contatos e link do PDF do CV | `src/data/profile.ts` |
-| Projetos e estudos de caso (seções, pranchas, métricas) | `src/data/projects.ts` |
-| SpillFabrikken (marca, jogos e pranchas) | `src/data/spillfabrikken.ts` |
+| Projetos e estudos de caso (seções, pranchas, métricas) | `src/data/projects.ts` e `src/data/en/projects.ts` |
+| SpillFabrikken (marca, jogos e pranchas) | `src/data/spillfabrikken.ts` e `src/data/en/spillfabrikken.ts` |
 | Título, prévia e dados estruturados de cada página | `src/data/routeMeta.ts` |
 | Endereço do site e verificação do Google | `src/data/profile.ts` |
-| Experiência, formação e ferramentas | `src/pages/Resume.tsx` |
+| Currículo (experiência, formação, ferramentas) | `src/data/resume.ts` e `src/data/en/resume.ts` |
 | Logos das organizações | `src/components/TrustedBy.tsx` |
 
 O CV em PDF fica em `public/Iesu-Jafe-CV.pdf` e é ligado em `cvPdfUrl`, em `src/data/profile.ts`.

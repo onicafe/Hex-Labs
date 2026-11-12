@@ -39,7 +39,21 @@ for (const route of routes) {
   html = setMeta(html, "name", "twitter:description", route.description);
   html = setMeta(html, "name", "twitter:image", image);
   if (profile.googleSiteVerification) html = setMeta(html, "name", "google-site-verification", profile.googleSiteVerification);
-  const head = [`<link rel="canonical" href="${url}" />`, ...route.schema.map(jsonLd)].map((t) => `  ${t}`).join("\n");
+  if (route.lang === "en") {
+    html = html.replace('<html lang="pt-BR">', '<html lang="en">');
+    html = setMeta(html, "property", "og:locale", "en_US");
+  }
+  const ptUrl = canonicalUrl(route.lang === "en" ? route.alternate : route.path);
+  const enUrl = canonicalUrl(route.lang === "en" ? route.path : route.alternate);
+  const head = [
+    `<link rel="canonical" href="${url}" />`,
+    `<link rel="alternate" hreflang="pt-BR" href="${ptUrl}" />`,
+    `<link rel="alternate" hreflang="en" href="${enUrl}" />`,
+    `<link rel="alternate" hreflang="x-default" href="${ptUrl}" />`,
+    ...route.schema.map(jsonLd),
+  ]
+    .map((t) => `  ${t}`)
+    .join("\n");
   html = html.replace(/<link rel="canonical"[^>]*>\s*/, "").replace("</head>", `${head}\n</head>`);
   html = html.replace('<div id="root"></div>', `<div id="root">${render(route.path)}</div>`);
 

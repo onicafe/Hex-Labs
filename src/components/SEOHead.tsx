@@ -24,6 +24,20 @@ const SEOHead = () => {
       document.head.appendChild(link);
     }
     link.href = canonicalUrl(meta.path);
+    document.documentElement.lang = meta.lang === "en" ? "en" : "pt-BR";
+    for (const [hreflang, path] of [
+      [meta.lang === "en" ? "en" : "pt-BR", meta.path],
+      [meta.lang === "en" ? "pt-BR" : "en", meta.alternate],
+    ] as const) {
+      let alt = document.querySelector<HTMLLinkElement>(`link[rel="alternate"][hreflang="${hreflang}"]`);
+      if (!alt) {
+        alt = document.createElement("link");
+        alt.rel = "alternate";
+        alt.hreflang = hreflang;
+        document.head.appendChild(alt);
+      }
+      alt.href = canonicalUrl(path);
+    }
   }, [pathname]);
 
   return null;

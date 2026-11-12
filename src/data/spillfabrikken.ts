@@ -95,7 +95,7 @@ export const brand = {
   period: "Abr 2020 – Set 2021",
   role: "Único designer da editora (remoto)",
   summary:
-    "Editora norueguesa de jogos de cartas para todos os públicos. Numa equipe pequena, eu era o único designer: recebia o conceito de cada jogo, desenhava cartas e caixas, ajudava a definir regras e cuidava da arte final com a fábrica. Em um ano e meio, fizemos muitos jogos.",
+    "Editora norueguesa de jogos de cartas e de festa. Numa equipe enxuta, fui o único designer: recebia o conceito de cada jogo, desenhava cartas e caixas, ajudava a definir as regras e entregava a arte final para a fábrica. Em um ano e meio, a linha ganhou oito projetos de jogo.",
   impact: [
     { value: "1 milhão+", label: "jogos vendidos pela editora" },
     { value: "3 anos", label: "o Kryptert como jogo de cartas mais vendido da Noruega" },
@@ -104,8 +104,8 @@ export const brand = {
   impactNote:
     "Números divulgados pela própria editora em spillfabrikken.no (consultado em nov/2026). Os dois primeiros se referem à SpillFabrikken como um todo, não só ao meu trabalho.",
   myRole: [
-    "Eu era o único designer da equipe e fazia tudo: identidade, cartas, caixas, manuais, mockups, anúncios e peças do site.",
-    "As regras eram divididas meio a meio. Às vezes chegavam prontas, às vezes eu propunha, e algumas das minhas entraram nos jogos.",
+    "Como único designer, respondia por toda a produção visual: identidade, cartas, caixas, manuais, mockups, anúncios e peças do site.",
+    "As regras eram divididas com a editora: parte chegava pronta, parte eu propunha, e algumas das minhas propostas entraram nos jogos.",
     "Os textos das cartas vinham da editora, com sugestões minhas.",
     "Coordenei dois colaboradores externos: um modelador 3D, que indiquei e que trabalhou comigo em alguns projetos, e uma ilustradora.",
   ],
@@ -114,7 +114,7 @@ export const brand = {
     { title: "Protótipo no Photoshop", text: "Primeiras versões da caixa e da carta em mockup, para acertar a direção visual com a editora." },
     { title: "Cartas e caixa", text: "Com o número de cartas definido, eu falava direto com a fábrica na China, que mandava as dimensões e a faca de corte da caixa." },
     { title: "Arte final no Illustrator", text: "A arte aprovada era refeita em vetor, encaixada na faca da fábrica, incluindo o interior da caixa." },
-    { title: "Carta por carta", text: "Sem automação: em jogos de 300 a 400 cartas, eu montava pranchas com várias cartas e diagramava cada texto." },
+    { title: "Carta por carta", text: "Em jogos de 300 a 400 cartas, eu montava pranchas com várias cartas e diagramava cada texto individualmente." },
     { title: "Prova e produção", text: "A fábrica fazia uma amostra de teste. Depois da aprovação, o jogo ia para a produção em larga escala." },
   ],
   pace: "O ritmo era rápido: algumas caixas ficaram prontas em um fim de semana.",
@@ -326,7 +326,7 @@ export const games: Game[] = [
     status: { kind: "cancelled", label: "Projeto cancelado" },
     role: "Direção visual, logotipo, cartas e caixa",
     summary:
-      "Jogo de perguntas do tipo “quem aqui é mais provável de…”, com cartas de verdade e de castigo. O projeto foi cancelado e a ideia virou outro jogo da editora, mas é um dos visuais de que mais gosto.",
+      "Jogo de perguntas do tipo “quem aqui é mais provável de…”, com cartas de verdade e de castigo. O projeto foi cancelado e a ideia virou outro jogo da editora. Aqui fica a direção visual que desenvolvi.",
     specs: { players: "3–20", age: "16+", time: "20–40 min" },
     howToPlay: [
       "As cartas fazem perguntas como “Who's the most likely to commit a crime?” (quem é mais provável de cometer um crime?).",
@@ -378,7 +378,7 @@ export const games: Game[] = [
     status: live("À venda desde nov/2021"),
     role: "Desenho de cada bloco, caixa, manual e direção dos renders 3D",
     summary:
-      "A versão de drink do Jenga: 51 blocos de madeira, cada um com um desafio impresso. Foi o projeto mais diferente da linha, porque saímos das cartas e fomos para um objeto físico.",
+      "Torre de blocos para jogo de bebida: 51 blocos de madeira, cada um com um desafio impresso. Foi o projeto mais diferente da linha, porque saímos das cartas para um objeto físico.",
     specs: { contents: "51 blocos com desafios e manual de regras", age: "18+" },
     howToPlay: [
       "Monte a torre e, na sua vez, puxe um bloco.",
@@ -458,8 +458,8 @@ export const games: Game[] = [
       "Sem pontos nem vencedor: é só fazer o que a carta manda.",
     ],
     story: [
-      "Quem trouxe a ideia se inspirou em produtos de beleza femininos noruegueses, em especial na textura de mármore de uma marca conhecida.",
-      "Recriei essa textura em vetor e construí em cima dela um visual mais estiloso, pensado para o público feminino.",
+      "Quem trouxe a ideia se inspirou em produtos de beleza femininos noruegueses, em especial nas embalagens com textura de mármore.",
+      "Recriei a textura de mármore em vetor e construí sobre ela um visual sofisticado, pensado para o público feminino.",
     ],
     logoMask: sfDetail("logo-jentekveld"),
     boards: [
@@ -560,7 +560,7 @@ export const games: Game[] = [
     cover: sf(41),
     role: "Caixa e identidade",
     summary:
-      "A versão para os amigos: cerveja, pizza e cartas com desafios e histórias. Caixa preta e laranja, com um logotipo em tom de paródia.",
+      "A versão para os amigos: cerveja, pizza e cartas com desafios e histórias. Caixa preta e laranja, com um logotipo de tom bem-humorado.",
     specs: { contents: "400 cartas em 4 categorias", players: "2–20+", age: "18+", time: "20–40 min" },
     howToPlay: [
       "“Sett igjen dama hjemme, nå skal gutta samles!”: deixe a namorada em casa, agora os caras vão se reunir.",
@@ -658,7 +658,7 @@ export const extras: (Figure & { text: string })[] = [
   {
     src: sf(39),
     caption: "Frisbit",
-    text: "Frisbee com caixa e etiqueta, uma ideia da editora para sair das cartas. Produzido com a mesma fábrica, pelo mesmo processo. Não sei se chegou a ser lançado.",
+    text: "Frisbee com caixa e etiqueta, uma ideia da editora para sair das cartas. Produzido com a mesma fábrica, pelo mesmo processo. O lançamento não foi confirmado.",
   },
   {
     src: sf(61),

@@ -20,5 +20,13 @@ export const publicRoutes = (
     <Route path="/products" element={<Navigate to="/projects/hex-labs" replace />} />
     <Route path="/curriculo" element={<Resume />} />
     <Route path="/iesu-jafe" element={<Navigate to="/curriculo" replace />} />
+
+    {/* Versão em inglês */}
+    <Route path="/en" element={<Index />} />
+    <Route path="/en/projects" element={<Projects />} />
+    <Route path="/en/projects/spillfabrikken" element={<SpillFabrikken />} />
+    <Route path="/en/projects/spillfabrikken/:game" element={<GameCase />} />
+    <Route path="/en/projects/:slug" element={<ProjectDetail />} />
+    <Route path="/en/resume" element={<Resume />} />
   </>
 );
