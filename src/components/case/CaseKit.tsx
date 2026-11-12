@@ -1,8 +1,79 @@
 import { useState } from "react";
 import { X } from "lucide-react";
-import type { AnatomyPoint, Figure, Specs } from "@/data/spillfabrikken";
+import type { AnatomyPoint, Figure, Specs, Status } from "@/data/spillfabrikken";
 
 // Peças das pranchas dos estudos de caso: tudo é montado com a arte real dos projetos.
+
+const statusStyle: Record<Status, string> = {
+  live: "border-emerald-400/40 bg-emerald-400/10 text-emerald-300",
+  cancelled: "border-zinc-500/40 bg-zinc-500/10 text-zinc-300",
+  proposal: "border-amber-400/40 bg-amber-400/10 text-amber-200",
+};
+
+export const StatusBadge = ({ status }: { status: { kind: Status; label: string } }) => (
+  <span className={`inline-flex items-center gap-2 px-3 py-1 rounded-full border font-mono text-[11px] tracking-wide ${statusStyle[status.kind]}`}>
+    <span className={`w-1.5 h-1.5 rounded-full ${status.kind === "live" ? "bg-emerald-300" : status.kind === "proposal" ? "bg-amber-200" : "bg-zinc-400"}`} />
+    {status.label}
+  </span>
+);
+
+export const ImpactStrip = ({ items, note, accent }: { items: { value: string; label: string }[]; note: string; accent: string }) => (
+  <div>
+    <div className="grid sm:grid-cols-3 gap-px bg-border rounded-2xl overflow-hidden border border-border">
+      {items.map((item) => (
+        <div key={item.label} className="bg-background p-6 lg:p-8">
+          <p className="font-display text-4xl lg:text-5xl font-bold mb-2" style={{ color: accent }}>{item.value}</p>
+          <p className="font-body text-sm text-muted-foreground leading-relaxed">{item.label}</p>
+        </div>
+      ))}
+    </div>
+    <p className="font-mono text-[11px] text-muted-foreground mt-3 leading-relaxed">{note}</p>
+  </div>
+);
+
+export const ProcessSteps = ({ steps, accent }: { steps: { title: string; text: string }[]; accent: string }) => (
+  <ol className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-border rounded-2xl overflow-hidden border border-border">
+    {steps.map((step, i) => (
+      <li key={step.title} className="bg-background p-6">
+        <p className="font-mono text-xs mb-4" style={{ color: accent }}>{String(i + 1).padStart(2, "0")}</p>
+        <h3 className="font-display text-lg font-bold text-foreground mb-2">{step.title}</h3>
+        <p className="font-body text-sm text-muted-foreground leading-relaxed">{step.text}</p>
+      </li>
+    ))}
+  </ol>
+);
+
+/** Logotipo desenhado a partir de uma máscara: positivo, negativo e na cor do jogo. */
+export const LogoTile = ({ mask, bg, fg, label }: { mask: string; bg: string; fg: string; label: string }) => (
+  <figure>
+    <div className="aspect-[16/10] rounded-2xl border border-white/10 p-[14%] grid" style={{ background: bg }}>
+      <div
+        role="img"
+        aria-label={label}
+        style={{
+          background: fg,
+          WebkitMaskImage: `url("${mask}")`,
+          maskImage: `url("${mask}")`,
+          WebkitMaskSize: "contain",
+          maskSize: "contain",
+          WebkitMaskRepeat: "no-repeat",
+          maskRepeat: "no-repeat",
+          WebkitMaskPosition: "center",
+          maskPosition: "center",
+        }}
+      />
+    </div>
+    <figcaption className="font-mono text-[11px] tracking-wide text-muted-foreground mt-3">{label}</figcaption>
+  </figure>
+);
+
+export const LogoBoard = ({ mask, name, accent }: { mask: string; name: string; accent: string }) => (
+  <div className="grid sm:grid-cols-3 gap-4">
+    <LogoTile mask={mask} bg="#f2f2f0" fg="#111111" label={`${name}: positivo`} />
+    <LogoTile mask={mask} bg="#0f0f0f" fg="#ffffff" label={`${name}: negativo`} />
+    <LogoTile mask={mask} bg={accent} fg="#ffffff" label={`${name}: sobre a cor do jogo`} />
+  </div>
+);
 
 export const SectionHeading = ({ index, label, title, accent }: { index: number; label: string; title: string; accent?: string }) => (
   <header className="mb-10 border-t border-border pt-6">
@@ -89,12 +160,18 @@ export const FigureGrid = ({
   figures,
   columns = 2,
   uniform = false,
+  paper = false,
+  contain = false,
   onOpen,
 }: {
   figures: Figure[];
   columns?: 1 | 2 | 3;
   /** Recorta todas as imagens na mesma proporção, para pranchas com fotos de tamanhos diferentes. */
   uniform?: boolean;
+  /** Fundo de papel claro, para arquivos técnicos. */
+  paper?: boolean;
+  /** Com uniform: mostra a imagem inteira em vez de recortar. */
+  contain?: boolean;
   onOpen: (src: string) => void;
 }) => {
   const cols = columns === 1 ? "" : columns === 3 ? "sm:grid-cols-2 lg:grid-cols-3" : "sm:grid-cols-2";
@@ -105,13 +182,13 @@ export const FigureGrid = ({
           <button
             type="button"
             onClick={() => onOpen(f.src)}
-            className={`block w-full overflow-hidden rounded-2xl border border-white/5 bg-card cursor-zoom-in ${uniform ? "aspect-[4/3]" : ""}`}
+            className={`block w-full overflow-hidden rounded-2xl border border-white/5 cursor-zoom-in ${uniform ? "aspect-[4/3]" : ""} ${paper ? "bg-[#f4f3f0] p-3 md:p-6" : "bg-card"}`}
           >
             <img
               src={f.src}
               alt={f.caption ?? ""}
               loading="lazy"
-              className={`w-full transition-transform duration-700 hover:scale-[1.02] ${uniform ? "h-full object-cover" : "h-auto"}`}
+              className={`w-full transition-transform duration-700 hover:scale-[1.02] ${uniform ? `h-full ${contain ? "object-contain" : "object-cover"}` : "h-auto"}`}
             />
           </button>
           {f.caption && <figcaption className="font-mono text-[11px] tracking-wide text-muted-foreground mt-3">{f.caption}</figcaption>}

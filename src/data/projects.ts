@@ -1,17 +1,17 @@
-import spillfabrikken from "@/assets/projects/spillfabrikken.png";
-import pje from "@/assets/projects/pje.png";
-import jovempotiguar from "@/assets/projects/jovempotiguar.png";
-import prism from "@/assets/projects/prism.png";
-import hosuto from "@/assets/projects/hosuto.jpg";
-import prism1 from "@/assets/projects/prism/1.png";
-import prism2 from "@/assets/projects/prism/2.png";
-import prism3 from "@/assets/projects/prism/3.png";
-import prism4 from "@/assets/projects/prism/4.png";
-import prism5 from "@/assets/projects/prism/5.png";
-import prism6 from "@/assets/projects/prism/6.png";
-import prism7 from "@/assets/projects/prism/7.png";
-import prism8 from "@/assets/projects/prism/8.png";
-import prism9 from "@/assets/projects/prism/9.png";
+import spillfabrikken from "@/assets/projects/spillfabrikken.webp";
+import pje from "@/assets/projects/pje.webp";
+import jovempotiguar from "@/assets/projects/jovempotiguar.webp";
+import prism from "@/assets/projects/prism.webp";
+import hosuto from "@/assets/projects/hosuto.webp";
+import prism1 from "@/assets/projects/prism/1.webp";
+import prism2 from "@/assets/projects/prism/2.webp";
+import prism3 from "@/assets/projects/prism/3.webp";
+import prism4 from "@/assets/projects/prism/4.webp";
+import prism5 from "@/assets/projects/prism/5.webp";
+import prism6 from "@/assets/projects/prism/6.webp";
+import prism7 from "@/assets/projects/prism/7.webp";
+import prism8 from "@/assets/projects/prism/8.webp";
+import prism9 from "@/assets/projects/prism/9.webp";
 
 import { publicUrl } from "@/lib/utils";
 
@@ -62,9 +62,9 @@ export interface Project {
 }
 
 
-const pjeImg = (n: number, caption?: string): CaseImage => ({ src: publicUrl(`projects/pje2-mobile/${n}.jpg`), caption });
-const jpImg = (n: number, caption?: string): CaseImage => ({ src: publicUrl(`projects/jovem-potiguar/image${n}.png`), caption });
-const nexusImg = (n: number, caption?: string): CaseImage => ({ src: publicUrl(`projects/nexus-imobiliaria/image${n}.png`), caption });
+const pjeImg = (n: number, caption?: string): CaseImage => ({ src: publicUrl(`projects/pje2-mobile/${n}.webp`), caption });
+const jpImg = (n: number, caption?: string): CaseImage => ({ src: publicUrl(`projects/jovem-potiguar/image${n}.webp`), caption });
+const nexusImg = (n: number, caption?: string): CaseImage => ({ src: publicUrl(`projects/nexus-imobiliaria/image${n}.webp`), caption });
 
 export const projects: Project[] = [
   {
@@ -133,7 +133,7 @@ export const projects: Project[] = [
         url: "https://www.trf1.jus.br/trf1/noticias/novo-aplicativo-para-dispositivos-moveis-do-pje-facilitara-consulta-e-trara-novas-funcionalidades-",
       },
     ],
-    gallery: Array.from({ length: 15 }, (_, i) => publicUrl(`projects/pje2-mobile/${i + 31}.jpg`)),
+    gallery: Array.from({ length: 15 }, (_, i) => publicUrl(`projects/pje2-mobile/${i + 31}.webp`)),
   },
   {
     slug: "jovem-potiguar",
@@ -237,7 +237,7 @@ export const projects: Project[] = [
       "Sistema de uso interno, não disponível publicamente.",
     ],
     tools: ["Figma"],
-    gallery: Array.from({ length: 11 }, (_, i) => publicUrl(`projects/hosuto/${i + 1}.png`)),
+    gallery: Array.from({ length: 11 }, (_, i) => publicUrl(`projects/hosuto/${i + 1}.webp`)),
   },
   {
     slug: "hex-labs",
@@ -245,7 +245,7 @@ export const projects: Project[] = [
     category: "Empresa que fundei",
     year: "2026",
     client: "Hex Labs",
-    image: publicUrl("projects/nexus-imobiliaria/hero.png"),
+    image: publicUrl("projects/nexus-imobiliaria/hero.webp"),
     featured: true,
     engagement: "Fundador",
     role: "Fundador",
@@ -282,7 +282,7 @@ export const projects: Project[] = [
     category: "Produto da Hex Labs · Pesquisa, design e código",
     year: "2026",
     client: "Hex Labs (produto próprio)",
-    image: publicUrl("projects/nexus-imobiliaria/hero.png"),
+    image: publicUrl("projects/nexus-imobiliaria/hero.webp"),
     engagement: "Fundador",
     role: "Fundador da Hex Labs: design e desenvolvimento",
     summary:
@@ -320,7 +320,7 @@ export const projects: Project[] = [
       "Stack: Next.js (App Router), React 19, TypeScript, Supabase (PostgreSQL, Auth, Storage), Tailwind CSS, Framer Motion, Leaflet e Recharts.",
     ],
     tools: ["Figma", "Photoshop", "Next.js", "Supabase", "Tailwind CSS", "Framer Motion", "Leaflet", "Recharts"],
-    gallery: [17, 22, 4, 32, 16].map((n) => publicUrl(`projects/nexus-imobiliaria/image${n}.png`)),
+    gallery: [17, 22, 4, 32, 16].map((n) => publicUrl(`projects/nexus-imobiliaria/image${n}.webp`)),
   },
   {
     slug: "spillfabrikken",

@@ -1,11 +1,11 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 
-import ifrnLogo from "@/assets/clients/ifrn.png";
-import trf5Logo from "@/assets/clients/trf5.png";
-import dioneLogo from "@/assets/clients/dione.png";
-import rnLogo from "@/assets/clients/rn.png";
-import spillLogo from "@/assets/clients/spillfabrikken.png";
+import ifrnLogo from "@/assets/clients/ifrn.webp";
+import trf5Logo from "@/assets/clients/trf5.webp";
+import dioneLogo from "@/assets/clients/dione.webp";
+import rnLogo from "@/assets/clients/rn.webp";
+import spillLogo from "@/assets/clients/spillfabrikken.webp";
 
 const clients = [
     { name: "TRF5", logo: trf5Logo },

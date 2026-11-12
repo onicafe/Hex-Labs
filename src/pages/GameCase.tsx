@@ -1,12 +1,23 @@
 import { useEffect } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, ExternalLink } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { updateSEO } from "@/lib/seo";
 import { brand, games, getGame } from "@/data/spillfabrikken";
-import { Anatomy, FigureGrid, MetaStrip, PaletteRow, SectionHeading, SpecSheet, useLightbox } from "@/components/case/CaseKit";
+import {
+  Anatomy,
+  FigureGrid,
+  LogoBoard,
+  MetaStrip,
+  PaletteRow,
+  SectionHeading,
+  SpecSheet,
+  StatusBadge,
+  useLightbox,
+} from "@/components/case/CaseKit";
+import CardBlueprint from "@/components/case/CardBlueprint";
 
 const GameCase = () => {
   const { game: slug } = useParams<{ game: string }>();
@@ -42,9 +53,12 @@ const GameCase = () => {
 
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <motion.div className="min-w-0" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-              <p className="font-mono text-xs tracking-[0.25em] uppercase mb-5" style={{ color: game.accent }}>
-                {game.category}
-              </p>
+              <div className="flex flex-wrap items-center gap-3 mb-5">
+                <p className="font-mono text-xs tracking-[0.25em] uppercase" style={{ color: game.accent }}>
+                  {game.category}
+                </p>
+                {game.status && <StatusBadge status={game.status} />}
+              </div>
               <h1 className="font-display text-4xl sm:text-5xl md:text-7xl font-bold text-foreground leading-[0.95] mb-3 break-words">{game.name}</h1>
               <p className="font-body text-muted-foreground mb-8">{game.meaning}</p>
               <blockquote className="border-l-2 pl-5 mb-8" style={{ borderColor: game.accent }}>
@@ -52,6 +66,16 @@ const GameCase = () => {
                 <p className="font-body text-sm text-muted-foreground mt-1">{game.taglinePt}</p>
               </blockquote>
               <p className="font-body text-lg text-muted-foreground leading-relaxed">{game.summary}</p>
+              {game.storeUrl && (
+                <a
+                  href={game.storeUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 mt-8 px-5 py-2.5 rounded-full border border-border font-body text-sm text-foreground hover:bg-secondary transition-colors"
+                >
+                  Ver na loja da SpillFabrikken <ExternalLink className="w-4 h-4" />
+                </a>
+              )}
             </motion.div>
             <motion.button
               type="button"
@@ -71,9 +95,9 @@ const GameCase = () => {
         <MetaStrip
           items={[
             { label: "Cliente", value: `${brand.name}, ${brand.location}` },
-            { label: "Meu papel", value: brand.role },
+            { label: "Meu papel", value: game.role },
             { label: "Período", value: brand.period },
-            { label: "Entregáveis", value: "Game design, cartas, embalagem e renders" },
+            { label: "Ferramentas", value: "Photoshop e Illustrator" },
           ]}
         />
       </div>
@@ -100,6 +124,39 @@ const GameCase = () => {
           </div>
         </section>
 
+        {(game.story || game.credits) && (
+          <section>
+            <SectionHeading index={++section} label="Bastidores" title="Contexto e decisões" accent={game.accent} />
+            <div className="grid lg:grid-cols-[3fr_2fr] gap-12">
+              <ul className="space-y-5">
+                {(game.story ?? []).map((line) => (
+                  <li key={line} className="flex gap-4">
+                    <span className="mt-2.5 w-2 h-2 rounded-full shrink-0" style={{ background: game.accent }} />
+                    <p className="font-body text-lg text-muted-foreground leading-relaxed">{line}</p>
+                  </li>
+                ))}
+              </ul>
+              {game.credits && (
+                <div className="rounded-2xl border border-border p-6 self-start">
+                  <p className="font-mono text-[11px] tracking-[0.2em] uppercase text-muted-foreground mb-4">Créditos</p>
+                  <ul className="space-y-3">
+                    {game.credits.map((c) => (
+                      <li key={c} className="font-body text-sm text-foreground leading-relaxed">{c}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+          </section>
+        )}
+
+        {game.logoMask && (
+          <section>
+            <SectionHeading index={++section} label="Marca" title="Logotipo em positivo e negativo" accent={game.accent} />
+            <LogoBoard mask={game.logoMask} name={game.name} accent={game.accent} />
+          </section>
+        )}
+
         {game.anatomy && (
           <section>
             <SectionHeading index={++section} label="Sistema" title="Anatomia da carta" accent={game.accent} />
@@ -107,11 +164,18 @@ const GameCase = () => {
           </section>
         )}
 
+        {game.blueprint && (
+          <section>
+            <SectionHeading index={++section} label="Wireframe" title="A carta em medidas" accent={game.accent} />
+            <CardBlueprint accent={game.accent} />
+          </section>
+        )}
+
         {game.boards.map((board) => (
           <section key={board.title}>
-            <SectionHeading index={++section} label="Prancha" title={board.title} accent={game.accent} />
+            <SectionHeading index={++section} label={board.label ?? "Prancha"} title={board.title} accent={game.accent} />
             {board.text && <p className="font-body text-lg text-muted-foreground leading-relaxed max-w-3xl -mt-4 mb-10">{board.text}</p>}
-            <FigureGrid figures={board.figures} columns={board.columns} onOpen={open} />
+            <FigureGrid figures={board.figures} columns={board.columns} uniform={board.uniform} paper={board.paper} onOpen={open} />
           </section>
         ))}
 

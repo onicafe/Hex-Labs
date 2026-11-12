@@ -2,7 +2,7 @@ import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
-import aboutImage from "@/assets/about-image.jpg";
+import aboutImage from "@/assets/about-image.webp";
 
 const About = () => {
   const containerRef = useRef<HTMLDivElement>(null);
