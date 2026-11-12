@@ -763,6 +763,12 @@ export const projects: Project[] = [
     summary: "Dashboard para as equipes de uma rede de 12 hotéis gerenciarem reservas, limpeza, cozinha e estoque.",
     problem:
       "O trabalho num hotel é presencial e corrido. A ferramenta digital precisava ajudar sem atrapalhar: informação fácil de ler e organizada conforme o que cada equipe precisa ver.",
+    accent: "#ea580c",
+    overview: {
+      challenge: "O trabalho num hotel é presencial e corrido. A ferramenta precisava ajudar sem atrapalhar, mostrando a cada equipe só o que ela precisa ver.",
+      contribution: "Desenhei o painel de gestão de uma rede de 12 hotéis, organizado pela rotina de reservas, limpeza, cozinha e estoque.",
+      outcome: "Usado pelas equipes da rede, com ganho de 30% em eficiência. Sistema interno, sem acesso público.",
+    },
     process: [
       {
         title: "Uma tela por necessidade",
@@ -825,6 +831,12 @@ export const projects: Project[] = [
       "Plataforma imobiliária com painel para corretores e busca com mapa para o público. É a Rede Imobiliária, SaaS white-label que desenvolvo na Hex Labs.",
     problem:
       "Corretores de todas as idades precisam cadastrar e atualizar imóveis sem depender de alguém de tecnologia. Do outro lado, quem procura imóvel quer ver a localização e os arredores sem se perder em informação demais.",
+    accent: "#2563eb",
+    overview: {
+      challenge: "Corretores de todas as idades precisam cadastrar e atualizar imóveis sem depender de alguém de tecnologia; quem procura imóvel quer ver a localização e os arredores sem se perder em informação.",
+      contribution: "Pesquisa e jornada, personas, painel da corretora, níveis de permissão da equipe, busca com mapa e o desenvolvimento em Next.js e Supabase.",
+      outcome: "Produto construído de ponta a ponta, da pesquisa ao código, como vitrine da Hex Labs.",
+    },
     process: [
       {
         title: "Pesquisa e jornada",

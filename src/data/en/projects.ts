@@ -686,6 +686,12 @@ export const projectsEn: Project[] = [
     summary: "A dashboard for the staff of a 12-hotel chain to manage bookings, housekeeping, the kitchen, and inventory.",
     problem:
       "Hotel work is hands-on and hectic. The digital tool had to help without getting in the way: information that's easy to read and organized around what each team needs to see.",
+    accent: "#ea580c",
+    overview: {
+      challenge: "Hotel work is hands-on and fast-paced. The tool had to help without getting in the way, showing each team only what it needs to see.",
+      contribution: "I designed the management dashboard for a chain of 12 hotels, organized around the routines of bookings, housekeeping, kitchen and inventory.",
+      outcome: "Used by the chain's teams, with a 30% efficiency gain. An internal system with no public access.",
+    },
     process: [
       {
         title: "One screen per need",
@@ -748,6 +754,12 @@ export const projectsEn: Project[] = [
       "A real estate platform with a dashboard for agents and map-based search for the public. It is Rede Imobiliária, the white-label SaaS I'm developing at Hex Labs.",
     problem:
       "Agents of all ages need to add and update listings without relying on someone from IT. On the other side, people looking for a property want to see the location and the surroundings without getting lost in too much information.",
+    accent: "#2563eb",
+    overview: {
+      challenge: "Real estate agents of all ages need to list and update properties without relying on a tech person; home seekers want to see the location and surroundings without drowning in information.",
+      contribution: "Research and journeys, personas, the agent dashboard, team permission levels, map search and the build in Next.js and Supabase.",
+      outcome: "A product built end to end, from research to code, as a showcase for Hex Labs.",
+    },
     process: [
       {
         title: "Research and journey",
