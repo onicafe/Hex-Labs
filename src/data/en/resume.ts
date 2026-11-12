@@ -36,7 +36,7 @@ export const resumeEn: Resume = {
       company: "Dione Solutions · Tokyo, Japan (remote)",
       period: "Feb 2022 – May 2023",
       bullets: [
-        "Designed the management dashboard for a chain of 12 hotels (bookings, housekeeping, kitchen and inventory), with a 30% efficiency gain.",
+        "Defined the design system and designed the main screens of a hotel management system built for a chain of 12 hotels (bookings, housekeeping, kitchen and inventory).",
         "Designed MyTreasure, a social network for collectors with configurable posts and a bidding module, and proposed the app's brand.",
         "Produced presentation materials and managed social media.",
       ],
@@ -89,7 +89,7 @@ export const resumeEn: Resume = {
       period: "2024",
       bullets: [
         "Designed the interface for the redesign of the federal judges' app, invited by the TRF5 residency team. The work is cited in a thesis.",
-        "Project-wide results: migration to Flutter, 347 code issues fixed and over 50% fewer clicks in the main flows.",
+        "About half the interactions in the main tasks, in a screen-by-screen comparison with the legacy app. The engineering team resolved the 347 code analyzer warnings and hints.",
       ],
       link: "/projects/pje",
     },

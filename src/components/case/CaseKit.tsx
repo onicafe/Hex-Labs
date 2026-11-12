@@ -307,12 +307,15 @@ export const CompareBoard = ({
   before,
   after,
   labels,
+  phone,
   accent,
   onOpen,
 }: {
   before: Figure;
   after: Figure;
   labels?: [string, string];
+  /** Prints de celular: limita a largura para não esticar nem ficar alto demais. */
+  phone?: boolean;
   accent?: string;
   onOpen: (src: string) => void;
 }) => {
@@ -331,7 +334,12 @@ export const CompareBoard = ({
           onClick={() => onOpen(f.src)}
           className={`flex-1 block w-full overflow-hidden rounded-2xl border border-border cursor-zoom-in p-3 md:p-5 ${i === 0 ? "bg-secondary" : "bg-white"}`}
         >
-          <img src={f.src} alt={f.caption ?? names[i]} loading="lazy" className="w-full h-full object-contain object-top" />
+          <img
+            src={f.src}
+            alt={f.caption ?? names[i]}
+            loading="lazy"
+            className={phone ? "mx-auto w-full max-w-[300px] h-auto rounded-xl shadow-sm" : "w-full h-full object-contain object-top"}
+          />
         </button>
         {f.caption && <figcaption className="font-mono text-xs tracking-wide text-muted-foreground mt-3">{f.caption}</figcaption>}
       </figure>

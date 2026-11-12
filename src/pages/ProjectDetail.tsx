@@ -48,7 +48,7 @@ const BoardView = ({ board, accent, onOpen }: { board: Board; accent: string; on
     case "phones":
       return <PhoneBoard figures={board.figures} steps={board.steps} accent={accent} onOpen={onOpen} />;
     case "compare":
-      return <CompareBoard before={board.before} after={board.after} labels={board.labels} accent={accent} onOpen={onOpen} />;
+      return <CompareBoard before={board.before} after={board.after} labels={board.labels} phone={board.phone} accent={accent} onOpen={onOpen} />;
     case "anatomy":
       return <Anatomy image={board.image} alt={board.alt} points={board.points} accent={accent} narrow />;
     case "steps":

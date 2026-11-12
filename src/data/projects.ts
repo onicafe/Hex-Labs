@@ -35,7 +35,7 @@ export interface ProjectLink {
 export type Board =
   | { kind: "phones"; figures: CaseImage[]; steps?: boolean }
   | { kind: "grid"; figures: CaseImage[]; columns?: 1 | 2 | 3 | 4; paper?: boolean; ink?: boolean; uniform?: boolean; contain?: boolean }
-  | { kind: "compare"; before: CaseImage; after: CaseImage; labels?: [string, string] }
+  | { kind: "compare"; before: CaseImage; after: CaseImage; labels?: [string, string]; phone?: boolean }
   | { kind: "anatomy"; image: string; alt: string; points: { x: number; y: number; label: string; text: string }[] }
   | { kind: "steps"; steps: { title: string; text: string }[] }
   | { kind: "palette"; colors: string[] }
@@ -359,14 +359,14 @@ export const projects: Project[] = [
       contribution:
         "Como voluntário, desenhei a interface: login e pareamento, tela inicial, lista e filtros de processos, ações em lote, minuta e os componentes, dentro dos padrões visuais do Judiciário.",
       outcome:
-        "A equipe implementou a nova interface em Flutter. Nos fluxos principais, o número de cliques caiu mais de 50%.",
+        "A equipe implementou a nova interface na versão do app apresentada no TCC, em setembro de 2024. Numa comparação tela a tela, as tarefas principais passaram a pedir cerca de metade das interações.",
     },
     metrics: [
-      { value: "50%+", label: "menos cliques nos fluxos principais" },
-      { value: "347", label: "inconformidades de código corrigidas pela equipe de engenharia na refatoração" },
+      { value: "~50%", label: "menos interações nas tarefas principais, numa comparação tela a tela entre o app herdado e o novo" },
+      { value: "347", label: "alertas do analisador de código (67 warnings e 280 hints) resolvidos pela equipe de engenharia" },
     ],
     metricsNote:
-      "Resultados do projeto inteiro, registrados no TCC de um integrante da equipe. A refatoração é da equipe de engenharia; a minha parte foi a interface.",
+      "O primeiro número é uma estimativa minha, feita contando as interações de cada tarefa nas telas antigas e nas novas, sem teste com usuários. O segundo está no TCC e vem da refatoração feita pela equipe de engenharia.",
     sections: [
       {
         label: "Contexto",
@@ -386,6 +386,41 @@ export const projects: Project[] = [
               pjeImg(1, "Método da equipe: análise do app atual, estudo de soluções, design e protótipo, implementação"),
               pjeImg(3, "Fluxograma do login: primeiro acesso, biometria, autenticação e pareamento"),
               pjeImg(2, "Arquitetura em camadas (view, controller e model) adotada pela equipe na refatoração"),
+            ],
+          },
+        ],
+      },
+      {
+        label: "Antes e depois",
+        title: "O app antigo pedia o dobro de toques",
+        text: [
+          "Comparando as telas, quase toda tarefa no app herdado pedia o dobro de interações: abrir um menu para chegar a outra tela, confirmar o que não precisava de confirmação, alternar abas para juntar as informações do mesmo processo. O redesenho cortou esses passos, um a um.",
+          "Os cerca de 50% a menos vêm dessa comparação, tarefa por tarefa, entre as telas antigas e as novas. Não houve teste com usuários; o próprio TCC aponta os testes de usabilidade como próximo passo.",
+        ],
+        boards: [
+          {
+            kind: "compare",
+            phone: true,
+            labels: ["App herdado", "Nova interface"],
+            before: { src: publicUrl("projects/pje2-mobile/antes-inicio.webp"), caption: "Tela inicial antiga: painel de botões, com o resto escondido no menu gaveta" },
+            after: pjeImg(9, "Nova tela inicial: localização no topo e contador de pendências"),
+          },
+          {
+            kind: "compare",
+            phone: true,
+            labels: ["App herdado", "Nova interface"],
+            before: { src: publicUrl("projects/pje2-mobile/antes-lista.webp"), caption: "Lista antiga: um filtro por vez, numa faixa que precisava ser arrastada" },
+            after: pjeImg(17, "Nova lista: filtros combinados, estado e favorito em cada processo"),
+          },
+          {
+            kind: "steps",
+            steps: [
+              { title: "Ver pendências", text: "Antes: abrir a lista para saber se havia processos para assinar. Depois: o contador aparece na tela inicial." },
+              { title: "Trocar de vara", text: "Antes: abrir o menu gaveta, entrar no perfil e escolher a localização. Depois: tocar na localização, no topo da tela inicial, e escolher." },
+              { title: "Filtrar a lista", text: "Antes: um filtro por vez, numa faixa que precisava ser arrastada. Depois: várias opções marcadas de uma vez, num painel." },
+              { title: "Ler um processo", text: "Antes: alternar entre três abas (sentença, detalhes e documentos). Depois: detalhes e documentos na mesma página, com um botão direto para a minuta." },
+              { title: "Salvar a minuta", text: "Antes: salvar, confirmar num diálogo e ler o aviso. Depois: salvar e ler o aviso." },
+              { title: "Corrigir o login", text: "Antes: um diálogo de erro que precisava ser fechado. Depois: o campo de CPF avisa o erro enquanto a pessoa digita." },
             ],
           },
         ],
@@ -508,10 +543,10 @@ export const projects: Project[] = [
       },
     ],
     result: [
-      "Nova interface implementada pela equipe no app, com login por biometria, pareamento guiado, filtros múltiplos e assinatura em lote mais direta.",
-      "O trabalho foi documentado no TCC de um integrante da equipe, com registro da minha colaboração.",
-      "Resultados do projeto como um todo, não só da minha parte: o app migrou para Flutter (Clean Architecture e BLoC), as 347 inconformidades de código apontadas na análise foram corrigidas e os fluxos principais passaram a exigir mais de 50% menos cliques.",
-      "Como próximo passo, o TCC recomenda testes de usabilidade com magistrados e métricas como SUS e taxa de sucesso por tarefa.",
+      "A equipe implementou a nova interface na nova versão do app, com login por biometria, pareamento guiado, filtros combinados e assinatura em lote mais direta. Quando o TCC foi apresentado, em setembro de 2024, essa versão ainda não estava em produção.",
+      "Nos agradecimentos do TCC, o autor me agradece “pelas ideias que iluminaram este projeto”.",
+      "Resultados do projeto como um todo, não só da minha parte: o código foi reorganizado em camadas (MVC adaptado, com os padrões Service e Repository), o estado passou a ser gerenciado com BLoC e os 347 alertas do analisador foram resolvidos.",
+      "Como próximos passos, o TCC recomenda testes de usabilidade e uma cobertura maior de testes automatizados.",
     ],
     tools: ["Adobe XD", "Figma", "Illustrator", "Photoshop"],
     links: [
@@ -520,7 +555,7 @@ export const projects: Project[] = [
         url: "https://docs.google.com/document/d/e/2PACX-1vQotRMSwYoOB3EgNSNWMB_PHTUKnb4sbBtSBmYNj5Qsg1PXLu20ELZCw1H45K7SPAVLKyvEhHUUw2u5/pub",
       },
       {
-        label: "Notícia sobre o novo app do PJe",
+        label: "Notícia do TRF1 sobre o PJe Mobile 2",
         url: "https://www.trf1.jus.br/trf1/noticias/novo-aplicativo-para-dispositivos-moveis-do-pje-facilitara-consulta-e-trara-novas-funcionalidades-",
       },
     ],
@@ -771,32 +806,104 @@ export const projects: Project[] = [
     slug: "hosuto",
     title: "Hosuto — gestão hoteleira",
     category: "Product Design · Dashboard",
-    year: "2022",
+    year: "2022–2023",
     client: "Dione Solutions (Tóquio, Japão)",
     image: hosuto,
     featured: false,
-    role: "Product Designer",
-    summary: "Dashboard para as equipes de uma rede de 12 hotéis gerenciarem reservas, limpeza, cozinha e estoque.",
+    role: "Product Designer (design system)",
+    summary: "Design system e telas de um sistema de gestão hoteleira (PMS) da Dione Solutions, pensado para uma rede de 12 hotéis: reservas, limpeza, cozinha e estoque. Hosuto é um nome fictício; o nome real do sistema é protegido por contrato.",
     problem:
       "O trabalho num hotel é presencial e corrido. A ferramenta digital precisava ajudar sem atrapalhar: informação fácil de ler e organizada conforme o que cada equipe precisa ver.",
     accent: "#ea580c",
     overview: {
       challenge: "O trabalho num hotel é presencial e corrido. A ferramenta precisava ajudar sem atrapalhar, mostrando a cada equipe só o que ela precisa ver.",
-      contribution: "Desenhei o painel de gestão de uma rede de 12 hotéis, organizado pela rotina de reservas, limpeza, cozinha e estoque.",
-      outcome: "Usado pelas equipes da rede, com ganho de 30% em eficiência. Sistema interno, sem acesso público.",
+      contribution: "Defini o design system e desenhei as telas principais: o calendário de ocupação dos quartos, a lista e o cadastro de reservas, e os módulos de cozinha e estoque.",
+      outcome: "Entreguei o design system e as telas principais. Saí da Dione em maio de 2023, antes do fim da implementação, então não tenho números de uso para mostrar.",
     },
-    process: [
+    sections: [
       {
-        title: "Uma tela por necessidade",
-        text: "Organizei o painel pela rotina de cada equipe (reservas, limpeza, cozinha e estoque), com a informação mais usada de cada função à vista, para que cada pessoa encontre rápido o que é dela.",
+        label: "Contexto",
+        title: "Um painel para a rotina de um hotel",
+        text: [
+          "O trabalho num hotel é presencial e corrido. A ferramenta precisava ajudar sem atrapalhar: informação fácil de ler, organizada pelo que cada equipe precisa ver.",
+          "O sistema era desenvolvido pela Dione, empresa de tecnologia de Tóquio onde eu trabalhava remotamente. Minha parte foi o design system (cores, tipografia e componentes) e as telas principais.",
+        ],
+        boards: [
+          {
+            kind: "grid",
+            columns: 1,
+            figures: [
+              { src: publicUrl("projects/hosuto/1.webp"), caption: "Abertura da apresentação do projeto" },
+            ],
+          },
+        ],
+      },
+      {
+        label: "Calendário",
+        title: "Quem está em cada quarto, dia a dia",
+        text: [
+          "A tela central é um calendário de ocupação: cada linha é um quarto, cada barra é uma reserva, e a cor mostra a etapa dela (atribuída, aguardando check-in, hospedada, saindo ou encerrada). A equipe chamava essa visão de Room Tetris: encaixar as reservas nos quartos livres, como peças.",
+          "No topo ficam os filtros por categoria de quarto, a navegação por mês e ano e os seletores de hotel e de idioma, para quem administra mais de uma unidade.",
+        ],
+        boards: [
+          {
+            kind: "grid",
+            columns: 1,
+            figures: [
+              { src: publicUrl("projects/hosuto/calendario-xd.webp"), caption: "Calendário de ocupação no arquivo de trabalho, em Adobe XD (2023). Nomes de hóspedes fictícios." },
+            ],
+          },
+          {
+            kind: "grid",
+            columns: 2,
+            figures: [
+              { src: publicUrl("projects/hosuto/2.webp"), caption: "Apresentação do calendário, com quartos limpos, sujos e em manutenção" },
+              { src: publicUrl("projects/hosuto/3.webp"), caption: "O calendário no tablet" },
+            ],
+          },
+        ],
+      },
+      {
+        label: "Reservas",
+        title: "Da agenda à ficha do hóspede",
+        text: [
+          "Além do calendário, as reservas aparecem numa lista com os detalhes de cada estadia, e o cadastro do hóspede reúne documentos, contato e observações num formulário só.",
+        ],
+        boards: [
+          {
+            kind: "grid",
+            columns: 2,
+            figures: [
+              { src: publicUrl("projects/hosuto/5.webp"), caption: "Reservas em lista" },
+              { src: publicUrl("projects/hosuto/7.webp"), caption: "Cadastro de hóspede" },
+            ],
+          },
+        ],
+      },
+      {
+        label: "Operação",
+        title: "Cozinha e estoque no mesmo painel",
+        text: [
+          "Os módulos de cozinha e estoque usam os mesmos componentes. Os pedidos do restaurante chegam como notificação, com atalhos para cardápio, pedidos e estoque.",
+        ],
+        boards: [
+          {
+            kind: "grid",
+            columns: 2,
+            figures: [
+              { src: publicUrl("projects/hosuto/8.webp"), caption: "Cozinha: pedidos e cardápio" },
+              { src: publicUrl("projects/hosuto/9.webp"), caption: "Estoque" },
+            ],
+          },
+        ],
       },
     ],
     result: [
-      "Usado pelas equipes de uma rede de 12 hotéis, com ganho de 30% em eficiência.",
-      "Sistema de uso interno, não disponível publicamente.",
+      "Design system e telas principais entregues ao time de desenvolvimento.",
+      "Saí da Dione em maio de 2023, antes do fim da implementação. Por isso o case mostra o design, e não resultados de uso.",
+      "Sistema de uso interno, sem acesso público. Hosuto é um nome fictício, usado por questões contratuais.",
     ],
-    tools: ["Figma"],
-    gallery: Array.from({ length: 11 }, (_, i) => publicUrl(`projects/hosuto/${i + 1}.webp`)),
+    tools: ["Adobe XD", "Figma"],
   },
   {
     slug: "hex-labs",

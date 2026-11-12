@@ -279,14 +279,14 @@ export const projectsEn: Project[] = [
       contribution:
         "As a volunteer, I designed the interface: login and pairing, home screen, case list and filters, bulk actions, draft ruling, and the components, within the Judiciary's visual standards.",
       outcome:
-        "The team implemented the new interface in Flutter. In the main flows, the number of clicks dropped by more than 50%.",
+        "The team implemented the new interface in the version of the app presented in the thesis in September 2024. In a screen-by-screen comparison, the main tasks now take about half the interactions.",
     },
     metrics: [
-      { value: "50%+", label: "fewer clicks in the main flows" },
-      { value: "347", label: "code issues fixed by the engineering team during the refactor" },
+      { value: "~50%", label: "fewer interactions in the main tasks, in a screen-by-screen comparison of the legacy app and the new one" },
+      { value: "347", label: "code analyzer warnings and hints (67 and 280) resolved by the engineering team" },
     ],
     metricsNote:
-      "Results for the project as a whole, recorded in a team member's thesis. The refactor was the engineering team's work; my part was the interface.",
+      "The first figure is my own estimate, made by counting the interactions each task needed on the old and new screens, without user testing. The second comes from the thesis and is the result of the engineering team's refactor.",
     sections: [
       {
         label: "Context",
@@ -306,6 +306,41 @@ export const projectsEn: Project[] = [
               pjeImg(1, "The team's method: analysis of the current app, study of solutions, design and prototype, implementation"),
               pjeImg(3, "Login flowchart: first access, biometrics, authentication, and pairing"),
               pjeImg(2, "Layered architecture (view, controller, and model) adopted by the team in the refactor"),
+            ],
+          },
+        ],
+      },
+      {
+        label: "Before and after",
+        title: "The old app took twice the taps",
+        text: [
+          "Comparing the screens, almost every task in the legacy app took twice the interactions: opening a menu to reach another screen, confirming things that didn't need confirming, switching tabs to piece together information about the same case. The redesign cut those steps one by one.",
+          "The roughly 50% reduction comes from that comparison, task by task, between the old and new screens. There was no user testing; the thesis itself lists usability testing as the next step.",
+        ],
+        boards: [
+          {
+            kind: "compare",
+            phone: true,
+            labels: ["Legacy app", "New interface"],
+            before: { src: publicUrl("projects/pje2-mobile/antes-inicio.webp"), caption: "Old home screen: a grid of buttons, with everything else hidden in the drawer menu" },
+            after: pjeImg(9, "New home screen: location at the top and a pending-items counter"),
+          },
+          {
+            kind: "compare",
+            phone: true,
+            labels: ["Legacy app", "New interface"],
+            before: { src: publicUrl("projects/pje2-mobile/antes-lista.webp"), caption: "Old list: one filter at a time, in a strip you had to swipe" },
+            after: pjeImg(17, "New list: combined filters, plus status and favorite on every case"),
+          },
+          {
+            kind: "steps",
+            steps: [
+              { title: "See what's pending", text: "Before: open the list to find out whether there were cases to sign. After: the counter shows on the home screen." },
+              { title: "Switch court", text: "Before: open the drawer menu, go to the profile and pick the location. After: tap the location at the top of the home screen and pick." },
+              { title: "Filter the list", text: "Before: one filter at a time, in a strip you had to swipe. After: several options checked at once, in a panel." },
+              { title: "Read a case", text: "Before: switch between three tabs (ruling, details and documents). After: details and documents on the same page, with a button straight to the draft." },
+              { title: "Save the draft", text: "Before: save, confirm in a dialog and read the notice. After: save and read the notice." },
+              { title: "Fix a login error", text: "Before: an error dialog you had to close. After: the CPF field flags the error as you type." },
             ],
           },
         ],
@@ -428,10 +463,10 @@ export const projectsEn: Project[] = [
       },
     ],
     result: [
-      "The team implemented the new interface in the app, with biometric login, guided pairing, multiple filters, and more direct bulk signing.",
-      "The work was documented in a team member's thesis, which records my collaboration.",
-      "Results for the project as a whole, not just my part: the app moved to Flutter (Clean Architecture and BLoC), the 347 code issues flagged in the analysis were fixed, and the main flows now take more than 50% fewer clicks.",
-      "As a next step, the thesis recommends usability testing with judges and metrics such as SUS and task success rate.",
+      "The team implemented the new interface in the new version of the app, with biometric login, guided pairing, combined filters, and more direct bulk signing. When the thesis was presented in September 2024, that version was not yet in production.",
+      "In the thesis acknowledgments, the author thanks me “for the ideas that lit up this project” (my translation).",
+      "Results for the project as a whole, not just my part: the code was reorganized into layers (an adapted MVC, with the Service and Repository patterns), state moved to BLoC, and the 347 analyzer warnings and hints were resolved.",
+      "As next steps, the thesis recommends usability testing and broader automated test coverage.",
     ],
     tools: ["Adobe XD", "Figma", "Illustrator", "Photoshop"],
     links: [
@@ -440,7 +475,7 @@ export const projectsEn: Project[] = [
         url: "https://docs.google.com/document/d/e/2PACX-1vQotRMSwYoOB3EgNSNWMB_PHTUKnb4sbBtSBmYNj5Qsg1PXLu20ELZCw1H45K7SPAVLKyvEhHUUw2u5/pub",
       },
       {
-        label: "News article about the new PJe app (in Portuguese)",
+        label: "TRF1 news article about PJe Mobile 2 (in Portuguese)",
         url: "https://www.trf1.jus.br/trf1/noticias/novo-aplicativo-para-dispositivos-moveis-do-pje-facilitara-consulta-e-trara-novas-funcionalidades-",
       },
     ],
@@ -694,32 +729,104 @@ export const projectsEn: Project[] = [
     slug: "hosuto",
     title: "Hosuto — hotel management",
     category: "Product Design · Dashboard",
-    year: "2022",
+    year: "2022–2023",
     client: "Dione Solutions (Tokyo, Japan)",
     image: hosuto,
     featured: false,
-    role: "Product Designer",
-    summary: "A dashboard for the staff of a 12-hotel chain to manage bookings, housekeeping, the kitchen, and inventory.",
+    role: "Product Designer (design system)",
+    summary: "Design system and screens for a hotel management system (PMS) built by Dione Solutions for a chain of 12 hotels: bookings, housekeeping, kitchen, and inventory. Hosuto is a placeholder name; the system's real name is protected by contract.",
     problem:
       "Hotel work is hands-on and hectic. The digital tool had to help without getting in the way: information that's easy to read and organized around what each team needs to see.",
     accent: "#ea580c",
     overview: {
       challenge: "Hotel work is hands-on and fast-paced. The tool had to help without getting in the way, showing each team only what it needs to see.",
-      contribution: "I designed the management dashboard for a chain of 12 hotels, organized around the routines of bookings, housekeeping, kitchen and inventory.",
-      outcome: "Used by the chain's teams, with a 30% efficiency gain. An internal system with no public access.",
+      contribution: "I defined the design system and designed the main screens: the room occupancy calendar, the booking list and guest registration, and the kitchen and inventory modules.",
+      outcome: "I delivered the design system and the main screens. I left Dione in May 2023, before implementation was finished, so I have no usage numbers to show.",
     },
-    process: [
+    sections: [
       {
-        title: "One screen per need",
-        text: "I organized the dashboard around each team's routine (bookings, housekeeping, kitchen, and inventory), with each role's most-used information in view, so everyone can quickly find what's theirs.",
+        label: "Context",
+        title: "A dashboard for a hotel's daily routine",
+        text: [
+          "Hotel work is hands-on and fast-paced. The tool had to help without getting in the way: information that's easy to read, organized around what each team needs to see.",
+          "The system was built by Dione, a Tokyo tech company where I worked remotely. My part was the design system (colors, typography, and components) and the main screens.",
+        ],
+        boards: [
+          {
+            kind: "grid",
+            columns: 1,
+            figures: [
+              { src: publicUrl("projects/hosuto/1.webp"), caption: "Opening slide of the project presentation" },
+            ],
+          },
+        ],
+      },
+      {
+        label: "Calendar",
+        title: "Who's in each room, day by day",
+        text: [
+          "The core screen is an occupancy calendar: each row is a room, each bar is a booking, and the color shows its stage (assigned, awaiting check-in, checked in, checking out, or checked out). The team called this view Room Tetris: fitting bookings into free rooms, like pieces.",
+          "The top bar holds filters by room category, month and year navigation, and hotel and language selectors for people who manage more than one property.",
+        ],
+        boards: [
+          {
+            kind: "grid",
+            columns: 1,
+            figures: [
+              { src: publicUrl("projects/hosuto/calendario-xd.webp"), caption: "Occupancy calendar in the working file, in Adobe XD (2023). Guest names are fictional." },
+            ],
+          },
+          {
+            kind: "grid",
+            columns: 2,
+            figures: [
+              { src: publicUrl("projects/hosuto/2.webp"), caption: "The calendar in the presentation, with clean, dirty, and under-maintenance rooms" },
+              { src: publicUrl("projects/hosuto/3.webp"), caption: "The calendar on a tablet" },
+            ],
+          },
+        ],
+      },
+      {
+        label: "Bookings",
+        title: "From the schedule to the guest record",
+        text: [
+          "Besides the calendar, bookings appear in a list with each stay's details, and guest registration brings documents, contact info, and notes into a single form.",
+        ],
+        boards: [
+          {
+            kind: "grid",
+            columns: 2,
+            figures: [
+              { src: publicUrl("projects/hosuto/5.webp"), caption: "Bookings as a list" },
+              { src: publicUrl("projects/hosuto/7.webp"), caption: "Guest registration" },
+            ],
+          },
+        ],
+      },
+      {
+        label: "Operations",
+        title: "Kitchen and inventory in the same dashboard",
+        text: [
+          "The kitchen and inventory modules use the same components. Restaurant orders arrive as notifications, with shortcuts to the menu, orders, and inventory.",
+        ],
+        boards: [
+          {
+            kind: "grid",
+            columns: 2,
+            figures: [
+              { src: publicUrl("projects/hosuto/8.webp"), caption: "Kitchen: orders and menu" },
+              { src: publicUrl("projects/hosuto/9.webp"), caption: "Inventory" },
+            ],
+          },
+        ],
       },
     ],
     result: [
-      "Used by the staff of a 12-hotel chain, with a 30% gain in efficiency.",
-      "Internal system, not publicly available.",
+      "Design system and main screens delivered to the development team.",
+      "I left Dione in May 2023, before implementation was finished. That's why this case shows the design, not usage results.",
+      "Internal system with no public access. Hosuto is a placeholder name, used for contractual reasons.",
     ],
-    tools: ["Figma"],
-    gallery: Array.from({ length: 11 }, (_, i) => publicUrl(`projects/hosuto/${i + 1}.webp`)),
+    tools: ["Adobe XD", "Figma"],
   },
   {
     slug: "hex-labs",
