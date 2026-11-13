@@ -102,6 +102,16 @@ export const resumeEn: Resume = {
       ],
       link: "/projects/jovem-potiguar",
     },
+    {
+      role: "Designer (personal project)",
+      company: "DualSense concepts · Twitter",
+      period: "Apr 2020",
+      bullets: [
+        "A series of fan concepts for the PS5 controller, posted the week of the reveal, at the time under the handle @itsalastor.",
+        "Featured by Forbes, Game Informer, Tom's Guide, Screen Rant, and Wccftech.",
+      ],
+      link: "/projects/dualsense",
+    },
   ],
   education: [
     { course: "B.Sc. in Computer Science", inst: "Universidade Potiguar", year: "2024 – present (on hold)" },

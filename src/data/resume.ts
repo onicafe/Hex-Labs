@@ -122,6 +122,16 @@ export const resume: Resume = {
       ],
       link: "/projects/jovem-potiguar",
     },
+    {
+      role: "Designer (projeto autoral)",
+      company: "Conceitos DualSense · Twitter",
+      period: "Abr 2020",
+      bullets: [
+        "Série de conceitos de fã para o controle do PS5, publicada na semana da revelação, na época com o perfil @itsalastor.",
+        "Destacada por Forbes, Game Informer, Tom's Guide, Screen Rant e Wccftech.",
+      ],
+      link: "/projects/dualsense",
+    },
   ],
   education: [
     { course: "Bacharelado em Ciência da Computação", inst: "Universidade Potiguar", year: "2024 – atual (em pausa)" },

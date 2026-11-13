@@ -803,6 +803,126 @@ export const projects: Project[] = [
     tools: ["Figma"],
   },
   {
+    slug: "dualsense",
+    title: "Conceitos DualSense",
+    category: "Design visual · Conceito de fã",
+    year: "2020",
+    client: "Projeto autoral",
+    image: publicUrl("projects/dualsense/golden.webp"),
+    ogImage: "og-dualsense.jpg",
+    accent: "#a87a1f",
+    featured: false,
+    engagement: "Projeto autoral",
+    role: "Designer",
+    summary:
+      "Série de conceitos de fã para o controle do PS5, feita na semana em que a Sony o revelou, em abril de 2020. Os controles foram destacados por Forbes, Game Informer, Tom's Guide, Screen Rant e Wccftech.",
+    credits:
+      "Conceitos de fã, não oficiais, feitos sobre a foto de divulgação do controle e publicados no Twitter, na época com o perfil @itsalastor. DualSense e PlayStation são marcas da Sony Interactive Entertainment; os jogos, marcas e personagens citados pertencem aos seus donos.",
+    problem:
+      "Quando a Sony revelou o DualSense, muita gente achou o visual branco e preto sem graça. A pergunta era quanta personalidade cabe no controle mexendo só em cor, material e símbolos.",
+    overview: {
+      challenge:
+        "Dar personalidade a um controle recém-revelado, que muita gente achou sem graça, mexendo só em cor, material e símbolos.",
+      contribution:
+        "Criei a série no Photoshop, sobre a foto de divulgação do controle, e publiquei no Twitter na mesma semana da revelação.",
+      outcome:
+        "Os conceitos circularam no Twitter e no Reddit e foram destacados por oito veículos, entre eles Forbes, Game Informer e Tom's Guide.",
+    },
+    metrics: [
+      { value: "8", label: "veículos destacaram os conceitos, entre eles Forbes, Game Informer e Tom's Guide" },
+      { value: "1 dia", label: "entre a revelação do controle pela Sony e a primeira citação, na Game Informer" },
+    ],
+    metricsNote:
+      "A Sony revelou o DualSense em 7 de abril de 2020; a Game Informer publicou os conceitos no dia 8. As matérias estão nos links no fim da página.",
+    sections: [
+      {
+        label: "Conceito",
+        title: "Personalidade com cor, material e símbolo",
+        text: [
+          "Cada versão parte de um jogo ou de uma ideia e traduz a identidade dela em poucos elementos: a cor do corpo, um padrão nas empunhaduras, o símbolo no touchpad e a cor dos botões. O resto do controle fica como a Sony desenhou.",
+          "O Golden DualSense, um dos mais citados da série, é preto, com detalhes dourados nos botões e na borda do touchpad e um padrão geométrico nas empunhaduras.",
+        ],
+        boards: [
+          {
+            kind: "grid",
+            columns: 1,
+            figures: [
+              { src: publicUrl("projects/dualsense/golden.webp"), caption: "Golden DualSense" },
+            ],
+          },
+        ],
+      },
+      {
+        label: "Temas",
+        title: "Um jogo em cada controle",
+        text: [
+          "Nas versões temáticas, a mesma receita vira identidade de jogo: o vermelho e o símbolo do Valorant, o roxo do GTA VI, o branco e laranja do Overwatch 2.",
+        ],
+        boards: [
+          {
+            kind: "grid",
+            columns: 2,
+            figures: [
+              { src: publicUrl("projects/dualsense/valorant.webp"), caption: "Valorant: o vermelho e o símbolo do jogo no touchpad" },
+              { src: publicUrl("projects/dualsense/gta-vi.webp"), caption: "GTA VI, três anos antes do anúncio do jogo" },
+              { src: publicUrl("projects/dualsense/overwatch-2.webp"), caption: "Overwatch 2: branco, com botões e logo em laranja" },
+              { src: publicUrl("projects/dualsense/league-of-legends.webp"), caption: "League of Legends, da Riot Games" },
+              { src: publicUrl("projects/dualsense/sanrio.webp"), caption: "My Melody e Kuromi, da Sanrio" },
+              { src: publicUrl("projects/dualsense/pewdiepie.webp"), caption: "Tema do PewDiePie" },
+            ],
+          },
+        ],
+      },
+      {
+        label: "Repercussão",
+        title: "Da timeline para a Forbes",
+        text: [
+          "No dia seguinte à revelação, a Game Informer incluiu os conceitos numa seleção de controles imaginados por fãs. Na Forbes, o autor de uma matéria sobre os melhores mockups do DualSense acrescentou a série numa atualização e escreveu: “I think these are excellent.”",
+          "Nos dias seguintes vieram Tom's Guide, Screen Rant e Wccftech, e em Natal o Blog do BG publicou uma matéria sobre o designer natalense destacado pela Forbes. Meses depois, o THESPIKE.GG usou o controle de Valorant para ilustrar uma matéria sobre o jogo nos consoles, e em 2021 o COGconnected incluiu o Golden DualSense numa lista de esquemas de cor favoritos.",
+        ],
+        boards: [
+          {
+            kind: "steps",
+            steps: [
+              { title: "Game Informer · 8 abr 2020", text: "Mostrou os conceitos de GTA VI e Overwatch 2 numa seleção de controles imaginados por fãs." },
+              { title: "Forbes · 9 abr 2020", text: "Incluiu a série numa atualização da matéria sobre os melhores mockups de fãs do DualSense." },
+              { title: "Blog do BG · 11 abr 2020", text: "Matéria sobre o designer natalense destacado pela Forbes." },
+              { title: "Wccftech · 14 abr 2020", text: "Nota dedicada ao controle de Valorant." },
+              { title: "Tom's Guide · 15 abr 2020", text: "Chamou o Golden DualSense de um dos designs de fã mais populares, segundo o Reddit." },
+              { title: "Screen Rant · 15 abr 2020", text: "Incluiu o Golden DualSense entre os melhores controles criados por fãs." },
+            ],
+          },
+          {
+            kind: "grid",
+            columns: 2,
+            uniform: true,
+            contain: true,
+            figures: [
+              { src: publicUrl("projects/dualsense/imprensa-forbes.webp"), caption: "A atualização da Forbes, com o tweet e a série" },
+              { src: publicUrl("projects/dualsense/imprensa-blog-do-bg.webp"), caption: "O post do Blog do BG" },
+            ],
+          },
+        ],
+      },
+    ],
+    result: [
+      "Oito veículos destacaram os conceitos, entre eles Forbes, Game Informer, Tom's Guide, Screen Rant e Wccftech.",
+      "Na Tom's Guide, o Golden DualSense aparece como um dos designs de fã mais populares, segundo o Reddit.",
+      "Projeto pessoal, sem cliente e sem fins comerciais.",
+    ],
+    tools: ["Photoshop"],
+    links: [
+      { label: "Matéria na Forbes", url: "https://www.forbes.com/sites/erikkain/2020/04/08/think-the-new-ps5-controller-is-ugly-check-it-out-in-all-these-colors-including-spider-man/" },
+      { label: "Matéria na Game Informer", url: "https://gameinformer.com/gamer-culture/2020/04/08/people-are-dreaming-up-different-colors-for-the-dualsense-controller" },
+      { label: "Matéria na Tom's Guide", url: "https://www.tomsguide.com/news/ps5-controller-dualsense-concepts" },
+      { label: "Matéria na Screen Rant", url: "https://screenrant.com/ps5-dualsense-custome-fan-designs/" },
+      { label: "Matéria no Wccftech", url: "https://wccftech.com/valorant-playstation-5-dualsense-mockup/" },
+      { label: "Matéria no Blog do BG", url: "https://www.blogdobg.com.br/designer-natalense-e-destaque-em-pagina-sobre-games-da-forbes/" },
+      { label: "Matéria no THESPIKE.GG", url: "https://www.thespike.gg/valorant/news/valorant-game-director-discusses-console-port-and-casual-social-spaces/455" },
+      { label: "Matéria no COGconnected", url: "https://cogconnected.com/feature/5-dualsense-color-schemes-we-cant-live-without/" },
+    ],
+  },
+  {
     slug: "hosuto",
     title: "Hosuto — gestão hoteleira",
     category: "Product Design · Dashboard",
