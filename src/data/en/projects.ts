@@ -740,14 +740,14 @@ export const projectsEn: Project[] = [
     summary:
       "A series of fan concepts for the PS5 controller, made the week Sony revealed it, in April 2020. The controllers were featured by Forbes, Game Informer, Tom's Guide, Screen Rant, and Wccftech.",
     credits:
-      "Unofficial fan concepts, made on top of the controller's press photo and posted on Twitter, at the time under the handle @itsalastor. DualSense and PlayStation are trademarks of Sony Interactive Entertainment; the games, brands, and characters shown belong to their owners.",
+      "Unofficial fan concepts, made on top of the controller's press photo and posted on Twitter and Reddit, at the time as @itsalastor and echodaine. DualSense and PlayStation are trademarks of Sony Interactive Entertainment; the games, brands, and characters shown belong to their owners.",
     problem:
       "When Sony revealed the DualSense, plenty of people found the black-and-white look bland. The question was how much personality the controller could take by changing only color, material, and symbols.",
     overview: {
       challenge:
         "Give personality to a freshly revealed controller that many people found bland, by changing only color, material, and symbols.",
       contribution:
-        "I made the series in Photoshop, on top of the controller's press photo, and posted it on Twitter the same week as the reveal.",
+        "I made the series in Photoshop, on top of the controller's press photo, and posted it on Twitter and Reddit the same week as the reveal.",
       outcome:
         "The concepts spread on Twitter and Reddit and were featured by eight outlets, including Forbes, Game Informer, and Tom's Guide.",
     },

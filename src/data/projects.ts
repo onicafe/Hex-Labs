@@ -817,14 +817,14 @@ export const projects: Project[] = [
     summary:
       "Série de conceitos de fã para o controle do PS5, feita na semana em que a Sony o revelou, em abril de 2020. Os controles foram destacados por Forbes, Game Informer, Tom's Guide, Screen Rant e Wccftech.",
     credits:
-      "Conceitos de fã, não oficiais, feitos sobre a foto de divulgação do controle e publicados no Twitter, na época com o perfil @itsalastor. DualSense e PlayStation são marcas da Sony Interactive Entertainment; os jogos, marcas e personagens citados pertencem aos seus donos.",
+      "Conceitos de fã, não oficiais, feitos sobre a foto de divulgação do controle e publicados no Twitter e no Reddit, na época como @itsalastor e echodaine. DualSense e PlayStation são marcas da Sony Interactive Entertainment; os jogos, marcas e personagens citados pertencem aos seus donos.",
     problem:
       "Quando a Sony revelou o DualSense, muita gente achou o visual branco e preto sem graça. A pergunta era quanta personalidade cabe no controle mexendo só em cor, material e símbolos.",
     overview: {
       challenge:
         "Dar personalidade a um controle recém-revelado, que muita gente achou sem graça, mexendo só em cor, material e símbolos.",
       contribution:
-        "Criei a série no Photoshop, sobre a foto de divulgação do controle, e publiquei no Twitter na mesma semana da revelação.",
+        "Criei a série no Photoshop, sobre a foto de divulgação do controle, e publiquei no Twitter e no Reddit na mesma semana da revelação.",
       outcome:
         "Os conceitos circularam no Twitter e no Reddit e foram destacados por oito veículos, entre eles Forbes, Game Informer e Tom's Guide.",
     },

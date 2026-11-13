@@ -127,7 +127,7 @@ export const resume: Resume = {
       company: "Conceitos DualSense · Twitter",
       period: "Abr 2020",
       bullets: [
-        "Série de conceitos de fã para o controle do PS5, publicada na semana da revelação, na época com o perfil @itsalastor.",
+        "Série de conceitos de fã para o controle do PS5, publicada no Twitter e no Reddit na semana da revelação, na época como @itsalastor e echodaine.",
         "Destacada por Forbes, Game Informer, Tom's Guide, Screen Rant e Wccftech.",
       ],
       link: "/projects/dualsense",
