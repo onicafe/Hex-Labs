@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /Hex-Labs/admin
+Sitemap: https://onicafe.github.io/Hex-Labs/sitemap.xml
