@@ -7,6 +7,9 @@ export interface ResumeEntry {
   bullets: string[];
   /** Link interno para o estudo de caso (caminho em português; o site converte para o idioma da página). */
   link?: string;
+  /** Link externo (site do projeto), aberto em outra aba. */
+  url?: string;
+  urlLabel?: string;
 }
 
 export interface Resume {
@@ -96,6 +99,17 @@ export const resume: Resume = {
         "Defino design, regras, economia e direção de arte; a programação é feita com agentes de IA sob a minha direção.",
       ],
       link: "/projects/lan-house-simulator",
+    },
+    {
+      role: "Fundador e editor (projeto autoral)",
+      company: "The Wanted · thewanted.com.br",
+      period: "Out 2026 – atual",
+      bullets: [
+        "Jornal digital independente sobre GTA 6 e a Rockstar Games, no ar desde outubro de 2026.",
+        "Respondo pela direção editorial e pelo design do site.",
+      ],
+      url: "https://thewanted.com.br/",
+      urlLabel: "Visitar o The Wanted ↗",
     },
     {
       role: "Customer Experience (voluntário)",

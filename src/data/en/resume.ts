@@ -78,6 +78,17 @@ export const resumeEn: Resume = {
       link: "/projects/lan-house-simulator",
     },
     {
+      role: "Founder and editor (personal project)",
+      company: "The Wanted · thewanted.com.br",
+      period: "Oct 2026 – present",
+      bullets: [
+        "An independent Brazilian news site covering GTA 6 and Rockstar Games, live since October 2026.",
+        "I run the editorial direction and designed the site.",
+      ],
+      url: "https://thewanted.com.br/",
+      urlLabel: "Visit The Wanted ↗",
+    },
+    {
       role: "Customer Experience (volunteer)",
       company: "AIESEC in Brazil · Remote",
       period: "Mar 2025 – Dec 2025",

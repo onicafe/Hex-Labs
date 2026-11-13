@@ -31,6 +31,11 @@ const Entry = ({ xp }: { xp: ResumeEntry }) => {
             {tr("Ver estudo de caso →", "View case study →")}
           </Link>
         )}
+        {xp.url && (
+          <a href={xp.url} target="_blank" rel="noopener noreferrer" className="inline-block mt-3 font-body text-sm font-medium text-foreground hover:text-primary transition-colors print:hidden">
+            {xp.urlLabel ?? xp.url}
+          </a>
+        )}
       </div>
     </div>
   );
