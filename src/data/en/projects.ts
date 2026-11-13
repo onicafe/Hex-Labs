@@ -726,6 +726,174 @@ export const projectsEn: Project[] = [
     tools: ["Figma"],
   },
   {
+    slug: "gta-rp",
+    title: "Art for GTA RP",
+    category: "Visual design · Gaming communities",
+    year: "2021–2023",
+    client: "Franklin World RP and Cidade Alta",
+    image: publicUrl("projects/gta-rp/franklin-pool-party.webp"),
+    ogImage: "og-gta-rp.jpg",
+    accent: "#15803d",
+    featured: false,
+    role: "Designer",
+    summary:
+      "Event art and visual identity for GTA V roleplay servers: both events of Franklin World RP, the official server of Shawn Fonteno, Franklin's voice and actor, and the Alta Táxi brand, which made it into the Alta Valley map on Cidade Alta.",
+    credits:
+      "Work for GTA V roleplay communities. On the Franklin World RP, Valley Royale, and Valley Stars posters, the character illustrations are official GTA V and GTA Online artwork; my work was the typography, composition, color, and format adaptations. The Alta Táxi logo is my own. GTA, Franklin, and Los Santos are trademarks of Rockstar Games.",
+    problem:
+      "On a roleplay server, events and businesses only exist if players hear about them. The pieces had to read at a glance on Discord and social media, feel like part of the GTA world and, for businesses, give them a brand of their own inside the city.",
+    overview: {
+      challenge:
+        "Promote events and businesses on roleplay servers with pieces that felt like part of the GTA world and read at a glance on Discord and social media.",
+      contribution:
+        "I made the art for both Franklin World RP events, where I also played and helped run the server. On Cidade Alta, I created the Alta Táxi brand, including inside the map, and made event posters for Alta Valley.",
+      outcome:
+        "The pieces were used to promote the events and the business. The Alta Táxi logo went into the game itself, on the company's building and on a neon sign, in the Alta Valley map.",
+    },
+    sections: [
+      {
+        label: "Franklin World RP",
+        title: "The parties on Franklin's server",
+        text: [
+          "Franklin World RP was the official roleplay server of Shawn Fonteno, Franklin's voice and actor in GTA V. I played there with him and helped run the server. It didn't last long and held only two events before closing, and I made the art for both: the Pool Party, in September 2023, and the Halloween party, in October.",
+          "For the Pool Party, the title carries the piece: Franklin's name in big green letters, repeated in the background as a texture, with “Pool Party” in brush script on top. The date, the time in two time zones, and the in-game address sit in small tags, and a no-weapons notice closes the poster.",
+        ],
+        boards: [
+          {
+            kind: "grid",
+            columns: 2,
+            figures: [
+              { src: publicUrl("projects/gta-rp/franklin-pool-party.webp"), caption: "Pool Party, final version" },
+              { src: publicUrl("projects/gta-rp/franklin-halloween.webp"), caption: "Halloween Party, October 2023" },
+            ],
+          },
+        ],
+      },
+      {
+        label: "Variations",
+        title: "A series, not a single poster",
+        text: [
+          "The Pool Party went through several versions, with different poses of Franklin and tweaks to the title. When the party moved from September 17 to 20, at a new address, the art was redone, and the final version also shipped in 9:16 for stories.",
+        ],
+        boards: [
+          {
+            kind: "grid",
+            columns: 4,
+            uniform: true,
+            contain: true,
+            figures: [
+              { src: publicUrl("projects/gta-rp/franklin-pool-party-v2.webp"), caption: "Version for September 17" },
+              { src: publicUrl("projects/gta-rp/franklin-pool-party-v3.webp"), caption: "Another pose and title" },
+              { src: publicUrl("projects/gta-rp/franklin-pool-party-v4.webp"), caption: "One more title variation" },
+              { src: publicUrl("projects/gta-rp/franklin-pool-party-story.webp"), caption: "Final version in 9:16" },
+            ],
+          },
+        ],
+      },
+      {
+        label: "Alta Táxi",
+        title: "A taxi company with a brand of its own",
+        text: [
+          "Cidade Alta is one of the largest GTA roleplay servers in Brazil. On Alta Valley, an alternate version of the city, Alta Táxi was the player-run taxi company of Los Santos. I created the brand from scratch, without starting from any of the game's brands.",
+          "The logo stacks the letters of “alta” in wide, rounded shapes, with a small “taxi” tucked into the corner. It works in white, in black, and in a single color, and got a short sting to open videos.",
+        ],
+        boards: [
+          {
+            kind: "grid",
+            columns: 2,
+            figures: [
+              { src: publicUrl("projects/gta-rp/alta-taxi-asfalto.webp"), caption: "The logo in a mockup, painted on asphalt" },
+              { src: publicUrl("projects/gta-rp/alta-taxi-papel.webp"), caption: "Black version, on taxi yellow" },
+            ],
+          },
+          {
+            kind: "video",
+            src: publicUrl("projects/gta-rp/alta-taxi-vinheta.mp4"),
+            poster: publicUrl("projects/gta-rp/alta-taxi-vinheta-poster.webp"),
+            caption: "Logo sting",
+          },
+        ],
+      },
+      {
+        label: "In the map",
+        title: "The logo inside the game",
+        text: [
+          "The brand also went into the game. With CodeWalker, a GTA V map editor, I replaced the texture on the front of the company's building with the Alta Táxi logo and built a neon sign with it. Both went into the Alta Valley map.",
+        ],
+        boards: [
+          {
+            kind: "grid",
+            columns: 2,
+            uniform: true,
+            contain: true,
+            figures: [
+              { src: publicUrl("projects/gta-rp/alta-taxi-textura.webp"), caption: "The logo texture, applied to the front of the company's building" },
+              { src: publicUrl("projects/gta-rp/alta-taxi-cidade.webp"), caption: "The white logo over Los Santos, for social media" },
+            ],
+          },
+        ],
+      },
+      {
+        label: "Promotion",
+        title: "Hiring and company events",
+        text: [
+          "On the server's social media, the brand led the driver hiring posts, with a big logo, the Portuguese word for “hiring” broken into syllables, and the time up front. For an alien invasion event in the city, the same logo got a neon-and-chrome version.",
+        ],
+        boards: [
+          {
+            kind: "grid",
+            columns: 2,
+            uniform: true,
+            contain: true,
+            figures: [
+              { src: publicUrl("projects/gta-rp/alta-taxi-recrutamento.webp"), caption: "Driver hiring post, for the feed" },
+              { src: publicUrl("projects/gta-rp/alta-taxi-recrutamento-banner.webp"), caption: "The same piece, in a wide format" },
+            ],
+          },
+          {
+            kind: "grid",
+            columns: 1,
+            figures: [
+              { src: publicUrl("projects/gta-rp/alta-taxi-invasao.webp"), caption: "Post for the alien invasion event" },
+            ],
+          },
+        ],
+      },
+      {
+        label: "Alta Valley",
+        title: "Event posters for the city",
+        text: [
+          "I also made event posters for Alta Valley, such as Valley Royale and the Valley Stars talent show final. Both start from official GTA Online artwork, with the title, color, and composition designed for each event. In one Valley Royale version, the flags in the background carry the brands of businesses in the city.",
+        ],
+        boards: [
+          {
+            kind: "grid",
+            columns: 2,
+            figures: [
+              { src: publicUrl("projects/gta-rp/valley-royale.webp"), caption: "Valley Royale" },
+              { src: publicUrl("projects/gta-rp/valley-royale-bandeiras.webp"), caption: "Version with the flags of the city's businesses" },
+            ],
+          },
+          {
+            kind: "grid",
+            columns: 2,
+            uniform: true,
+            contain: true,
+            figures: [
+              { src: publicUrl("projects/gta-rp/valley-stars.webp"), caption: "Valley Stars, the talent show final" },
+              { src: publicUrl("projects/gta-rp/valley-stars-post.webp"), caption: "The same art, in a square format" },
+            ],
+          },
+        ],
+      },
+    ],
+    result: [
+      "The art promoted the only two events Franklin World RP ever held, the 2023 Pool Party and Halloween party.",
+      "Alta Táxi got a brand of its own, used on the server's social media and inside the Alta Valley map.",
+    ],
+    tools: ["Photoshop", "Illustrator", "3ds Max", "CodeWalker"],
+  },
+  {
     slug: "dualsense",
     title: "DualSense concepts",
     category: "Visual design · Fan concept",
